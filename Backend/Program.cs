@@ -15,22 +15,16 @@ namespace Backend
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            // ------------------------------------------------------------
-            // 1. KONFIGURATION AF DATABASE
-            // ------------------------------------------------------------
+
             builder.Services.AddDbContext<DatabaseContext>(options =>
             {
                 options.UseSqlServer(builder.Configuration.GetConnectionString("ConString"));
             });
 
-            // ------------------------------------------------------------
-            // 2. TILFØJ REPOSITORIES, SERVICES & JWT-UTILS TIL DI-CONTAINER
-            // ------------------------------------------------------------
 
 
-            // ------------------------------------------------------------
-            // 3. KONFIGURER JWT AUTHENTICATION OG AUTHORIZATION
-            // ------------------------------------------------------------
+
+
             var key = Encoding.ASCII.GetBytes(builder.Configuration["AppSettings:Secret"]!);
             builder.Services.AddAuthentication(options =>
             {
@@ -47,15 +41,13 @@ namespace Backend
                     IssuerSigningKey = new SymmetricSecurityKey(key),
                     ValidateIssuer = false,
                     ValidateAudience = false,
-                    ClockSkew = TimeSpan.Zero // Token udløber præcist
+                    ClockSkew = TimeSpan.Zero 
                 };
             });
 
             builder.Services.AddAuthorization();
 
-            // ------------------------------------------------------------
-            // 4. ANDRE SERVICES (Swagger, CORS osv.)
-            // ------------------------------------------------------------
+
             builder.Services.AddControllers().AddJsonOptions(x =>
             {
                 x.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
@@ -100,9 +92,7 @@ namespace Backend
                 );
             });
 
-            // ------------------------------------------------------------
-            // 5. BYG OG KONFIGURER APP
-            // ------------------------------------------------------------
+
             var app = builder.Build();
 
             if (app.Environment.IsDevelopment())

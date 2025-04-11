@@ -5,6 +5,9 @@ using Microsoft.OpenApi.Models;
 using System.Text;
 using Backend.Helper;
 using System.Text.Json.Serialization;
+using Backend.Interfaces.IUser;
+using Backend.Repositories.UserRepository;
+using Backend.Services.UserService;
 
 
 namespace Backend
@@ -21,9 +24,8 @@ namespace Backend
                 options.UseSqlServer(builder.Configuration.GetConnectionString("ConString"));
             });
 
-
-
-
+            builder.Services.AddScoped<IUserRepository, UserRepository>();
+            builder.Services.AddScoped<IUserService, UserService>();
 
             var key = Encoding.ASCII.GetBytes(builder.Configuration["AppSettings:Secret"]!);
             builder.Services.AddAuthentication(options =>

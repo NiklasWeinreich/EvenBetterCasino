@@ -16,10 +16,13 @@ namespace Backend.Database.Entities
         [Column(TypeName = "nvarchar(50)")]
         public required string Email { get; set; }
 
-        public DateOnly BirthDate { get; set; }
+        [Column(TypeName = "nvarchar(500)")]
+        public required string Password { get; set; }
+
+        public required DateOnly BirthDate { get; set; }
 
         [Column(TypeName = "int")]
-        public int PhoneNumber { get; set; }
+        public int? PhoneNumber { get; set; }
 
         [Column(TypeName = "int")]
         public int Balance { get; set; }
@@ -33,7 +36,6 @@ namespace Backend.Database.Entities
         [Column(TypeName = "int")]
         public int Loss { get; set; }
 
-        [Column(TypeName = "nvarchar(50)")]
         public bool NewsLetterIsSubscribed { get; set; } = false;
     }
 }

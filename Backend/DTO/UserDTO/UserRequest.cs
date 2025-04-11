@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using Backend.Helper;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Backend.DTO.UserDTO
 {
@@ -24,6 +25,8 @@ namespace Backend.DTO.UserDTO
 
         [Column(TypeName = "int")]
         public int? PhoneNumber { get; set; }
+
+        public Role Role { get; set; }
 
         public bool NewsLetterIsSubscribed { get; set; } = false;
     }

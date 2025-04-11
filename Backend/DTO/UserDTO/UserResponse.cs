@@ -1,4 +1,6 @@
-﻿namespace Backend.DTO.UserDTO
+﻿using Backend.Helper;
+
+namespace Backend.DTO.UserDTO
 {
     public class UserResponse
     {
@@ -13,6 +15,7 @@
         public int Balance { get; set; }
         public int Profit { get; set; }
         public int Loss { get; set; }
+        public Role Role { get; set; }
         public DateTime? ExcludedUntil { get; set; }
     }
 }

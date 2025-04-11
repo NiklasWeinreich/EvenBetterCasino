@@ -67,6 +67,9 @@ namespace Backend.Migrations
                     b.Property<int>("Profit")
                         .HasColumnType("int");
 
+                    b.Property<int>("Role")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.ToTable("Users");
@@ -82,23 +85,25 @@ namespace Backend.Migrations
                             LastName = "Maskine",
                             Loss = 25,
                             NewsLetterIsSubscribed = true,
-                            Password = "$2a$11$jRwd7Ccf2OG9IkGKlgkVgekSBu1znypWT6FkQJaigJVDBg7YHtYny",
+                            Password = "$2a$11$nKENbB3ZWaMV5oPsGpxPqewb.BRzNXHibhSLQId65GPZDf9RnT8gy",
                             PhoneNumber = 12345678,
-                            Profit = 50
+                            Profit = 50,
+                            Role = 1
                         },
                         new
                         {
                             Id = 2,
-                            Balance = 100,
+                            Balance = 75,
                             BirthDate = new DateTime(1990, 5, 21, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "johndoe@example.com",
                             FirstName = "John",
                             LastName = "Doe",
-                            Loss = 25,
+                            Loss = 55,
                             NewsLetterIsSubscribed = true,
-                            Password = "$2a$11$7SqqU/etxWtTI9HIF/f14O6pL81GYyFfU4CNcHbDBsVulWUhhD3MC",
+                            Password = "$2a$11$yIDtoPvf60YltFXljHF17OB5H0FOXbipXYEUV9OllW.gdE8VjAZl2",
                             PhoneNumber = 12345678,
-                            Profit = 50
+                            Profit = 33,
+                            Role = 0
                         });
                 });
 #pragma warning restore 612, 618

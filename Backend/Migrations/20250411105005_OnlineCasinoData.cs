@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Backend.Migrations
 {
     /// <inheritdoc />
-    public partial class data : Migration
+    public partial class OnlineCasinoData : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -29,6 +29,7 @@ namespace Backend.Migrations
                     ExcludedUntil = table.Column<DateTime>(type: "datetime", nullable: true),
                     Profit = table.Column<int>(type: "int", nullable: false),
                     Loss = table.Column<int>(type: "int", nullable: false),
+                    Role = table.Column<int>(type: "int", nullable: false),
                     NewsLetterIsSubscribed = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
@@ -38,11 +39,11 @@ namespace Backend.Migrations
 
             migrationBuilder.InsertData(
                 table: "Users",
-                columns: new[] { "Id", "Balance", "BirthDate", "Email", "ExcludedUntil", "FirstName", "LastName", "Loss", "NewsLetterIsSubscribed", "Password", "PhoneNumber", "Profit" },
+                columns: new[] { "Id", "Balance", "BirthDate", "Email", "ExcludedUntil", "FirstName", "LastName", "Loss", "NewsLetterIsSubscribed", "Password", "PhoneNumber", "Profit", "Role" },
                 values: new object[,]
                 {
-                    { 1, 100, new DateTime(1990, 5, 21, 0, 0, 0, 0, DateTimeKind.Unspecified), "NiklasErEnMaskine@mail.com", null, "Niklas", "Maskine", 25, true, "$2a$11$jRwd7Ccf2OG9IkGKlgkVgekSBu1znypWT6FkQJaigJVDBg7YHtYny", 12345678, 50 },
-                    { 2, 100, new DateTime(1990, 5, 21, 0, 0, 0, 0, DateTimeKind.Unspecified), "johndoe@example.com", null, "John", "Doe", 25, true, "$2a$11$7SqqU/etxWtTI9HIF/f14O6pL81GYyFfU4CNcHbDBsVulWUhhD3MC", 12345678, 50 }
+                    { 1, 100, new DateTime(1990, 5, 21, 0, 0, 0, 0, DateTimeKind.Unspecified), "NiklasErEnMaskine@mail.com", null, "Niklas", "Maskine", 25, true, "$2a$11$nKENbB3ZWaMV5oPsGpxPqewb.BRzNXHibhSLQId65GPZDf9RnT8gy", 12345678, 50, 1 },
+                    { 2, 75, new DateTime(1990, 5, 21, 0, 0, 0, 0, DateTimeKind.Unspecified), "johndoe@example.com", null, "John", "Doe", 55, true, "$2a$11$yIDtoPvf60YltFXljHF17OB5H0FOXbipXYEUV9OllW.gdE8VjAZl2", 12345678, 33, 0 }
                 });
         }
 

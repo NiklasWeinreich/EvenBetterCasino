@@ -82,7 +82,7 @@ namespace Backend.Services.UserService
                 BirthDate = userRequest.BirthDate,
                 PhoneNumber = userRequest.PhoneNumber,
                 NewsLetterIsSubscribed = userRequest.NewsLetterIsSubscribed,
-
+                Role = userRequest.Role,
 
                 Balance = 0,
                 Profit = 0,
@@ -100,6 +100,7 @@ namespace Backend.Services.UserService
                 Id = user.Id,
                 FirstName = user.FirstName,
                 LastName = user.LastName,
+                Password = user.Password,
                 Email = user.Email,
                 PhoneNumber = user.PhoneNumber,
                 BirthDate = user.BirthDate,
@@ -107,7 +108,8 @@ namespace Backend.Services.UserService
                 Balance = user.Balance,
                 Profit = user.Profit,
                 Loss = user.Loss,
-                ExcludedUntil = user.ExcludedUntil
+                ExcludedUntil = user.ExcludedUntil,
+                Role = user.Role,
             };
         }
     }

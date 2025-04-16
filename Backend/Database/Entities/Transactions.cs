@@ -19,6 +19,5 @@ namespace Backend.Database.Entities
         [Column(TypeName = "nvarchar(50)")]
         public string Direction { get; set; }
 
-
     }
 }

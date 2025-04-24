@@ -1,0 +1,100 @@
+<!-- Titel -->
+<div class="display-4 text-center mb-5">USER ADMINISTRATION</div>
+
+<div class="container-fluid" data-bs-theme="dark">
+    <!-- Knapper til oprettelse af bruger -->
+    <button class="btn btn-success mb-2" (click)="createdUser()">Opret Bruger</button>
+  <div class="table-responsive">
+    <table class="table table-hover table-dark">
+      <thead class="table-light">
+        <tr>
+          <th>ID</th>
+          <th>Fornavn</th>
+          <th>Efternavn</th>
+          <th>Email</th>
+          <th>Rolle</th>
+          <th class="text-center">Handlinger</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let user of users">
+          <td>{{ user.id }}</td>
+          <td>{{ user.firstName }}</td>
+          <td>{{ user.lastName }}</td>
+          <td>{{ user.email }}</td>
+          <td>{{ user.role }}</td>
+          <td class="text-center">
+            <button class="btn btn-sm btn-outline-warning me-2" (click)="editUser(user)">
+              <i class="bi bi-pencil"></i>
+            </button>
+            <button class="btn btn-sm btn-outline-danger" (click)="deleteUser(user.id)">
+              <i class="bi bi-trash"></i>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+ <!-- Formular til opdatering af bruger -->
+<div *ngIf="user.id !== 0" class="mt-4 p-4 bg-dark text-white rounded">
+    <h4>Rediger Bruger</h4>
+    <form (ngSubmit)="updateUser()">
+      <div class="mb-3">
+        <label class="form-group">Fornavn</label>
+        <input type="text" class="form-control" [(ngModel)]="user.firstName" name="firstName" required>
+      </div>
+      <div class="mb-3">
+        <label class="form-group">Efternavn</label>
+        <input type="text" class="form-control" [(ngModel)]="user.lastName" name="lastName" required>
+      </div>
+      <div class="mb-3">
+        <label class="form-group">Email</label>
+        <input type="email" class="form-control" [(ngModel)]="user.email" name="email" required>
+      </div>
+      <div class="mb-3">
+        <label class="form-group">Password</label>
+        <input type="Password" class="form-control" [(ngModel)]="user.password" name="Password" required>
+      </div>
+      <div class="mb-3">
+        <label class="form-group">Rolle</label>
+        <select class="form-select" [(ngModel)]="user.role" name="role" required>
+          <option *ngFor="let role of roles" [value]="role.name">{{ role.name }}</option>
+        </select>
+      </div>
+      
+      <button type="submit" class="btn btn-success">Opdater</button>
+      <button type="button" class="btn btn-danger ms-2" (click)="cancelEdit()">Annuller</button>
+    </form>
+  </div>
+  <!--Modal i stedet-->
+  <!-- Formular til oprettelse af bruger -->
+  <div *ngIf="showCreateForm" class="mt-4 p-4 bg-dark text-white rounded">
+    <h4>Opret Bruger</h4>
+    <form (ngSubmit)="createUser()">
+      <div class="mb-3">
+        <label class="form-group">Fornavn</label>
+        <input type="text" class="form-control" [(ngModel)]="user.firstName" name="firstName" required>
+      </div>
+      <div class="mb-3">
+        <label class="form-group">Efternavn</label>
+        <input type="text" class="form-control" [(ngModel)]="user.lastName" name="lastName" required>
+      </div>
+      <div class="mb-3">
+        <label class="form-group">Email</label>
+        <input type="email" class="form-control" [(ngModel)]="user.email" name="email" required>
+      </div>
+      <div class="mb-3">
+        <label class="form-group">Password</label>
+        <input type="Password" class="form-control" [(ngModel)]="user.password" name="Password" required>
+      </div>
+      <div class="mb-3">
+        <label class="form-group">Rolle</label>
+        <select [(ngModel)]="user.role" class="form-select" name="role" required>
+            <option class="dropdown-item" *ngFor="let role of roles" [ngValue]="role.name">{{ role.name }}</option>
+        </select>
+      </div>
+      <button type="submit" class="btn btn-success">Opret</button>
+      <button type="button" class="btn btn-danger ms-2" (click)="cancelCreate()">Annuller</button>
+    </form>
+  </div>

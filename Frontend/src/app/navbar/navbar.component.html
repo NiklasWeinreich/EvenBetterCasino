@@ -1,0 +1,45 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark border-bottom border-2 border-primary">
+
+    <div class="container-fluid">
+        <!-- Brand til venstre -->
+        <a class="navbar-brand" [routerLink]="['/']">EvenBetterCasino</a>
+        <!-- Burger-menu for mobilvisning -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <!-- Collapse container -->
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <!-- Nav-items til venstre -->
+            <ul class="navbar-nav me-auto">
+                <li class="nav-item">
+                    <a class="nav-link" [routerLink]="['/games']" routerLinkActive="active"
+                        [routerLinkActiveOptions]="{ exact: true }">ALLE SPIL</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" [routerLink]="['/account']" routerLinkActive="active"
+                        [routerLinkActiveOptions]="{ exact: true }">KONTO</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" [routerLink]="['/rofus']" routerLinkActive="active"
+                        [routerLinkActiveOptions]="{ exact: true }">ROFUS</a>
+                </li>
+            </ul>
+
+            <!-- Login/Register/Logout knapper til højre -->
+            <div class="d-flex flex-column flex-md-row">
+                <a *ngIf="!isLoggedIn" [routerLink]="['/login']"
+                    class="btn btn-outline-light mb-2 mb-md-0 me-md-2 rounded-pill">Login</a>
+                <a *ngIf="!isLoggedIn" [routerLink]="['/login']"
+                    class="btn btn-outline-light rounded-pill">Registrer</a>
+                <!-- <a *ngIf="isLoggedIn" class="btn btn-outline-light mb-2 mb-md-0 me-md-2 rounded-pill" (click)="logout()">Logout</a> -->
+                <!--midlertidig-->
+                 <!-- <a *ngIf="currentUser && roleChecker === 'Admin'" [routerLink]="['/admin']"
+                class="btn btn-outline-light mb-2 mb-md-0 me-md-2 rounded-pill">Admin</a>  -->
+             
+            </div>
+        </div>
+    </div>
+</nav>
+
+

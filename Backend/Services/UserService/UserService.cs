@@ -66,6 +66,7 @@ namespace Backend.Services.UserService
             existingUser.BirthDate = updateUser.BirthDate;
             existingUser.PhoneNumber = updateUser.PhoneNumber;
             existingUser.NewsLetterIsSubscribed = updateUser.NewsLetterIsSubscribed;
+            existingUser.Role = updateUser.Role;
 
             var updatedUser = await _userRepository.UpdateUserAsync(existingUser);
             return MapEntityToResponse(updatedUser);

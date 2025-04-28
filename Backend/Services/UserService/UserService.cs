@@ -113,5 +113,18 @@ namespace Backend.Services.UserService
                 Role = user.Role,
             };
         }
+
+        public async Task<UserResponse?> ExcludeUserAsync(int id, int exclusionPeriodHours)
+        {
+            var user = await _userRepository.GetUserByIdAsync(id);
+            if (user == null) return null;
+
+
+            user.ExcludedUntil = DateTime.UtcNow.AddHours(exclusionPeriodHours);
+            await _userRepository.UpdateUserAsync(user);
+
+            return UserService.MapEntityToResponse(user);
+        }
+
     }
 }

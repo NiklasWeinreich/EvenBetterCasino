@@ -1,4 +1,6 @@
-﻿using Backend.Database.Entities;
+﻿using Backend.Authentication;
+using Backend.Database.Entities;
+using Backend.DTO.LoginDTO;
 using Backend.DTO.UserDTO;
 using Backend.Interfaces.IUser;
 
@@ -7,10 +9,12 @@ namespace Backend.Services.UserService
     public class UserService : IUserService
     {
         private readonly IUserRepository _userRepository;
+        private readonly IJwtUtils _jwtUtils;
 
-        public UserService(IUserRepository userRepository)
+        public UserService(IUserRepository userRepository, IJwtUtils jwtUtils)
         {
             _userRepository = userRepository;
+            _jwtUtils = jwtUtils;
         }
 
         public async Task<UserResponse> CreateUserAsync(UserRequest newUserRequest)
@@ -113,5 +117,28 @@ namespace Backend.Services.UserService
                 Role = user.Role,
             };
         }
+
+        public async Task<LoginResponse?> AuthenticateUserAsync(LoginRequest loginRequest)
+        {
+            User user = await _userRepository.GetUserByEmail(loginRequest.Email);
+            if (user == null)
+            {
+                return null;
+            }
+
+            if (BCrypt.Net.BCrypt.Verify(loginRequest.Password, user.Password))
+            {
+                LoginResponse response = new()
+                {
+                    Id = user.Id,
+                    Email = user.Email,
+                    Role = user.Role,
+                    Token = _jwtUtils.GenerateJwtToken(user)
+                };
+                return response;
+            }
+            return null;
+        }
+
     }
 }

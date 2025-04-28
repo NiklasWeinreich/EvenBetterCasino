@@ -8,6 +8,7 @@ using System.Text.Json.Serialization;
 using Backend.Interfaces.IUser;
 using Backend.Repositories.UserRepository;
 using Backend.Services.UserService;
+using Backend.Authentication;
 
 
 namespace Backend
@@ -26,6 +27,7 @@ namespace Backend
 
             builder.Services.AddScoped<IUserRepository, UserRepository>();
             builder.Services.AddScoped<IUserService, UserService>();
+            builder.Services.AddScoped<IJwtUtils, JwtUtils>();
 
             var key = Encoding.ASCII.GetBytes(builder.Configuration["AppSettings:Secret"]!);
             builder.Services.AddAuthentication(options =>
@@ -111,7 +113,7 @@ namespace Backend
             app.UseAuthentication();
             app.UseAuthorization();
 
-            //app.UseMiddleware<JwtMiddleware>();
+            app.UseMiddleware<JwtMiddleware>();
 
             app.UseStaticFiles();
             app.MapControllers();

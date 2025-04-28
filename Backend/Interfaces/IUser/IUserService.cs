@@ -1,4 +1,5 @@
-﻿using Backend.DTO.UserDTO;
+﻿using Backend.DTO.LoginDTO;
+using Backend.DTO.UserDTO;
 
 namespace Backend.Interfaces.IUser
 {
@@ -10,5 +11,6 @@ namespace Backend.Interfaces.IUser
         Task<UserResponse> CreateUserAsync(UserRequest newUserRequest);
         Task<UserResponse> UpdateUserAsync(int id, UserRequest updateUser);
         Task<bool> DeleteUserAsync(int id);
+        Task<LoginResponse?> AuthenticateUserAsync(LoginRequest loginRequest);
     }
 }

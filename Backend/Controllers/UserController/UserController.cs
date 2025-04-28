@@ -81,5 +81,25 @@ namespace Backend.Controllers.UserController
             return Ok(new { message = "User deleted successfully" });
         }
 
+        [HttpPost("{id}/exclude")]
+        public async Task<IActionResult> ExcludeUserAsync([FromRoute] int id, [FromBody] int exclusionPeriodHours)
+        {
+            try
+            {
+                var userResponse = await _userService.ExcludeUserAsync(id, exclusionPeriodHours);
+
+                if (userResponse == null)
+                {
+                    return NotFound(new { message = "User not found." });
+                }
+
+                return Ok(userResponse);
+            }
+            catch (Exception ex)
+            {
+                return Problem(ex.Message);
+            }
+        }
+
     }
 }

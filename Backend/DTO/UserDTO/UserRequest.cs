@@ -26,6 +26,9 @@ namespace Backend.DTO.UserDTO
         [Column(TypeName = "int")]
         public int? PhoneNumber { get; set; }
 
+        [Column(TypeName = "datetime")]
+        public DateTime? ExcludedUntil { get; set; }
+
         public Role Role { get; set; }
 
         public bool NewsLetterIsSubscribed { get; set; } = false;

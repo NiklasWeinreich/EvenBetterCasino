@@ -11,7 +11,7 @@ export interface User {
     profit: number,
     loss: number,
     role: string;
-    excludedUntil: null;
+    excludedUntil?: Date; 
 }
 
 export function resetUser(): User {
@@ -28,6 +28,6 @@ export function resetUser(): User {
         profit: 0,
         loss: 0,
         role: "",
-        excludedUntil: null
+        excludedUntil: undefined,
     }
 }  

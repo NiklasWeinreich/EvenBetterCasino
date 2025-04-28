@@ -34,6 +34,17 @@ namespace Backend.Repositories.UserRepository
             return true;
         }
 
+        public async Task<User?> ExcludeUserAsync(int Id, int exclusionPeriodHours)
+        {
+            var user = await GetUserByIdAsync(Id);
+            if (user == null) return null;
+
+            user.ExcludedUntil = DateTime.UtcNow.AddHours(exclusionPeriodHours);
+            await UpdateUserAsync(user);
+
+            return user;
+        }
+
         public async Task<List<User>> GetAllUserAsync()
         {
             return await _dbcontext.Users.ToListAsync();

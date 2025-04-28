@@ -1,17 +1,18 @@
 <!-- Titel -->
 <div class="display-4 text-center mb-5">USER ADMINISTRATION</div>
 
-<div class="container-fluid" data-bs-theme="dark">
+<div class="container-fluid">
     <!-- Knapper til oprettelse af bruger -->
     <button class="btn btn-success mb-2" (click)="createdUser()">Opret Bruger</button>
   <div class="table-responsive">
-    <table class="table table-hover table-dark">
-      <thead class="table-light">
+    <table class="table table-bordered table-hover table-secondary table-striped">
+      <thead class="table-primary">
         <tr>
           <th>ID</th>
           <th>Fornavn</th>
           <th>Efternavn</th>
           <th>Email</th>
+          <th>Udelukket</th>
           <th>Rolle</th>
           <th class="text-center">Handlinger</th>
         </tr>
@@ -22,6 +23,21 @@
           <td>{{ user.firstName }}</td>
           <td>{{ user.lastName }}</td>
           <td>{{ user.email }}</td>
+          <td>
+            <!-- Dynamisk tekst med farve -->
+            <span
+              *ngIf="user.excludedUntil && user.excludedUntil > now"
+              class="text-danger fw-bold"
+            >
+              Låst {{ user.excludedUntil | date: 'dd-MM-yyyy HH:mm:ss' }}
+            </span>
+            <span
+              *ngIf="!user.excludedUntil || user.excludedUntil <= now"
+              class="text-success fw-bold"
+            >
+              Aktiv
+            </span>
+          </td>
           <td>{{ user.role }}</td>
           <td class="text-center">
             <button class="btn btn-sm btn-outline-warning me-2" (click)="editUser(user)">
@@ -37,7 +53,7 @@
   </div>
 
  <!-- Formular til opdatering af bruger -->
-<div *ngIf="user.id !== 0" class="mt-4 p-4 bg-dark text-white rounded">
+<div *ngIf="user.id !== 0" class="mt-4 p-4 rounded border bg-light">
     <h4>Rediger Bruger</h4>
     <form (ngSubmit)="updateUser()">
       <div class="mb-3">
@@ -69,7 +85,7 @@
   </div>
   <!--Modal i stedet-->
   <!-- Formular til oprettelse af bruger -->
-  <div *ngIf="showCreateForm" class="mt-4 p-4 bg-dark text-white rounded">
+  <div *ngIf="showCreateForm" class="mt-4 p-4 bg-light rounded border">
     <h4>Opret Bruger</h4>
     <form (ngSubmit)="createUser()">
       <div class="mb-3">

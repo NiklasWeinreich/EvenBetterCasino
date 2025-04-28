@@ -17,6 +17,7 @@ export class AdminUsersComponent implements OnInit {
   roles: Role[] = [];
   message: string = '';
   showCreateForm: boolean = false;
+  now: Date = new Date(); 
 
   constructor(private userService: UserService) { }
 
@@ -29,14 +30,21 @@ export class AdminUsersComponent implements OnInit {
   loadUsers(): void {
     this.userService.getAllUsers().subscribe({
       next: (users) => {
-        console.log('Brugere hentet:', users);  
-        this.users = users;
+        this.users = users.map(user => {
+          if (user.excludedUntil) {
+            user.excludedUntil = new Date(user.excludedUntil); 
+          }
+          return user;
+        });
+  
+        console.log('Brugere hentet:', this.users);
       },
       error: (err) => console.error('Fejl ved hentning af brugere:', err),
     });
   
     this.roles = constRoles; 
   }
+  
 
   updateUser(): void {
     if (!this.user || this.user.id === 0) return; // Undgå ugyldige requests

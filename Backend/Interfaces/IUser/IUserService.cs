@@ -12,5 +12,6 @@ namespace Backend.Interfaces.IUser
         Task<UserResponse> UpdateUserAsync(int id, UserRequest updateUser);
         Task<bool> DeleteUserAsync(int id);
         Task<LoginResponse?> AuthenticateUserAsync(LoginRequest loginRequest);
+        Task<UserResponse> ExcludeUserAsync(int Id, int exclusionPeriodHours);
     }
 }

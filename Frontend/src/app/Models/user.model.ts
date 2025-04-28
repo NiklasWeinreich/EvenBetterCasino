@@ -6,7 +6,7 @@ export interface User {
     email: string,
     birthDate: number,
     phoneNumber: number,
-    newsLetterIsSubscribed: false,
+    newsLetterIsSubscribed?: boolean; 
     balance: number,
     profit: number,
     loss: number,
@@ -28,6 +28,5 @@ export function resetUser(): User {
         profit: 0,
         loss: 0,
         role: "",
-        excludedUntil: undefined,
-    }
+   }
 }  

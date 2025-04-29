@@ -65,7 +65,13 @@ namespace Backend.Services.UserService
 
             existingUser.FirstName = updateUser.FirstName;
             existingUser.LastName = updateUser.LastName;
-            existingUser.Password = updateUser.Password!;
+
+            // Undgå at overskrive password med null
+            if (!string.IsNullOrWhiteSpace(updateUser.Password))
+            {
+                existingUser.Password = updateUser.Password!;
+            }
+
             existingUser.Email = updateUser.Email;
             existingUser.BirthDate = updateUser.BirthDate;
             existingUser.PhoneNumber = updateUser.PhoneNumber;
@@ -75,6 +81,7 @@ namespace Backend.Services.UserService
             var updatedUser = await _userRepository.UpdateUserAsync(existingUser);
             return MapEntityToResponse(updatedUser);
         }
+
 
         public User MapRequestToEntity(UserRequest userRequest)
         {

@@ -7,11 +7,12 @@
 
   <div class="table-responsive">
     <table class="table table-bordered table-hover table-striped">
-      <thead class="table-primary">
+      <thead class="table-primary ">
         <tr>
           <th>ID</th>
           <th>Fornavn</th>
           <th>Efternavn</th>
+          <th>Telefonnummer</th>
           <th>Nyhedsbrev</th>
           <th>Email</th>
           <th>Status</th>
@@ -24,6 +25,7 @@
           <td>{{ user.id }}</td>
           <td>{{ user.firstName }}</td>
           <td>{{ user.lastName }}</td>
+          <td>{{user.phoneNumber}}</td>
           <td>
             <span *ngIf="user.newsLetterIsSubscribed; else notSubscribed">
               <i class="bi bi-check-circle-fill text-success fs-5"></i>
@@ -79,6 +81,10 @@
             <div class="col-md-6">
               <label class="form-label">Email</label>
               <input type="email" class="form-control" [(ngModel)]="user.email" name="email" required>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Telefon Nummer</label>
+              <input type="Telefon Nummer" class="form-control" [(ngModel)]="user.phoneNumber" name="Telefon Nummer" required>
             </div>
             <div class="col-md-6">
               <label class="form-label">Password</label>

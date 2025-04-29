@@ -11,7 +11,7 @@ namespace Backend.DTO.UserDTO
         public string Email { get; set; } = default!;
         public DateOnly BirthDate { get; set; }
         public int? PhoneNumber { get; set; }
-        public bool NewsLetterIsSubscribed { get; set; }
+        public bool NewsLetterIsSubscribed { get; set; } = false;
         public int Balance { get; set; }
         public int Profit { get; set; }
         public int Loss { get; set; }

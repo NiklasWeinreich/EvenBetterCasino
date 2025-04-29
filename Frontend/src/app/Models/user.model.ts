@@ -23,7 +23,7 @@ export function resetUser(): User {
         email: "",
         birthDate: 0,
         phoneNumber: 0,
-        newsLetterIsSubscribed: false,
+        newsLetterIsSubscribed: true,
         balance: 0,
         profit: 0,
         loss: 0,

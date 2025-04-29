@@ -7,7 +7,7 @@ namespace Backend.DTO.UserDTO
         public int Id { get; set; }
         public string FirstName { get; set; } = default!;
         public string LastName { get; set; } = default!;
-        public string Password { get; set; } = default!;
+        //public string Password { get; set; } = default!;
         public string Email { get; set; } = default!;
         public DateOnly BirthDate { get; set; }
         public int? PhoneNumber { get; set; }

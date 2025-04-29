@@ -105,8 +105,8 @@ namespace Backend
                 app.UseSwaggerUI();
             }
 
-            app.UseHttpsRedirection();
             app.UseCors("CorsPolicy");
+            app.UseHttpsRedirection();
 
             app.UseRouting();
 

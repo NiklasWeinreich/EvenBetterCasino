@@ -105,7 +105,7 @@ namespace Backend.Services.UserService
                 Id = user.Id,
                 FirstName = user.FirstName,
                 LastName = user.LastName,
-                Password = user.Password,
+                //Password = user.Password,
                 Email = user.Email,
                 PhoneNumber = user.PhoneNumber,
                 BirthDate = user.BirthDate,
@@ -118,7 +118,7 @@ namespace Backend.Services.UserService
             };
         }
 
-<<<<<<< HEAD
+
         public async Task<LoginResponse?> AuthenticateUserAsync(LoginRequest loginRequest)
         {
             User user = await _userRepository.GetUserByEmail(loginRequest.Email);
@@ -139,7 +139,8 @@ namespace Backend.Services.UserService
                 return response;
             }
             return null;
-=======
+        }
+
         public async Task<UserResponse?> ExcludeUserAsync(int id, int exclusionPeriodHours)
         {
             var user = await _userRepository.GetUserByIdAsync(id);
@@ -150,7 +151,6 @@ namespace Backend.Services.UserService
             await _userRepository.UpdateUserAsync(user);
 
             return UserService.MapEntityToResponse(user);
->>>>>>> 987f1e71c5c919465ceb4cfeb3c535948aae33f2
         }
 
     }

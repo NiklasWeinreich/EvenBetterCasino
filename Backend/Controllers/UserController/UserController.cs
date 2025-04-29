@@ -70,6 +70,7 @@ namespace Backend.Controllers.UserController
             return Ok(new { message = "User updated successfully", user = updatedUser });
         }
 
+
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteUser([FromRoute] int id)
         {

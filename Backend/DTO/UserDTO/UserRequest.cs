@@ -31,6 +31,6 @@ namespace Backend.DTO.UserDTO
 
         public Role Role { get; set; }
 
-        public bool NewsLetterIsSubscribed { get; set; } = false;
+        public bool NewsLetterIsSubscribed { get; set; } = true;
     }
 }

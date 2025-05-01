@@ -20,7 +20,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\GameControllers\" />
+    <Folder Include="Controllers\GameController\" />
+    <Folder Include="Controllers\BalanceController\" />
     <Folder Include="Games\HorseRace\HorseRaceController\" />
     <Folder Include="Games\Minesweeper\MinesweeperController\" />
     <Folder Include="Games\Roulette\RouletteController\" />

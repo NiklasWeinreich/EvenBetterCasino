@@ -3,7 +3,6 @@
     public class GameState
     {
 
-        public int BombHealth { get; set; }
         public int CurrentClickNumber { get; set; }
         public double BetAmount { get; set; }
         public double CurrentWinAmount { get; set; }

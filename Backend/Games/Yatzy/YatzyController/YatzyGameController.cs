@@ -12,7 +12,7 @@ namespace Backend.Games.Yatzy.YatzyController
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class BlackjackGameController : ControllerBase
+    public class YatzyGameController : ControllerBase
     {
 
         private static Random _random = new Random();
@@ -38,8 +38,8 @@ namespace Backend.Games.Yatzy.YatzyController
 
 
 
-        [HttpPost("startGame")]
-        public IActionResult StartGame([FromBody] YatzyStartGameRequest request)
+        [HttpPost("getSessionId")]
+        public IActionResult GetSessionId([FromBody] YatzyStartGameRequest request)
         {
 
             // TO DO: Indsæt funktion, der tjekker saldo for spilleren.
@@ -47,7 +47,7 @@ namespace Backend.Games.Yatzy.YatzyController
 
             // Generer en unik spiller-ID (kan være en GUID eller et tilfældigt tal)
             // string sessionId = Guid.NewGuid().ToString();
-            string sessionId = "1";
+            string sessionId = Guid.NewGuid().ToString();
 
 
             // Opretter et nyt spil for den speciffikke spiller

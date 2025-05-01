@@ -19,4 +19,11 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Controllers\GameControllers\" />
+    <Folder Include="Games\HorseRace\HorseRaceController\" />
+    <Folder Include="Games\Minesweeper\MinesweeperController\" />
+    <Folder Include="Games\Roulette\RouletteController\" />
+  </ItemGroup>
+
 </Project>

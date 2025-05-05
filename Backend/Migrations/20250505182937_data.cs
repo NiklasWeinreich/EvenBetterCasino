@@ -140,8 +140,8 @@ namespace Backend.Migrations
                 columns: new[] { "Id", "Balance", "BirthDate", "Email", "ExcludedUntil", "FirstName", "LastName", "Loss", "NewsLetterIsSubscribed", "Password", "PhoneNumber", "Profit", "Role" },
                 values: new object[,]
                 {
-                    { 1, 100, new DateTime(1990, 5, 21, 0, 0, 0, 0, DateTimeKind.Unspecified), "NiklasErEnMaskine@mail.com", null, "Niklas", "Maskine", 25, true, "$2a$11$PAXBNj7FK1kmSf1QBHYgmO4cYDS3kxfsBDmas5z7rDvUcyZnOZJUW", 12345678, 50, 1 },
-                    { 2, 75, new DateTime(1990, 5, 21, 0, 0, 0, 0, DateTimeKind.Unspecified), "johndoe@example.com", null, "John", "Doe", 55, false, "$2a$11$MbtHxFEx2Ss1kVFKyiPK8.6RC8J.B9EZ/ovnBvZff6eV1aPp91nbS", 87654321, 33, 0 }
+                    { 1, 100, new DateTime(1990, 5, 21, 0, 0, 0, 0, DateTimeKind.Unspecified), "NiklasErEnMaskine@mail.com", null, "Niklas", "Maskine", 25, true, "$2a$11$RyIOY2TbTw1Q3URe2Ub2JOAv7v/Qqf2cJRLi1DTc5NdmIDtX0pLNS", 12345678, 50, 1 },
+                    { 2, 75, new DateTime(1990, 5, 21, 0, 0, 0, 0, DateTimeKind.Unspecified), "johndoe@example.com", null, "John", "Doe", 55, false, "$2a$11$wbCBFBHim9ivWxlu467MQ.5.o/wtAIu3Tr4QkiItjGPNgMw6A.fHK", 87654321, 33, 0 }
                 });
 
             migrationBuilder.InsertData(

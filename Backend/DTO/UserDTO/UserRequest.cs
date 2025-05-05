@@ -31,6 +31,7 @@ namespace Backend.DTO.UserDTO
 
         public Role Role { get; set; }
 
+        [Column(TypeName = "nvarchar(50)")]
         public bool NewsLetterIsSubscribed { get; set; } = false;
     }
 }

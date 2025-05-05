@@ -1,1 +1,103 @@
-<p>login-signup works!</p>
+<!-- Login komponent -->
+<div class="container d-flex align-items-start justify-content-center pt-5">
+  <div class="row w-100 justify-content-center">
+    <div class="col-md-6 col-lg-5">
+      <div class="card shadow-sm">
+        <div class="card-body">
+          <!-- Logo -->
+          <!-- <div class="text-center mb-4">
+            <img src="/Background.png" alt="FitLife Logo" class="logo mb-3" />
+            <h3 class="card-title">Login</h3>
+          </div> -->
+          <form [formGroup]="loginForm" (ngSubmit)="login()">
+            <div class="mb-3">
+              <label for="email" class="form-label">Email</label>
+              <div class="input-group">
+                <span class="input-group-text"><i class="bi bi-envelope-fill"></i></span>
+                <input type="email" id="email" formControlName="email" class="form-control"
+                  placeholder="Indtast din email" required />
+              </div>
+            </div>
+            <div class="mb-3">
+              <label for="password" class="form-label">Password</label>
+              <div class="input-group">
+                <span class="input-group-text"><i class="bi bi-lock-fill"></i></span>
+                <input [type]="showPassword ? 'text' : 'password'" id="password" formControlName="password"
+                  #passwordInput class="form-control" placeholder="Indtast dit password" required />
+                <button type="button" class="btn btn-outline-secondary" (mousedown)="togglePasswordVisibility()"
+                  (mouseup)="hidePassword(passwordInput)" (mouseleave)="hidePassword(passwordInput)">
+                  <i class="bi" [ngClass]="showPassword ? 'bi-eye-slash' : 'bi-eye'"></i>
+                </button>
+              </div>
+            </div>
+            <div class="mb-3 form-check">
+              <input type="checkbox" class="form-check-input" id="rememberMe" formControlName="rememberMe" />
+              <label class="form-check-label" for="rememberMe">
+                Husk mig
+              </label>
+            </div>
+            <div class="d-grid">
+              <button type="submit" class="btn btn-outline-primary rounded-pill">
+                Login
+              </button>
+            </div>
+          </form>
+          <div class="text-center mt-3">
+            <span>Har du ikke en konto? </span>
+            <a href="#" class="text-decoration-none" data-bs-toggle="modal" data-bs-target="#registerModal">Registrer
+              her</a>
+          </div>
+          <div class="text-center mt-2">
+            <a routerLink="/forgot-password" class="text-decoration-none">Glemt dit password?</a>
+          </div>
+          <div class="alert alert-danger mt-3" *ngIf="message">{{ message }}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Registreringsmodal -->
+<div class="modal fade" id="registerModal" tabindex="-1" aria-labelledby="registerModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content shadow-sm">
+      <div class="modal-header">
+        <h5 class="modal-title" id="registerModalLabel">Registrer ny bruger</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="registerForm" (ngSubmit)="register()">
+          <div class="mb-3">
+            <label for="firstName" class="form-label">Fornavn</label>
+            <input type="text" id="firstName" formControlName="firstName" class="form-control"
+              placeholder="Indtast dit fornavn" required />
+          </div>
+          <div class="mb-3">
+            <label for="lastName" class="form-label">Efternavn</label>
+            <input type="text" id="lastName" formControlName="lastName" class="form-control"
+              placeholder="Indtast dit efternavn" required />
+          </div>
+          <div class="mb-3">
+            <label for="registerEmail" class="form-label">Email</label>
+            <input type="email" id="registerEmail" formControlName="email" class="form-control"
+              placeholder="Indtast din email" required />
+          </div>
+          <div class="mb-3">
+            <label for="registerPassword" class="form-label">Password</label>
+            <input type="password" id="registerPassword" formControlName="password" class="form-control"
+              placeholder="Indtast et password" required />
+          </div>
+          <div class="mb-3">
+            <label for="birthDate" class="form-label">Fødselsdato</label>
+            <input type="date" id="birthDate" formControlName="birthDate" class="form-control" required />
+          </div>
+          <div class="d-grid">
+            <button type="submit" class="btn btn-outline-primary rounded-pill">
+              Registrer
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

@@ -15,7 +15,7 @@ namespace Backend.Repositories.UserRepository
 
         public async Task<User> CreateUserAsync(User newUser)
         {
-            newUser.Password = BCrypt.Net.BCrypt.HashPassword(newUser.Password);
+            //newUser.Password = BCrypt.Net.BCrypt.HashPassword(newUser.Password);
             
             _dbcontext.Users.Add(newUser);
             await _dbcontext.SaveChangesAsync();

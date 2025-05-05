@@ -274,7 +274,7 @@ namespace Backend.Migrations
                             LastName = "Maskine",
                             Loss = 25,
                             NewsLetterIsSubscribed = true,
-                            Password = "$2a$11$bWQ0tOXBfeJeWrjfW8LlceuK63OvMuljD0sTJJuFChtqUzLSacWqm",
+                            Password = "$2a$11$RyIOY2TbTw1Q3URe2Ub2JOAv7v/Qqf2cJRLi1DTc5NdmIDtX0pLNS",
                             PhoneNumber = 12345678,
                             Profit = 50,
                             Role = 1
@@ -289,7 +289,7 @@ namespace Backend.Migrations
                             LastName = "Doe",
                             Loss = 55,
                             NewsLetterIsSubscribed = false,
-                            Password = "$2a$11$iT36NTQNaURYQt9M4w0k1O6pMs8Z0e2pVkPzeiyqUJCVib4N1M98C",
+                            Password = "$2a$11$wbCBFBHim9ivWxlu467MQ.5.o/wtAIu3Tr4QkiItjGPNgMw6A.fHK",
                             PhoneNumber = 87654321,
                             Profit = 33,
                             Role = 0

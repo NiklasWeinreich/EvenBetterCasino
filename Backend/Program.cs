@@ -110,13 +110,14 @@ namespace Backend
 
             app.UseRouting();
 
+            app.UseMiddleware<JwtMiddleware>(); 
+
             app.UseAuthentication();
             app.UseAuthorization();
 
-            app.UseMiddleware<JwtMiddleware>();
-
             app.UseStaticFiles();
             app.MapControllers();
+
             app.Run();
         }
     }

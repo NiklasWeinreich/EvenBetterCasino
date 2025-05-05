@@ -69,7 +69,7 @@ namespace Backend.Services.UserService
             // Undgå at overskrive password med null
             if (!string.IsNullOrWhiteSpace(updateUser.Password))
             {
-                existingUser.Password = updateUser.Password!;
+                existingUser.Password = BCrypt.Net.BCrypt.HashPassword(updateUser.Password!);
             }
 
             existingUser.Email = updateUser.Email;
@@ -89,7 +89,7 @@ namespace Backend.Services.UserService
             {
                 FirstName = userRequest.FirstName,
                 LastName = userRequest.LastName,
-                Password = userRequest.Password!,
+                Password = BCrypt.Net.BCrypt.HashPassword(userRequest.Password!),
                 Email = userRequest.Email,
                 BirthDate = userRequest.BirthDate,
                 PhoneNumber = userRequest.PhoneNumber,

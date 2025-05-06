@@ -59,6 +59,8 @@ export class UserService {
     formData.append('phoneNumber', user.phoneNumber.toString());
     formData.append('password', user.password);
     formData.append('newsLetterIsSubscribed', String(user.newsLetterIsSubscribed));
+    formData.append('birthDate', user.birthDate.toString());
+
   
     if (user.role) {
       formData.append('role', user.role);

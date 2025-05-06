@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Backend.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20250505182937_data")]
+    [Migration("20250506141954_data")]
     partial class data
     {
         /// <inheritdoc />
@@ -277,7 +277,7 @@ namespace Backend.Migrations
                             LastName = "Maskine",
                             Loss = 25,
                             NewsLetterIsSubscribed = true,
-                            Password = "$2a$11$RyIOY2TbTw1Q3URe2Ub2JOAv7v/Qqf2cJRLi1DTc5NdmIDtX0pLNS",
+                            Password = "$2a$11$yh8uAOB5voLfHbsYCCPLKeXvg636N3AyxpLxEqFmiYTHPKrDOdxG6",
                             PhoneNumber = 12345678,
                             Profit = 50,
                             Role = 1
@@ -292,7 +292,7 @@ namespace Backend.Migrations
                             LastName = "Doe",
                             Loss = 55,
                             NewsLetterIsSubscribed = false,
-                            Password = "$2a$11$wbCBFBHim9ivWxlu467MQ.5.o/wtAIu3Tr4QkiItjGPNgMw6A.fHK",
+                            Password = "$2a$11$rZ.q0Q24NrzGqiqSabG0uuTADOfW.HltbZwS1WPuK5aK8S3U//sa2",
                             PhoneNumber = 87654321,
                             Profit = 33,
                             Role = 0

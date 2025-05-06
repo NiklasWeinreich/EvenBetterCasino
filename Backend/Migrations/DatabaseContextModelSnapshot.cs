@@ -219,8 +219,8 @@ namespace Backend.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("Balance")
-                        .HasColumnType("int");
+                    b.Property<decimal>("Balance")
+                        .HasColumnType("decimal");
 
                     b.Property<DateTime>("BirthDate")
                         .HasColumnType("datetime2");
@@ -253,8 +253,8 @@ namespace Backend.Migrations
                     b.Property<int?>("PhoneNumber")
                         .HasColumnType("int");
 
-                    b.Property<int>("Profit")
-                        .HasColumnType("int");
+                    b.Property<decimal>("Profit")
+                        .HasColumnType("decimal");
 
                     b.Property<int>("Role")
                         .HasColumnType("int");
@@ -267,31 +267,31 @@ namespace Backend.Migrations
                         new
                         {
                             Id = 1,
-                            Balance = 100,
+                            Balance = 100m,
                             BirthDate = new DateTime(1990, 5, 21, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "NiklasErEnMaskine@mail.com",
                             FirstName = "Niklas",
                             LastName = "Maskine",
                             Loss = 25,
                             NewsLetterIsSubscribed = true,
-                            Password = "$2a$11$yh8uAOB5voLfHbsYCCPLKeXvg636N3AyxpLxEqFmiYTHPKrDOdxG6",
+                            Password = "$2a$11$OR/X/d9g7ewGu0cZRpTz1u0NOz4xy..EIMAN5Atgu2nv3fGMskmfm",
                             PhoneNumber = 12345678,
-                            Profit = 50,
+                            Profit = 50m,
                             Role = 1
                         },
                         new
                         {
                             Id = 2,
-                            Balance = 75,
+                            Balance = 75m,
                             BirthDate = new DateTime(1990, 5, 21, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "johndoe@example.com",
                             FirstName = "John",
                             LastName = "Doe",
                             Loss = 55,
-                            NewsLetterIsSubscribed = false,
-                            Password = "$2a$11$rZ.q0Q24NrzGqiqSabG0uuTADOfW.HltbZwS1WPuK5aK8S3U//sa2",
-                            PhoneNumber = 87654321,
-                            Profit = 33,
+                            NewsLetterIsSubscribed = true,
+                            Password = "$2a$11$6WgIDfS0jk7nUK7tqvXaoOckJPPcHmQDDKPPCAT/vRxCFz4oCNAUK",
+                            PhoneNumber = 12345678,
+                            Profit = 33m,
                             Role = 0
                         });
                 });

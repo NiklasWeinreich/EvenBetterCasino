@@ -28,19 +28,23 @@ export class UserService {
   }
 
   createUser(user: User): Observable<User> {
-    console.log('Opretter bruger:',user);
+    console.log('Opretter bruger:', user);
     const formData = new FormData();
-    
+  
     formData.append('firstName', user.firstName);
     formData.append('lastName', user.lastName);
     formData.append('email', user.email);
+    formData.append('phoneNumber', user.phoneNumber.toString());
     formData.append('password', user.password);
-
+    formData.append('newsLetterIsSubscribed', String(user.newsLetterIsSubscribed));
+  
     if (user.role) {
       formData.append('role', user.role);
     }
+  
     return this.http.post<User>(this.userApiUrl + '/register', formData);  
   }
+  
 
   updateUser(user: User): Observable<User> {
     console.log('Sender opdateret bruger:', user);
@@ -52,8 +56,11 @@ export class UserService {
     formData.append('firstName', user.firstName);
     formData.append('lastName', user.lastName);
     formData.append('email', user.email);
+    formData.append('phoneNumber', user.phoneNumber.toString());
     formData.append('password', user.password);
-    formData.append('updatedAt', new Date().toISOString());
+    formData.append('newsLetterIsSubscribed', String(user.newsLetterIsSubscribed));
+    formData.append('birthDate', user.birthDate.toString());
+
   
     if (user.role) {
       formData.append('role', user.role);

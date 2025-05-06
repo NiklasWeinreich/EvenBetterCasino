@@ -40,5 +40,9 @@ namespace Backend.Database.Entities
         public Role Role { get; set; }
 
         public bool NewsLetterIsSubscribed { get; set; } = false;
+
+        //Relations
+        public ICollection<GamesHistory> GamesHistories { get; set; } = new List<GamesHistory>();
+        public ICollection<Transactions> Transactions { get; set; } = new List<Transactions>();
     }
 }

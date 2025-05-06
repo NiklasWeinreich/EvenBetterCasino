@@ -32,11 +32,9 @@
                     class="btn btn-outline-light mb-2 mb-md-0 me-md-2 rounded-pill">Login</a>
                 <a *ngIf="!isLoggedIn" [routerLink]="['/login']"
                     class="btn btn-outline-light rounded-pill">Registrer</a>
-                <!-- <a *ngIf="isLoggedIn" class="btn btn-outline-light mb-2 mb-md-0 me-md-2 rounded-pill" (click)="logout()">Logout</a> -->
-                <!--midlertidig-->
-                 <!-- <a *ngIf="currentUser && roleChecker === 'Admin'" [routerLink]="['/admin']"
-                class="btn btn-outline-light mb-2 mb-md-0 me-md-2 rounded-pill">Admin</a>  -->
-             
+                  <a *ngIf="isLoggedIn" class="btn btn-outline-light mb-2 mb-md-0 me-md-2 rounded-pill" (click)="logout()">Logout</a>  
+                  <a *ngIf="currentUser && roleChecker === 'Admin'" [routerLink]="['/admin']"
+                class="btn btn-outline-light mb-2 mb-md-0 me-md-2 rounded-pill">Admin</a>             
             </div>
         </div>
     </div>

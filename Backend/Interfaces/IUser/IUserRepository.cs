@@ -10,6 +10,7 @@ namespace Backend.Interfaces.IUser
         Task<User> UpdateUserAsync(User updateUser);
         Task<bool> DeleteUserAsync(int id);
         Task<User> GetUserByEmail(string email);
+        Task<User?> ExcludeUserAsync(int Id, int exclusionPeriodHours);
     }
 }
 

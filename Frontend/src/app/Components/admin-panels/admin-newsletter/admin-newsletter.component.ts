@@ -17,7 +17,7 @@ export class AdminNewsletterComponent implements OnInit {
   users: User[] = [];
   sendToAll: boolean = false;
   emailForm!: FormGroup;
-
+  selectedEmails: string[] = [];
   isSending: boolean = false;
 
   constructor(
@@ -28,7 +28,7 @@ export class AdminNewsletterComponent implements OnInit {
 
   ngOnInit(): void {
     this.emailForm = this.formBuilder.group({
-      to: new FormControl({ value: '', disabled: false }, Validators.required),
+      to: new FormControl({ value: '', disabled: false }),
       subject: ['', Validators.required],
       body: ['', Validators.required],
     });
@@ -50,38 +50,34 @@ export class AdminNewsletterComponent implements OnInit {
 
   toggleSendToAll(): void {
     this.sendToAll = !this.sendToAll;
-    const toControl = this.emailForm.get('to');
-
+  
     if (this.sendToAll) {
-      toControl?.disable(); 
-      toControl?.setValue('Alle brugere');
+      this.selectedEmails = this.users.map(u => u.email);
     } else {
-      toControl?.enable();
-      toControl?.setValue('');
+      this.selectedEmails = [];
     }
   }
 
   sendEmail(): void {
-    if (this.emailForm.invalid) {
-      alert('Udfyld alle felter korrekt, før du sender.');
+    if (this.emailForm.invalid || (!this.sendToAll && this.selectedEmails.length === 0)) {
+      alert('Udfyld alle felter korrekt, og vælg mindst én modtager.');
       return;
     }
-
+  
     const emailData: emailModel = {
-      to: this.sendToAll
-        ? this.users.map((user) => user.email).join(',')
-        : this.emailForm.get('to')?.value,
+      to: this.selectedEmails.join(','),
       subject: this.emailForm.get('subject')?.value,
       body: this.emailForm.get('body')?.value,
     };
-
+  
     this.isSending = true;
     this.emailService.SendEmail(emailData).subscribe(
       () => {
         this.isSending = false;
         alert('E-mail sendt!');
         this.emailForm.reset();
-        this.toggleSendToAll(); 
+        this.selectedEmails = [];
+        if (!this.sendToAll) this.loadUsers();
       },
       (error: any) => {
         this.isSending = false;
@@ -89,5 +85,16 @@ export class AdminNewsletterComponent implements OnInit {
         console.error(error);
       }
     );
+  }
+
+  onUserSelectionChange(event: any): void {
+    const email = event.target.value;
+    const isChecked = event.target.checked;
+  
+    if (isChecked) {
+      this.selectedEmails.push(email);
+    } else {
+      this.selectedEmails = this.selectedEmails.filter(e => e !== email);
+    }
   }
 }

@@ -1,59 +1,74 @@
 <!-- Titel -->
 <div class="display-4 text-center mb-5">NEWSLETTER ADMINISTRATION</div>
 
-<div class="container-fluid">
-  <!-- Send til alle checkbox -->
-  <div class="form-check form-switch mb-4">
-    <input class="form-check-input" type="checkbox" id="sendToAll" [checked]="sendToAll" (change)="toggleSendToAll()" />
-    <label class="form-check-label" for="sendToAll">Send til alle brugere</label>
+<div class="container">
+  <div class="card shadow-sm">
+    <div class="card-body p-4">
+      <div class="form-check form-switch mb-4">
+        <input
+          class="form-check-input"
+          type="checkbox"
+          id="sendToAll"
+          [checked]="sendToAll"
+          (change)="toggleSendToAll()"
+        />
+        <label class="form-check-label fw-bold" for="sendToAll">Send til alle brugere</label>
+      </div>
+
+      <form [formGroup]="emailForm" (ngSubmit)="sendEmail()">
+        <div class="row g-4">
+          
+          <!-- Vælg specifikke brugere -->
+          <div *ngIf="!sendToAll" class="col-12">
+            <label class="form-label fw-bold">Vælg modtagere</label>
+            <div class="border rounded p-3" style="max-height: 250px; overflow-y: auto;">
+              <div *ngFor="let user of users" class="form-check mb-2">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  [value]="user.email"
+                  (change)="onUserSelectionChange($event)"
+                  [checked]="selectedEmails.includes(user.email)"
+                  id="userCheckbox-{{ user.id }}"
+                />
+                <label class="form-check-label" [for]="'userCheckbox-' + user.id">
+                  {{ user.firstName }} {{ user.lastName }} ({{ user.email }})
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-12">
+            <label for="subject" class="form-label fw-bold">Emne</label>
+            <input
+              type="text"
+              id="subject"
+              class="form-control"
+              formControlName="subject"
+              placeholder="Skriv emnet for e-mailen"
+            />
+          </div>
+
+          <div class="col-md-12">
+            <label for="body" class="form-label fw-bold">Besked</label>
+            <textarea
+              id="body"
+              class="form-control"
+              formControlName="body"
+              rows="6"
+              placeholder="Skriv din besked her..."
+            ></textarea>
+          </div>
+        </div>
+
+        <div class="mt-4 d-flex justify-content-between align-items-center">
+          <button type="submit" class="btn btn-primary px-4" [disabled]="isSending || emailForm.invalid">
+            <span *ngIf="isSending" class="spinner-border spinner-border-sm me-2"></span>
+            {{ isSending ? 'Sender...' : 'Send E-mail' }}
+          </button>
+          <small class="text-muted">Du kan sende til alle brugere eller vælge specifikke.</small>
+        </div>
+      </form>
+    </div>
   </div>
-
-  <form [formGroup]="emailForm" (ngSubmit)="sendEmail()">
-    <div class="row g-3">
-      <!-- Til-felt -->
-      <div class="col-md-12">
-        <label for="to" class="form-label">Modtager Email</label>
-        <input
-          type="text"
-          id="to"
-          class="form-control"
-          formControlName="to"
-          placeholder="f.eks. bruger@email.com eller 'Alle brugere'"
-        />
-      </div>
-
-      <!-- Emne -->
-      <div class="col-md-12">
-        <label for="subject" class="form-label">Emne</label>
-        <input
-          type="text"
-          id="subject"
-          class="form-control"
-          formControlName="subject"
-          placeholder="Skriv emnet for e-mailen"
-        />
-      </div>
-
-      <!-- Besked -->
-      <div class="col-md-12">
-        <label for="body" class="form-label">Besked</label>
-        <textarea
-          id="body"
-          class="form-control"
-          formControlName="body"
-          rows="6"
-          placeholder="Skriv din besked her..."
-        ></textarea>
-      </div>
-    </div>
-
-    <!-- Afsend-knap -->
-    <div class="mt-4 d-flex justify-content-between align-items-center">
-      <button type="submit" class="btn btn-primary" [disabled]="isSending || emailForm.invalid">
-        <span *ngIf="isSending" class="spinner-border spinner-border-sm me-2"></span>
-        {{ isSending ? 'Sender...' : 'Send E-mail' }}
-      </button>
-      <small class="text-muted">Du kan sende til alle brugere eller én ad gangen.</small>
-    </div>
-  </form>
 </div>

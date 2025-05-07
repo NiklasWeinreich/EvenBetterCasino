@@ -105,7 +105,16 @@ namespace Backend.Database.DatabaseContext
                     Profit = 33,
                     Loss = 55,
                     ExcludedUntil = null
-                }
+                },
+                new User { Id = 3, FirstName = "Anna", LastName = "Jensen", Email = "anna.jensen@example.com", Password = BCrypt.Net.BCrypt.HashPassword("Passw0rd"), PhoneNumber = 11111111, BirthDate = new DateOnly(1995, 3, 10), NewsLetterIsSubscribed = true, Role = Role.Customer, Balance = 100, Profit = 20, Loss = 15, ExcludedUntil = null },
+                new User { Id = 4, FirstName = "Mark", LastName = "Larsen", Email = "mark.larsen@example.com", Password = BCrypt.Net.BCrypt.HashPassword("Passw0rd"), PhoneNumber = 22222222, BirthDate = new DateOnly(1988, 7, 23), NewsLetterIsSubscribed = true, Role = Role.Customer, Balance = 150, Profit = 40, Loss = 10, ExcludedUntil = null },
+                new User { Id = 5, FirstName = "Sara", LastName = "Hansen", Email = "sara.hansen@example.com", Password = BCrypt.Net.BCrypt.HashPassword("Passw0rd"), PhoneNumber = 33333333, BirthDate = new DateOnly(1992, 9, 30), NewsLetterIsSubscribed = false, Role = Role.Customer, Balance = 200, Profit = 30, Loss = 25, ExcludedUntil = null },
+    new User { Id = 6, FirstName = "Peter", LastName = "Madsen", Email = "peter.madsen@example.com", Password = BCrypt.Net.BCrypt.HashPassword("Passw0rd"), PhoneNumber = 44444444, BirthDate = new DateOnly(1985, 1, 15), NewsLetterIsSubscribed = true, Role = Role.Customer, Balance = 300, Profit = 70, Loss = 40, ExcludedUntil = null },
+    new User { Id = 7, FirstName = "Laura", LastName = "Poulsen", Email = "laura.poulsen@example.com", Password = BCrypt.Net.BCrypt.HashPassword("Passw0rd"), PhoneNumber = 55555555, BirthDate = new DateOnly(1998, 12, 12), NewsLetterIsSubscribed = true, Role = Role.Customer, Balance = 120, Profit = 25, Loss = 5, ExcludedUntil = null },
+    new User { Id = 8, FirstName = "Thomas", LastName = "Christensen", Email = "thomas.christensen@example.com", Password = BCrypt.Net.BCrypt.HashPassword("Passw0rd"), PhoneNumber = 66666666, BirthDate = new DateOnly(1982, 4, 8), NewsLetterIsSubscribed = true, Role = Role.Customer, Balance = 180, Profit = 60, Loss = 20, ExcludedUntil = null },
+    new User { Id = 9, FirstName = "Emma", LastName = "Andersen", Email = "emma.andersen@example.com", Password = BCrypt.Net.BCrypt.HashPassword("Passw0rd"), PhoneNumber = 77777777, BirthDate = new DateOnly(1994, 6, 5), NewsLetterIsSubscribed = true, Role = Role.Customer, Balance = 220, Profit = 80, Loss = 10, ExcludedUntil = null },
+    new User { Id = 10, FirstName = "Mikkel", LastName = "Olsen", Email = "mikkel.olsen@example.com", Password = BCrypt.Net.BCrypt.HashPassword("Passw0rd"), PhoneNumber = 88888888, BirthDate = new DateOnly(1989, 11, 19), NewsLetterIsSubscribed = false, Role = Role.Customer, Balance = 90, Profit = 10, Loss = 10, ExcludedUntil = null }
+
             );
 
             modelBuilder.Entity<Categori>().HasData(

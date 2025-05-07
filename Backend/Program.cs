@@ -8,6 +8,12 @@ using System.Text.Json.Serialization;
 using Backend.Interfaces.IUser;
 using Backend.Repositories.UserRepository;
 using Backend.Services.UserService;
+using Backend.Games.Dice.DiceServices;
+using Backend.Games.Dice;
+using Backend.Games.Yatzy;
+using Backend.Games.Yatzy.Service;
+using Backend.Games.Keno;
+using Backend.Games.Keno.Service;
 
 
 namespace Backend
@@ -26,6 +32,10 @@ namespace Backend
 
             builder.Services.AddScoped<IUserRepository, UserRepository>();
             builder.Services.AddScoped<IUserService, UserService>();
+            builder.Services.AddScoped<IDiceGameService, DiceGameService>();
+            builder.Services.AddScoped<IYatzyGameService, YatzyGameService>();
+            builder.Services.AddScoped<IKenoService, KenoService>();
+
 
             var key = Encoding.ASCII.GetBytes(builder.Configuration["AppSettings:Secret"]!);
             builder.Services.AddAuthentication(options =>

@@ -1,9 +1,7 @@
 ﻿namespace Backend.Games.Yatzy
 {
-    public class YatzyStartGameRequest
+    public class YatzyGameRequest
     {
-
-        // User ID???? 
 
         public double BetAmount { get; set; }
 

@@ -12,6 +12,8 @@ using Backend.Interfaces.IBalance;
 using Backend.Repositories.BalanceRepository;
 using Backend.Services.BalanceService;
 using Backend.Authentication;
+using Backend.Interfaces.IEmail;
+using Backend.Services.EmailService;
 
 
 namespace Backend
@@ -32,6 +34,7 @@ namespace Backend
             builder.Services.AddScoped<IUserService, UserService>();
             builder.Services.AddScoped<IBalanceRepository, BalanceRepository>();
             builder.Services.AddScoped<IBalanceService, BalanceService>();
+            builder.Services.AddScoped<IEmailService, EmailService>();
 
             builder.Services.AddScoped<IJwtUtils, JwtUtils>();
 
@@ -66,6 +69,10 @@ namespace Backend
 
             builder.Services.Configure<AppSettings>(
                 builder.Configuration.GetSection("AppSettings"));
+
+            builder.Services.Configure<MailSettings>(
+                builder.Configuration.GetSection("MailSettings"));
+
 
             builder.Services.AddSwaggerGen(c =>
             {

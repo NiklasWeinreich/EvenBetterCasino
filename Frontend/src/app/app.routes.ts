@@ -16,6 +16,7 @@ export const routes: Routes = [
         [
             { path: 'users', loadComponent: () => import('./Components/admin-panels/admin-users/admin-users.component').then(m => m.AdminUsersComponent) },
             { path: 'games', loadComponent: () => import('./Components/admin-panels/admin-games/admin-games.component').then(m => m.AdminGamesComponent) },
+            {path: 'newsletter', loadComponent: () => import('./Components/admin-panels/admin-newsletter/admin-newsletter.component').then(m => m.AdminNewsletterComponent) },
         ]
     }
 ];

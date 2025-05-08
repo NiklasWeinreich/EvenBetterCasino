@@ -8,6 +8,7 @@ export const routes: Routes = [
     { path: 'account', loadComponent: () => import('./Components/account/account.component').then(m => m.AccountComponent) },
     { path: 'rofus', loadComponent: () => import('./Components/rofus/rofus.component').then(m => m.RofusComponent) },
     { path: 'login', loadComponent: () => import('./Components/login-signup/login-signup.component').then(m => m.LoginSignupComponent) },
+    { path: 'bank', loadComponent: () => import('./Components/bank/bank.component').then(m => m.BankComponent) },
 
     {
         path: 'admin',

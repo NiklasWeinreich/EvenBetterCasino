@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Backend.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20250507141800_data")]
+    [Migration("20250508212116_data")]
     partial class data
     {
         /// <inheritdoc />
@@ -82,7 +82,7 @@ namespace Backend.Migrations
 
                     b.HasIndex("KategoriId");
 
-                    b.ToTable("Game");
+                    b.ToTable("Games");
 
                     b.HasData(
                         new
@@ -277,7 +277,7 @@ namespace Backend.Migrations
                             LastName = "Maskine",
                             Loss = 25,
                             NewsLetterIsSubscribed = true,
-                            Password = "$2a$11$LTHVHhoBQVjsN/HMJcxmgefHIX2EmT2Uju.A4zeqdVtCOB9UbfMHe",
+                            Password = "$2a$11$aqgloJsGTM4ujnzOI.2wX.ZSjT8Y0qi9bdX7umSrIxFVArEERFlb.",
                             PhoneNumber = 12345678,
                             Profit = 50m,
                             Role = 1
@@ -292,7 +292,7 @@ namespace Backend.Migrations
                             LastName = "Doe",
                             Loss = 55,
                             NewsLetterIsSubscribed = false,
-                            Password = "$2a$11$3kTnvLj1KgG6tVUBwfUrN.AefnS2s5mpxhQcQQqvkQbNfPvfniliy",
+                            Password = "$2a$11$kXfKebXkxQI/7EvCqCWADu6VAnCfwsl5SQwkcW519QvmEl1.hb62y",
                             PhoneNumber = 87654321,
                             Profit = 33m,
                             Role = 0
@@ -307,7 +307,7 @@ namespace Backend.Migrations
                             LastName = "Jensen",
                             Loss = 15,
                             NewsLetterIsSubscribed = true,
-                            Password = "$2a$11$aADIm55dd7ec4jGQ0YpGwubDR69wkWQ0yQX1UsNRYt26O9llTym8m",
+                            Password = "$2a$11$4vdt4VS0YWTh7k4w.yqKueN/BmwhWeTswuqKFKRzxkz5iqsJ0Ci.q",
                             PhoneNumber = 11111111,
                             Profit = 20m,
                             Role = 0
@@ -322,7 +322,7 @@ namespace Backend.Migrations
                             LastName = "Larsen",
                             Loss = 10,
                             NewsLetterIsSubscribed = true,
-                            Password = "$2a$11$H0rTTQvDlSryyT77aEx4ou9PZhVZMj8aX6j/z/16VfhSAKlE5WO3.",
+                            Password = "$2a$11$iTt7.02xkOOKD/EDBs4jc.XrESy6.nHMaBVWBD/x/bmE5a68Gs0Cu",
                             PhoneNumber = 22222222,
                             Profit = 40m,
                             Role = 0
@@ -337,7 +337,7 @@ namespace Backend.Migrations
                             LastName = "Hansen",
                             Loss = 25,
                             NewsLetterIsSubscribed = false,
-                            Password = "$2a$11$cV5Fm8SA8f8TSupv2R.eD.LME1Mq1KlWSB7qu9PCZFntAH65VDsxy",
+                            Password = "$2a$11$ftAx4zk0D7us6OydUQVAOOs6G/Y/SzjcxGoKs.XIq.1l1Y.rCtmg2",
                             PhoneNumber = 33333333,
                             Profit = 30m,
                             Role = 0
@@ -352,7 +352,7 @@ namespace Backend.Migrations
                             LastName = "Madsen",
                             Loss = 40,
                             NewsLetterIsSubscribed = true,
-                            Password = "$2a$11$7yoKBEC/int4z9nHhxfa/uZNnW2yqkp585HKeHASm/OpgEaNX78d.",
+                            Password = "$2a$11$ZBVRl.ODzwgWvj5DkYu9yu/yKdrAGxeyF.IoqlBk1TYOYvCP0jCXq",
                             PhoneNumber = 44444444,
                             Profit = 70m,
                             Role = 0
@@ -367,7 +367,7 @@ namespace Backend.Migrations
                             LastName = "Poulsen",
                             Loss = 5,
                             NewsLetterIsSubscribed = true,
-                            Password = "$2a$11$zN3KAbYDjY3UdWAB.iiquubPusocqE74xRogdjTME1YynW9YFDF.i",
+                            Password = "$2a$11$Kx4Lb2EYQM2QJ7mnB47yU.e4YiOHIADWYeLZUk2a8rvYcARUkLYZG",
                             PhoneNumber = 55555555,
                             Profit = 25m,
                             Role = 0
@@ -382,7 +382,7 @@ namespace Backend.Migrations
                             LastName = "Christensen",
                             Loss = 20,
                             NewsLetterIsSubscribed = true,
-                            Password = "$2a$11$xWYTwG6OmhU0itqAjn/JXuGSNqS4V3O/ZMGFenQFU4yV6hxM4l5ym",
+                            Password = "$2a$11$oderarFloxgSNHMFmVo9depNVakP19sDeL8z2QS1JVjGN/.NeUrcm",
                             PhoneNumber = 66666666,
                             Profit = 60m,
                             Role = 0
@@ -397,7 +397,7 @@ namespace Backend.Migrations
                             LastName = "Andersen",
                             Loss = 10,
                             NewsLetterIsSubscribed = true,
-                            Password = "$2a$11$yMVlTMFy0CZDF3GVs2n98ON3NParSEMglvUZjVFQEYNafYmOHX0yK",
+                            Password = "$2a$11$A0.NZgPYJLKQW1d8iE8fzOkSQE2i6H6eSGpzWdolbL8omvcFB0GY6",
                             PhoneNumber = 77777777,
                             Profit = 80m,
                             Role = 0
@@ -412,7 +412,7 @@ namespace Backend.Migrations
                             LastName = "Olsen",
                             Loss = 10,
                             NewsLetterIsSubscribed = false,
-                            Password = "$2a$11$el2LQZc0uVX1Yg6hLi4iC.W8.ZxsHw3xFhSsiUgzpmG/TF/orVedK",
+                            Password = "$2a$11$EHP99aIId4asX4xB60Cose3SRvyxXI0yZ9WvI0M84zQkkKNwdZbKi",
                             PhoneNumber = 88888888,
                             Profit = 10m,
                             Role = 0
@@ -422,7 +422,7 @@ namespace Backend.Migrations
             modelBuilder.Entity("Backend.Database.Entities.Game", b =>
                 {
                     b.HasOne("Backend.Database.Entities.Categori", "Categori")
-                        .WithMany("Game")
+                        .WithMany("Games")
                         .HasForeignKey("KategoriId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -432,7 +432,7 @@ namespace Backend.Migrations
 
             modelBuilder.Entity("Backend.Database.Entities.GamesHistory", b =>
                 {
-                    b.HasOne("Backend.Database.Entities.Game", "Game")
+                    b.HasOne("Backend.Database.Entities.Game", "Games")
                         .WithMany("GamesHistories")
                         .HasForeignKey("GamesId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -444,7 +444,7 @@ namespace Backend.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Game");
+                    b.Navigation("Games");
 
                     b.Navigation("User");
                 });
@@ -462,7 +462,7 @@ namespace Backend.Migrations
 
             modelBuilder.Entity("Backend.Database.Entities.Categori", b =>
                 {
-                    b.Navigation("Game");
+                    b.Navigation("Games");
                 });
 
             modelBuilder.Entity("Backend.Database.Entities.Game", b =>

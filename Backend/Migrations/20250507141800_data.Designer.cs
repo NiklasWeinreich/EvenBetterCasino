@@ -54,7 +54,7 @@ namespace Backend.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Backend.Database.Entities.Games", b =>
+            modelBuilder.Entity("Backend.Database.Entities.Game", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -82,7 +82,7 @@ namespace Backend.Migrations
 
                     b.HasIndex("KategoriId");
 
-                    b.ToTable("Games");
+                    b.ToTable("Game");
 
                     b.HasData(
                         new
@@ -419,10 +419,10 @@ namespace Backend.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Backend.Database.Entities.Games", b =>
+            modelBuilder.Entity("Backend.Database.Entities.Game", b =>
                 {
                     b.HasOne("Backend.Database.Entities.Categori", "Categori")
-                        .WithMany("Games")
+                        .WithMany("Game")
                         .HasForeignKey("KategoriId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -432,7 +432,7 @@ namespace Backend.Migrations
 
             modelBuilder.Entity("Backend.Database.Entities.GamesHistory", b =>
                 {
-                    b.HasOne("Backend.Database.Entities.Games", "Games")
+                    b.HasOne("Backend.Database.Entities.Game", "Game")
                         .WithMany("GamesHistories")
                         .HasForeignKey("GamesId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -444,7 +444,7 @@ namespace Backend.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Games");
+                    b.Navigation("Game");
 
                     b.Navigation("User");
                 });
@@ -462,10 +462,10 @@ namespace Backend.Migrations
 
             modelBuilder.Entity("Backend.Database.Entities.Categori", b =>
                 {
-                    b.Navigation("Games");
+                    b.Navigation("Game");
                 });
 
-            modelBuilder.Entity("Backend.Database.Entities.Games", b =>
+            modelBuilder.Entity("Backend.Database.Entities.Game", b =>
                 {
                     b.Navigation("GamesHistories");
                 });

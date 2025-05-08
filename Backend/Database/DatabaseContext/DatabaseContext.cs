@@ -12,7 +12,7 @@ namespace Backend.Database.DatabaseContext
         public DatabaseContext() { }
 
         public DbSet<User> Users { get; set; }
-        public DbSet<Games> Games { get; set; }
+        public DbSet<Game> Games { get; set; }
         public DbSet<Categori> Categories { get; set; }
         public DbSet<GamesHistory> GamesHistories { get; set; }
         public DbSet<Transactions> Transactions { get; set; }
@@ -56,7 +56,7 @@ namespace Backend.Database.DatabaseContext
                 .HasForeignKey(t => t.UserId)
                 .OnDelete(DeleteBehavior.Cascade);
 
-            modelBuilder.Entity<Games>()
+            modelBuilder.Entity<Game>()
                 .HasMany(g => g.GamesHistories)
                 .WithOne(gh => gh.Games)
                 .HasForeignKey(gh => gh.GamesId)
@@ -122,8 +122,8 @@ namespace Backend.Database.DatabaseContext
                 new Categori { Id = 2, Name = "Casino" }
             );
 
-            modelBuilder.Entity<Games>().HasData(
-                new Games
+            modelBuilder.Entity<Game>().HasData(
+                new Game
                 {
                     Id = 1,
                     Name = "Football Match",
@@ -132,7 +132,7 @@ namespace Backend.Database.DatabaseContext
                     ImageUrl = "https://i.imgflip.com/7nz6q8.png?a484848",
                     Status = true
                 },
-                new Games
+                new Game
                 {
                     Id = 2,
                     Name = "Blackjack",

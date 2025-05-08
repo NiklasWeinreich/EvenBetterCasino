@@ -51,7 +51,7 @@ namespace Backend.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Games",
+                name: "Game",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -115,7 +115,7 @@ namespace Backend.Migrations
                     table.ForeignKey(
                         name: "FK_GamesHistories_Games_GamesId",
                         column: x => x.GamesId,
-                        principalTable: "Games",
+                        principalTable: "Game",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
@@ -153,7 +153,7 @@ namespace Backend.Migrations
                 });
 
             migrationBuilder.InsertData(
-                table: "Games",
+                table: "Game",
                 columns: new[] { "Id", "ImageUrl", "JackpotAmount", "KategoriId", "Name", "Status" },
                 values: new object[,]
                 {
@@ -181,7 +181,7 @@ namespace Backend.Migrations
 
             migrationBuilder.CreateIndex(
                 name: "IX_Games_KategoriId",
-                table: "Games",
+                table: "Game",
                 column: "KategoriId");
 
             migrationBuilder.CreateIndex(
@@ -210,7 +210,7 @@ namespace Backend.Migrations
                 name: "Transactions");
 
             migrationBuilder.DropTable(
-                name: "Games");
+                name: "Game");
 
             migrationBuilder.DropTable(
                 name: "Users");

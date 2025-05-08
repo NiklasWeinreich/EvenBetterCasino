@@ -13,6 +13,6 @@ namespace Backend.Database.Entities
             public required string Name { get; set; }
 
             // Navigation property til alle spil i kategorien
-            public ICollection<Games> Games { get; set; } = new List<Games>();
+            public ICollection<Game> Games { get; set; } = new List<Game>();
         }
 }

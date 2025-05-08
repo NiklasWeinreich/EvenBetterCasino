@@ -26,6 +26,6 @@ namespace Backend.Database.Entities
         public User User { get; set; }
 
         [ForeignKey("GamesId")]
-        public Games Games { get; set; }
+        public Game Games { get; set; }
     }
 }

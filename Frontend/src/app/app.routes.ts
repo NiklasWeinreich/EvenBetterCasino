@@ -4,7 +4,6 @@ import { AdminPanelsComponent } from './Components/admin-panels/admin-panels.com
 
 export const routes: Routes = [
     { path: '', loadComponent: () => import('./Components/home/home.component').then(m => m.HomeComponent) },
-    { path: 'games', loadComponent: () => import('./Components/games/games.component').then(m => m.GamesComponent) },
     { path: 'account', loadComponent: () => import('./Components/account/account.component').then(m => m.AccountComponent) },
     { path: 'rofus', loadComponent: () => import('./Components/rofus/rofus.component').then(m => m.RofusComponent) },
     { path: 'login', loadComponent: () => import('./Components/login-signup/login-signup.component').then(m => m.LoginSignupComponent) },
@@ -19,5 +18,10 @@ export const routes: Routes = [
             { path: 'games', loadComponent: () => import('./Components/admin-panels/admin-games/admin-games.component').then(m => m.AdminGamesComponent) },
             {path: 'newsletter', loadComponent: () => import('./Components/admin-panels/admin-newsletter/admin-newsletter.component').then(m => m.AdminNewsletterComponent) },
         ]
-    }
+    },
+
+    
+    { path: 'games', loadComponent: () => import('./Components/games-front-page/games-front-page.component').then(m => m.GamesComponent) },
+    { path: 'games/dice', loadComponent: () => import('./Components/games/dice-game/dice-game.component').then(m => m.DiceGameComponent) },
+    { path: 'games/yatzy', loadComponent: () => import('./Components/games/yatzy-game/yatzy-game.component').then(m => m.YatzyGameComponent) }, 
 ];

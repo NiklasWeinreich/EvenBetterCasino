@@ -8,12 +8,19 @@ using System.Text.Json.Serialization;
 using Backend.Interfaces.IUser;
 using Backend.Repositories.UserRepository;
 using Backend.Services.UserService;
+using Backend.Games.Dice.DiceServices;
+using Backend.Games.Dice;
+using Backend.Games.Yatzy;
+using Backend.Games.Yatzy.Service;
+using Backend.Games.Keno;
+using Backend.Games.Keno.Service;
 using Backend.Interfaces.IBalance;
 using Backend.Repositories.BalanceRepository;
 using Backend.Services.BalanceService;
 using Backend.Authentication;
 using Backend.Interfaces.IEmail;
 using Backend.Services.EmailService;
+
 
 
 namespace Backend
@@ -32,9 +39,13 @@ namespace Backend
 
             builder.Services.AddScoped<IUserRepository, UserRepository>();
             builder.Services.AddScoped<IUserService, UserService>();
+            builder.Services.AddScoped<IDiceGameService, DiceGameService>();
+            builder.Services.AddScoped<IYatzyGameService, YatzyGameService>();
+            builder.Services.AddScoped<IKenoService, KenoService>();
             builder.Services.AddScoped<IBalanceRepository, BalanceRepository>();
             builder.Services.AddScoped<IBalanceService, BalanceService>();
             builder.Services.AddScoped<IEmailService, EmailService>();
+
 
             builder.Services.AddScoped<IJwtUtils, JwtUtils>();
 

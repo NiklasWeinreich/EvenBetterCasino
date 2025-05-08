@@ -16,10 +16,14 @@ namespace Backend.Database.Entities
         [Column(TypeName = "int")]
         public int JackpotAmount { get; set; }
 
-        [Column(TypeName = "int")]
-        public int ImageId { get; set; }
+        [Column(TypeName = "nvarchar(255)")]
+        public string? ImageUrl { get; set; } 
 
-        [Column(TypeName = "bool")]
         public required bool Status { get; set; } = false;
+
+        [ForeignKey("KategoriId")]
+        public Categori Categori { get; set; }
+
+        public ICollection<GamesHistory> GamesHistories { get; set; }
     }
 }

@@ -1,19 +1,23 @@
 <!-- Titel -->
 <div class="display-4 text-center mb-5">USER ADMINISTRATION</div>
 
-<div class="container-fluid" data-bs-theme="dark">
-    <!-- Knapper til oprettelse af bruger -->
-    <button class="btn btn-success mb-2" (click)="createdUser()">Opret Bruger</button>
+<div class="container-fluid">
+  <!-- Knap til oprettelse af bruger -->
+  <button class="btn btn-success mb-3" (click)="openCreateModal()">Opret Bruger</button>
+
   <div class="table-responsive">
-    <table class="table table-hover table-dark">
-      <thead class="table-light">
+    <table class="table table-bordered table-hover table-striped">
+      <thead class="table-primary ">
         <tr>
           <th>ID</th>
           <th>Fornavn</th>
           <th>Efternavn</th>
+          <th>Telefonnummer</th>
+          <th>Nyhedsbrev</th>
           <th>Email</th>
+          <th>Status</th>
           <th>Rolle</th>
-          <th class="text-center">Handlinger</th>
+          <th>Handlinger</th>
         </tr>
       </thead>
       <tbody>
@@ -21,10 +25,27 @@
           <td>{{ user.id }}</td>
           <td>{{ user.firstName }}</td>
           <td>{{ user.lastName }}</td>
+          <td>{{user.phoneNumber}}</td>
+          <td>
+            <span *ngIf="user.newsLetterIsSubscribed; else notSubscribed">
+              <i class="bi bi-check-circle-fill text-success fs-5"></i>
+            </span>
+            <ng-template #notSubscribed>
+              <i class="bi bi-x-circle-fill text-danger fs-5"></i>
+            </ng-template>
+          </td>
           <td>{{ user.email }}</td>
+          <td>
+            <span *ngIf="user.excludedUntil && user.excludedUntil > now" class="text-danger fw-bold">
+              Låst {{ user.excludedUntil | date: 'dd-MM-yyyy HH:mm:ss' }}
+            </span>
+            <span *ngIf="!user.excludedUntil || user.excludedUntil <= now" class="text-success fw-bold">
+              Aktiv
+            </span>
+          </td>
           <td>{{ user.role }}</td>
-          <td class="text-center">
-            <button class="btn btn-sm btn-outline-warning me-2" (click)="editUser(user)">
+          <td>
+            <button class="btn btn-sm btn-outline-warning me-2" (click)="openEditModal(user)">
               <i class="bi bi-pencil"></i>
             </button>
             <button class="btn btn-sm btn-outline-danger" (click)="deleteUser(user.id)">
@@ -35,66 +56,61 @@
       </tbody>
     </table>
   </div>
+</div>
 
- <!-- Formular til opdatering af bruger -->
-<div *ngIf="user.id !== 0" class="mt-4 p-4 bg-dark text-white rounded">
-    <h4>Rediger Bruger</h4>
-    <form (ngSubmit)="updateUser()">
-      <div class="mb-3">
-        <label class="form-group">Fornavn</label>
-        <input type="text" class="form-control" [(ngModel)]="user.firstName" name="firstName" required>
+<!-- Modal Struktur -->
+<!-- Modal for Create and Edit -->
+<div class="modal fade" id="userModal" tabindex="-1" aria-labelledby="userModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="userModalLabel">{{ isEditing ? 'Rediger Bruger' : 'Opret Bruger' }}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Luk"></button>
       </div>
-      <div class="mb-3">
-        <label class="form-group">Efternavn</label>
-        <input type="text" class="form-control" [(ngModel)]="user.lastName" name="lastName" required>
-      </div>
-      <div class="mb-3">
-        <label class="form-group">Email</label>
-        <input type="email" class="form-control" [(ngModel)]="user.email" name="email" required>
-      </div>
-      <div class="mb-3">
-        <label class="form-group">Password</label>
-        <input type="Password" class="form-control" [(ngModel)]="user.password" name="Password" required>
-      </div>
-      <div class="mb-3">
-        <label class="form-group">Rolle</label>
-        <select class="form-select" [(ngModel)]="user.role" name="role" required>
-          <option *ngFor="let role of roles" [value]="role.name">{{ role.name }}</option>
-        </select>
-      </div>
-      
-      <button type="submit" class="btn btn-success">Opdater</button>
-      <button type="button" class="btn btn-danger ms-2" (click)="cancelEdit()">Annuller</button>
-    </form>
+      <form (ngSubmit)="isEditing ? updateUser() : createUser()">
+        <div class="modal-body">
+          <div class="row g-3">
+            <div class="col-md-6">
+              <label class="form-label">Fornavn</label>
+              <input type="text" class="form-control" [(ngModel)]="user.firstName" name="firstName" required>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Efternavn</label>
+              <input type="text" class="form-control" [(ngModel)]="user.lastName" name="lastName" required>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Email</label>
+              <input type="email" class="form-control" [(ngModel)]="user.email" name="email" required>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Telefon Nummer</label>
+              <input type="Telefon Nummer" class="form-control" [(ngModel)]="user.phoneNumber" name="Telefon Nummer" required>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Password</label>
+              <input type="password" class="form-control" [(ngModel)]="user.password" name="password" [required]="!isEditing">
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Rolle</label>
+              <select class="form-select" [(ngModel)]="user.role" name="role" required>
+                <option *ngFor="let role of roles" [value]="role.name">{{ role.name }}</option>
+              </select>
+            </div>
+            <div class="col-md-6 d-flex align-items-center">
+              <div class="form-check mt-4">
+                <input class="form-check-input" type="checkbox" [(ngModel)]="user.newsLetterIsSubscribed" name="newsLetterIsSubscribed">
+                <label class="form-check-label">
+                  Tilmeld nyhedsbrev
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-success">{{ isEditing ? 'Opdater' : 'Opret' }}</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuller</button>
+        </div>
+      </form>
+    </div>
   </div>
-  <!--Modal i stedet-->
-  <!-- Formular til oprettelse af bruger -->
-  <div *ngIf="showCreateForm" class="mt-4 p-4 bg-dark text-white rounded">
-    <h4>Opret Bruger</h4>
-    <form (ngSubmit)="createUser()">
-      <div class="mb-3">
-        <label class="form-group">Fornavn</label>
-        <input type="text" class="form-control" [(ngModel)]="user.firstName" name="firstName" required>
-      </div>
-      <div class="mb-3">
-        <label class="form-group">Efternavn</label>
-        <input type="text" class="form-control" [(ngModel)]="user.lastName" name="lastName" required>
-      </div>
-      <div class="mb-3">
-        <label class="form-group">Email</label>
-        <input type="email" class="form-control" [(ngModel)]="user.email" name="email" required>
-      </div>
-      <div class="mb-3">
-        <label class="form-group">Password</label>
-        <input type="Password" class="form-control" [(ngModel)]="user.password" name="Password" required>
-      </div>
-      <div class="mb-3">
-        <label class="form-group">Rolle</label>
-        <select [(ngModel)]="user.role" class="form-select" name="role" required>
-            <option class="dropdown-item" *ngFor="let role of roles" [ngValue]="role.name">{{ role.name }}</option>
-        </select>
-      </div>
-      <button type="submit" class="btn btn-success">Opret</button>
-      <button type="button" class="btn btn-danger ms-2" (click)="cancelCreate()">Annuller</button>
-    </form>
-  </div>
+</div>

@@ -25,20 +25,24 @@ namespace Backend.Database.Entities
         [Column(TypeName = "int")]
         public int? PhoneNumber { get; set; }
 
-        [Column(TypeName = "int")]
-        public int Balance { get; set; }
+        [Column(TypeName = "decimal")]
+        public decimal Balance { get; set; }
 
         [Column(TypeName = "datetime")]
         public DateTime? ExcludedUntil { get; set; }
 
-        [Column(TypeName = "int")]
-        public int Profit { get; set; }
+        [Column(TypeName = "decimal")]
+        public decimal Profit { get; set; }
 
         [Column(TypeName = "int")]
-        public int Loss { get; set; }
+        public decimal Loss { get; set; }
 
         public Role Role { get; set; }
 
         public bool NewsLetterIsSubscribed { get; set; } = false;
+
+        //Relations
+        public ICollection<GamesHistory> GamesHistories { get; set; } = new List<GamesHistory>();
+        public ICollection<Transactions> Transactions { get; set; } = new List<Transactions>();
     }
 }

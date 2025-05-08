@@ -14,6 +14,11 @@ using Backend.Games.Yatzy;
 using Backend.Games.Yatzy.Service;
 using Backend.Games.Keno;
 using Backend.Games.Keno.Service;
+using Backend.Interfaces.IBalance;
+using Backend.Repositories.BalanceRepository;
+using Backend.Services.BalanceService;
+using Backend.Authentication;
+
 
 
 namespace Backend
@@ -35,7 +40,9 @@ namespace Backend
             builder.Services.AddScoped<IDiceGameService, DiceGameService>();
             builder.Services.AddScoped<IYatzyGameService, YatzyGameService>();
             builder.Services.AddScoped<IKenoService, KenoService>();
-
+            builder.Services.AddScoped<IBalanceRepository, BalanceRepository>();
+            builder.Services.AddScoped<IBalanceService, BalanceService>();
+            builder.Services.AddScoped<IJwtUtils, JwtUtils>();
 
             var key = Encoding.ASCII.GetBytes(builder.Configuration["AppSettings:Secret"]!);
             builder.Services.AddAuthentication(options =>
@@ -113,18 +120,19 @@ namespace Backend
                 app.UseSwaggerUI();
             }
 
-            app.UseHttpsRedirection();
             app.UseCors("CorsPolicy");
+            app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseMiddleware<JwtMiddleware>(); 
 
             app.UseAuthentication();
             app.UseAuthorization();
 
-            //app.UseMiddleware<JwtMiddleware>();
-
             app.UseStaticFiles();
             app.MapControllers();
+
             app.Run();
         }
     }

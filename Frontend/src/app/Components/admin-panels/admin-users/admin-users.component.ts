@@ -70,8 +70,8 @@ export class AdminUsersComponent implements OnInit {
     this.message = '';
     if (this.user.id == 0) {
       this.userService.createUser(this.user).subscribe({
-        next: (newUser) => {
-          this.users.push(newUser);
+        next: () => {
+          this.loadUsers(); // <-- Hent ny liste
           this.user = resetUser();
           this.closeModal();
         },
@@ -86,11 +86,8 @@ export class AdminUsersComponent implements OnInit {
   updateUser(): void {
     if (!this.user || this.user.id === 0) return;
     this.userService.updateUser(this.user).subscribe({
-      next: (updatedUser) => {
-        const index = this.users.findIndex(u => u.id === updatedUser.id);
-        if (index !== -1) {
-          this.users[index] = updatedUser;
-        }
+      next: () => {
+        this.loadUsers(); // <-- Hent ny liste
         this.user = resetUser();
         this.closeModal();
       },

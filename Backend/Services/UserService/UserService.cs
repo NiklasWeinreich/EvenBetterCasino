@@ -1,7 +1,9 @@
 ﻿using Backend.Authentication;
 using Backend.Database.Entities;
+using Backend.DTO.EmailDTO;
 using Backend.DTO.LoginDTO;
 using Backend.DTO.UserDTO;
+using Backend.Interfaces.IEmail;
 using Backend.Interfaces.IUser;
 
 namespace Backend.Services.UserService
@@ -10,11 +12,13 @@ namespace Backend.Services.UserService
     {
         private readonly IUserRepository _userRepository;
         private readonly IJwtUtils _jwtUtils;
+        private readonly IEmailService _emailService;
 
-        public UserService(IUserRepository userRepository, IJwtUtils jwtUtils)
+        public UserService(IUserRepository userRepository, IJwtUtils jwtUtils, IEmailService emailService)
         {
             _userRepository = userRepository;
             _jwtUtils = jwtUtils;
+            _emailService = emailService;
         }
 
         public async Task<UserResponse> CreateUserAsync(UserRequest newUserRequest)
@@ -159,6 +163,34 @@ namespace Backend.Services.UserService
 
             return UserService.MapEntityToResponse(user);
         }
+
+        public async Task<UserResponse?> SubscribeNewsletter(string email)
+        {
+            var user = await _userRepository.GetUserByEmail(email);
+            if (user == null)
+                return null;
+
+            if (!user.NewsLetterIsSubscribed)
+            {
+                user.NewsLetterIsSubscribed = true;
+                await _userRepository.UpdateUserAsync(user);
+
+                var mail = new EmailResponse
+                {
+                    To = user.Email,
+                    Subject = "Velkommen til EvenBetterCasino nyhedsbrevet!",
+                    Body = $"Hej {user.FirstName}!<br><br>" +
+                           "Tak fordi du har tilmeldt dig vores nyhedsbrev.<br>" +
+                           "Du vil nu modtage spændende opdateringer, nyheder og tilbud direkte i din indbakke.<br><br>" +
+                           "Hilsen<br>EvenBetter Teamet"
+                };
+
+                _emailService.SendEmail(mail);
+            }
+
+            return MapEntityToResponse(user);
+        }
+
 
     }
 }

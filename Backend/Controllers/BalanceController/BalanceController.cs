@@ -135,15 +135,5 @@ namespace Backend.Controllers.BalanceController
             }
         }
 
-
-
-        
-
-
-
-
-        
-
-
     }
 }

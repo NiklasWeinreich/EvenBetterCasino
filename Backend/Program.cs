@@ -18,6 +18,8 @@ using Backend.Interfaces.IBalance;
 using Backend.Repositories.BalanceRepository;
 using Backend.Services.BalanceService;
 using Backend.Authentication;
+using Backend.Interfaces.IEmail;
+using Backend.Services.EmailService;
 
 
 
@@ -42,6 +44,9 @@ namespace Backend
             builder.Services.AddScoped<IKenoService, KenoService>();
             builder.Services.AddScoped<IBalanceRepository, BalanceRepository>();
             builder.Services.AddScoped<IBalanceService, BalanceService>();
+            builder.Services.AddScoped<IEmailService, EmailService>();
+
+
             builder.Services.AddScoped<IJwtUtils, JwtUtils>();
 
             var key = Encoding.ASCII.GetBytes(builder.Configuration["AppSettings:Secret"]!);
@@ -75,6 +80,10 @@ namespace Backend
 
             builder.Services.Configure<AppSettings>(
                 builder.Configuration.GetSection("AppSettings"));
+
+            builder.Services.Configure<MailSettings>(
+                builder.Configuration.GetSection("MailSettings"));
+
 
             builder.Services.AddSwaggerGen(c =>
             {

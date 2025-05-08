@@ -274,7 +274,7 @@ namespace Backend.Migrations
                             LastName = "Maskine",
                             Loss = 25,
                             NewsLetterIsSubscribed = true,
-                            Password = "$2a$11$OR/X/d9g7ewGu0cZRpTz1u0NOz4xy..EIMAN5Atgu2nv3fGMskmfm",
+                            Password = "$2a$11$LTHVHhoBQVjsN/HMJcxmgefHIX2EmT2Uju.A4zeqdVtCOB9UbfMHe",
                             PhoneNumber = 12345678,
                             Profit = 50m,
                             Role = 1
@@ -288,10 +288,130 @@ namespace Backend.Migrations
                             FirstName = "John",
                             LastName = "Doe",
                             Loss = 55,
-                            NewsLetterIsSubscribed = true,
-                            Password = "$2a$11$6WgIDfS0jk7nUK7tqvXaoOckJPPcHmQDDKPPCAT/vRxCFz4oCNAUK",
-                            PhoneNumber = 12345678,
+                            NewsLetterIsSubscribed = false,
+                            Password = "$2a$11$3kTnvLj1KgG6tVUBwfUrN.AefnS2s5mpxhQcQQqvkQbNfPvfniliy",
+                            PhoneNumber = 87654321,
                             Profit = 33m,
+                            Role = 0
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Balance = 100m,
+                            BirthDate = new DateTime(1995, 3, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "anna.jensen@example.com",
+                            FirstName = "Anna",
+                            LastName = "Jensen",
+                            Loss = 15,
+                            NewsLetterIsSubscribed = true,
+                            Password = "$2a$11$aADIm55dd7ec4jGQ0YpGwubDR69wkWQ0yQX1UsNRYt26O9llTym8m",
+                            PhoneNumber = 11111111,
+                            Profit = 20m,
+                            Role = 0
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Balance = 150m,
+                            BirthDate = new DateTime(1988, 7, 23, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "mark.larsen@example.com",
+                            FirstName = "Mark",
+                            LastName = "Larsen",
+                            Loss = 10,
+                            NewsLetterIsSubscribed = true,
+                            Password = "$2a$11$H0rTTQvDlSryyT77aEx4ou9PZhVZMj8aX6j/z/16VfhSAKlE5WO3.",
+                            PhoneNumber = 22222222,
+                            Profit = 40m,
+                            Role = 0
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Balance = 200m,
+                            BirthDate = new DateTime(1992, 9, 30, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "sara.hansen@example.com",
+                            FirstName = "Sara",
+                            LastName = "Hansen",
+                            Loss = 25,
+                            NewsLetterIsSubscribed = false,
+                            Password = "$2a$11$cV5Fm8SA8f8TSupv2R.eD.LME1Mq1KlWSB7qu9PCZFntAH65VDsxy",
+                            PhoneNumber = 33333333,
+                            Profit = 30m,
+                            Role = 0
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Balance = 300m,
+                            BirthDate = new DateTime(1985, 1, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "peter.madsen@example.com",
+                            FirstName = "Peter",
+                            LastName = "Madsen",
+                            Loss = 40,
+                            NewsLetterIsSubscribed = true,
+                            Password = "$2a$11$7yoKBEC/int4z9nHhxfa/uZNnW2yqkp585HKeHASm/OpgEaNX78d.",
+                            PhoneNumber = 44444444,
+                            Profit = 70m,
+                            Role = 0
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Balance = 120m,
+                            BirthDate = new DateTime(1998, 12, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "laura.poulsen@example.com",
+                            FirstName = "Laura",
+                            LastName = "Poulsen",
+                            Loss = 5,
+                            NewsLetterIsSubscribed = true,
+                            Password = "$2a$11$zN3KAbYDjY3UdWAB.iiquubPusocqE74xRogdjTME1YynW9YFDF.i",
+                            PhoneNumber = 55555555,
+                            Profit = 25m,
+                            Role = 0
+                        },
+                        new
+                        {
+                            Id = 8,
+                            Balance = 180m,
+                            BirthDate = new DateTime(1982, 4, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "thomas.christensen@example.com",
+                            FirstName = "Thomas",
+                            LastName = "Christensen",
+                            Loss = 20,
+                            NewsLetterIsSubscribed = true,
+                            Password = "$2a$11$xWYTwG6OmhU0itqAjn/JXuGSNqS4V3O/ZMGFenQFU4yV6hxM4l5ym",
+                            PhoneNumber = 66666666,
+                            Profit = 60m,
+                            Role = 0
+                        },
+                        new
+                        {
+                            Id = 9,
+                            Balance = 220m,
+                            BirthDate = new DateTime(1994, 6, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "emma.andersen@example.com",
+                            FirstName = "Emma",
+                            LastName = "Andersen",
+                            Loss = 10,
+                            NewsLetterIsSubscribed = true,
+                            Password = "$2a$11$yMVlTMFy0CZDF3GVs2n98ON3NParSEMglvUZjVFQEYNafYmOHX0yK",
+                            PhoneNumber = 77777777,
+                            Profit = 80m,
+                            Role = 0
+                        },
+                        new
+                        {
+                            Id = 10,
+                            Balance = 90m,
+                            BirthDate = new DateTime(1989, 11, 19, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "mikkel.olsen@example.com",
+                            FirstName = "Mikkel",
+                            LastName = "Olsen",
+                            Loss = 10,
+                            NewsLetterIsSubscribed = false,
+                            Password = "$2a$11$el2LQZc0uVX1Yg6hLi4iC.W8.ZxsHw3xFhSsiUgzpmG/TF/orVedK",
+                            PhoneNumber = 88888888,
+                            Profit = 10m,
                             Role = 0
                         });
                 });

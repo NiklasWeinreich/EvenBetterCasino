@@ -30,12 +30,12 @@ export const routes: Routes = [
             { path: 'problem-gambling', loadComponent: () => import('./Components/rofus/ludomani/ludomani.component').then(m => m.LudomaniComponent) },
             { path: 'myths-explained', loadComponent: () => import('./Components/rofus/myter/myter.component').then(m => m.MyterComponent) },
         ]
-    }
+    },
 
 
   
     { path: 'games', loadComponent: () => import('./Components/games-front-page/games-front-page.component').then(m => m.GamesComponent) },
     { path: 'games/dice', loadComponent: () => import('./Components/games/dice-game/dice-game.component').then(m => m.DiceGameComponent) },
-    { path: 'games/yatzy', loadComponent: () => import('./Components/games/yatzy-game/yatzy-game.component').then(m => m.YatzyGameComponent) }, 
+    { path: 'games/yatzy', loadComponent: () => import('./Components/games/yatzy-game/yatzy-game.component').then(m => m.YatzyGameComponent) } 
 
 ];

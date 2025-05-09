@@ -50,6 +50,11 @@ namespace Backend.Repositories.UserRepository
             return await _dbcontext.Users.ToListAsync();
         }
 
+        public Task<List<User>> GetNewsletterSubscribersAsync()
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<User> GetUserByEmail(string email)
         {
             return await _dbcontext.Users.FirstOrDefaultAsync(u => u.Email == email);
@@ -59,6 +64,16 @@ namespace Backend.Repositories.UserRepository
         {
             return await _dbcontext.Users.FindAsync(id);
         }
+
+        public async Task<User?> SubscribeNewsletter(string email)
+        {
+            var user = await _dbcontext.Users.FirstOrDefaultAsync(u => u.Email == email);
+            if (user == null) return null;
+
+            user.NewsLetterIsSubscribed = true;
+            return await UpdateUserAsync(user);
+        }
+
 
         public async Task<User> UpdateUserAsync(User updateUser)
         {
@@ -71,6 +86,16 @@ namespace Backend.Repositories.UserRepository
             await _dbcontext.SaveChangesAsync();
             return existingUser;
         }
+
+        public async Task<User?> UnsubscribeNewsletter(string email)
+        {
+            var user = await _dbcontext.Users.FirstOrDefaultAsync(u => u.Email == email);
+            if (user == null) return null;
+
+            user.NewsLetterIsSubscribed = false;
+            return await UpdateUserAsync(user);
+        }
+
     }
 }
 

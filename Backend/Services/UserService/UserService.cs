@@ -25,8 +25,15 @@ namespace Backend.Services.UserService
         {
             var newUser = MapRequestToEntity(newUserRequest);
             var createdUser = await _userRepository.CreateUserAsync(newUser);
+
+            if (newUser.NewsLetterIsSubscribed)
+            {
+                await SubscribeNewsletter(newUser.Email);
+            }
+
             return MapEntityToResponse(createdUser);
         }
+
 
         public async Task<bool> DeleteUserAsync(int id)
         {
@@ -190,6 +197,33 @@ namespace Backend.Services.UserService
 
             return MapEntityToResponse(user);
         }
+
+        public async Task<UserResponse?> UnsubscribeNewsletter(string email)
+        {
+            var user = await _userRepository.GetUserByEmail(email);
+            if (user == null)
+                return null;
+
+            if (user.NewsLetterIsSubscribed)
+            {
+                user.NewsLetterIsSubscribed = false;
+                await _userRepository.UpdateUserAsync(user);
+
+                var mail = new EmailResponse
+                {
+                    To = user.Email,
+                    Subject = "Afmeldt fra nyhedsbrev",
+                    Body = $"Hej {user.FirstName}!<br><br>" +
+                           "Du er nu afmeldt vores nyhedsbrev.<br><br>" +
+                           "Hilsen<br>EvenBetter Teamet"
+                };
+
+                _emailService.SendEmail(mail);
+            }
+
+            return MapEntityToResponse(user);
+        }
+
 
 
     }

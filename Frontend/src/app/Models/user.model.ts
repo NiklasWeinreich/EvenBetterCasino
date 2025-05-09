@@ -6,7 +6,7 @@ export interface User {
     email: string,
     birthDate: number,
     phoneNumber: number,
-    newsLetterIsSubscribed?: boolean; 
+    newsLetterIsSubscribed: boolean; 
     balance: number,
     profit: number,
     loss: number,

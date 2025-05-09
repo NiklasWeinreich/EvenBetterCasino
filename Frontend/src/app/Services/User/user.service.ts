@@ -87,4 +87,12 @@ export class UserService {
   excludeUser(userId: number, hours: number): Observable<any> {
     return this.http.post(`${this.userApiUrl}/${userId}/exclude`, hours);
   }
+
+    subscribe(userMail: string): Observable<User> {
+    return this.http.post<User>(this.userApiUrl + '/Newsletter/Subscribe/' + userMail, userMail);
+  }
+
+  unsubscribe(userMail: string): Observable<User> {
+    return this.http.post<User>(this.userApiUrl + '/Newsletter/Unsubscribe/' + userMail, userMail);
+  }
 }

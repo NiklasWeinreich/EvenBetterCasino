@@ -24,6 +24,11 @@ export class HomeComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.loadUserEmail();
+
+  }
+
+  loadUserEmail(): void {
     const user = this.authService.currentUserValue;
     if (user && user.email) {
       this.userEmail = user.email;

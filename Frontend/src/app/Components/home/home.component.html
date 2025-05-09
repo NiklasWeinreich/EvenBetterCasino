@@ -5,7 +5,7 @@
     </div>
 
     <!-- Nyhedsbrev sektion nederst -->
-    <div class="rounded shadow p-3 mt-auto border border-primary">
+    <div class="rounded shadow bg-dark p-3 mt-auto border border-primary">
         <div class="row align-items-center justify-content-center g-2">
             <div class="col-12 col-md-auto text-center text-md-start">
                 <label for="email" class="form-label mb-0 me-2">Nyhedsbrev:</label>
@@ -15,7 +15,7 @@
                     [readonly]="authService.currentUserValue !== null" placeholder="Din e-mail" required />
             </div>
             <div class="col-12 col-md-auto text-center">
-                <button *ngIf="!isSubscribed" class="btn btn-success me-2 mt-2 mt-md-0"
+                <button *ngIf="!isSubscribed" class="btn btn-outline-primary me-2 mt-2 mt-md-0"
                     (click)="subscribeToNewsletter()">
                     Tilmeld
                 </button>

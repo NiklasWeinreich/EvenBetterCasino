@@ -2,18 +2,17 @@
 
 namespace Backend.Database.Entities
 {
-    public class Categori
-    {
 
-        [Key]
-        [Column(TypeName = "int")]
-        public int Id { get; set; }
+        public class Categori
+        {
+            [Key]
+            [Column(TypeName = "int")]
+            public int Id { get; set; }
 
-        [Column(TypeName = "nvarchar(50)")]
-        public required string Name { get; set; }
+            [Column(TypeName = "nvarchar(50)")]
+            public required string Name { get; set; }
 
-        [Column(TypeName = "int")]
-        public required string GamesId { get; set; }
-
-    }
+            // Navigation property til alle spil i kategorien
+            public ICollection<Game> Games { get; set; } = new List<Game>();
+        }
 }

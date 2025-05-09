@@ -15,7 +15,7 @@ namespace Backend.Repositories.UserRepository
 
         public async Task<User> CreateUserAsync(User newUser)
         {
-            newUser.Password = BCrypt.Net.BCrypt.HashPassword(newUser.Password);
+            //newUser.Password = BCrypt.Net.BCrypt.HashPassword(newUser.Password);
             
             _dbcontext.Users.Add(newUser);
             await _dbcontext.SaveChangesAsync();
@@ -32,6 +32,17 @@ namespace Backend.Repositories.UserRepository
             await _dbcontext.SaveChangesAsync();
 
             return true;
+        }
+
+        public async Task<User?> ExcludeUserAsync(int Id, int exclusionPeriodHours)
+        {
+            var user = await GetUserByIdAsync(Id);
+            if (user == null) return null;
+
+            user.ExcludedUntil = DateTime.UtcNow.AddHours(exclusionPeriodHours);
+            await UpdateUserAsync(user);
+
+            return user;
         }
 
         public async Task<List<User>> GetAllUserAsync()

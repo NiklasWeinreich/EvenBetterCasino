@@ -1,1 +1,55 @@
-<p>account works!</p>
+<div class="container my-5" *ngIf="user">
+    <div class="row justify-content-center">
+      <div class="col-12 col-md-10 col-lg-8">
+        <div class="card bg-light rounded-4">
+          <div class="card-body p-4">
+            <h2 class="card-title text-center mb-4">Din profil</h2>
+            <p class="text-center text-muted mb-4">Se og opdater dine personlige oplysninger herunder.</p>
+            <form (ngSubmit)="updateUser()">
+            <div class="row mb-3">
+              <div class="col">
+                <label class="form-label">Fornavn</label>
+                <input type="text" class="form-control" [(ngModel)]="user.firstName" name="firstName" disabled>
+              </div>
+
+              <div class="col">
+                <label class="form-label">Efternavn</label>
+                <input type="text" class="form-control" [(ngModel)]="user.lastName" name="lastName" disabled>
+              </div>
+            </div>
+  
+            <div class="mb-3">
+              <label class="form-label">Email</label>
+              <input type="email" class="form-control" [(ngModel)]="user.email" name="email">
+            </div>
+  
+            <div class="mb-3">
+              <label class="form-label">Adgangskode</label>
+              <input type="password" class="form-control" [(ngModel)]="user.password" name="password">
+            </div>
+  
+            <div class="mb-3">
+              <label class="form-label">Fødselsdato</label>
+              <input type="date" class="form-control" [(ngModel)]="user.birthDate" name="birthDate">
+            </div>
+  
+            <div class="mb-3">
+              <label class="form-label">Telefonnummer</label>
+              <input type="tel" class="form-control" [(ngModel)]="user.phoneNumber" name="phoneNumber">
+            </div>
+  
+            <div class="form-check mb-4">
+              <input class="form-check-input" type="checkbox" [(ngModel)]="user.newsLetterIsSubscribed" name="newsLetterIsSubscribed" id="newsletter">
+              <label class="form-check-label" for="newsletter">Tilmeld nyhedsbrev</label>
+            </div>
+  
+            <div class="text-center">
+              <button type="submit" class="btn btn-outline-primary px-4">Opdater profil</button>
+            </div> 
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

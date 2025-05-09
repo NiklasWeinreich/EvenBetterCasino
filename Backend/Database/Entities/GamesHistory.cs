@@ -18,10 +18,14 @@ namespace Backend.Database.Entities
         [Column(TypeName = "int")]
         public required int BetAmount { get; set; }
         
-        [Column(TypeName = "bool")]
         public required bool Win { get; set; } = false;
         
-        [Column(TypeName = "bool")]
         public required bool JackpotWin { get; set; } = false;
+
+        [ForeignKey("UserId")]
+        public User User { get; set; }
+
+        [ForeignKey("GamesId")]
+        public Game Games { get; set; }
     }
 }

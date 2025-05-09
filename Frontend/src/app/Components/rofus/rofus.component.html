@@ -1,1 +1,22 @@
-<p>rofus works!</p>
+<div class="container-fluid" style="min-height: 100vh;">
+    <!-- Navigation -->
+    <div class="text-center pt-5">
+        <h1 class="text-light fw-bold mb-4">Ansvarligt Spil</h1>
+        <div class="mt-3">
+            <button class="me-2 btn btn-primary btn-lg shadow-sm" [routerLink]="['/responsible-gambling/overview']" routerLinkActive="active">Oversigt</button>
+            <button class="me-2 btn btn-primary btn-lg shadow-sm" [routerLink]="['/responsible-gambling/problem-gambling']" routerLinkActive="active">Ludomani</button>
+            <button class="btn btn-primary btn-lg shadow-sm" [routerLink]="['/responsible-gambling/myths-explained']" routerLinkActive="active">Forklarede myter</button>
+        </div>
+    </div>
+
+    <!-- Indholdsområde -->
+    <div class="container mt-5">
+        <div class="card shadow-lg border-0 bg-dark text-light">
+            <div class="card-body px-5 py-4">
+                <router-outlet></router-outlet>
+            </div>
+        </div>
+    </div>
+</div>
+
+

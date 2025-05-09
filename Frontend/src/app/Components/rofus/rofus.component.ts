@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
+import { RouterLink, RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-rofus',
-  imports: [],
+  imports: [RouterLink, RouterOutlet],
   templateUrl: './rofus.component.html',
   styleUrl: './rofus.component.css'
 })

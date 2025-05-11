@@ -5,6 +5,8 @@ using Backend.Games.Keno;
 using System.Numerics;
 using Azure.Core;
 using Backend.Games.Keno.Service;
+using static System.Runtime.InteropServices.JavaScript.JSType;
+using Backend.Interfaces.IBalance;
 
 namespace Backend.Games.Keno.KenoController
 {
@@ -15,36 +17,42 @@ namespace Backend.Games.Keno.KenoController
 
         private int totalNumber = 40;
         private readonly IKenoService _kenoService;
+        private readonly IBalanceService _balanceService;
 
-        public KenoController(IKenoService kenoService)
+
+        public KenoController(IKenoService kenoService, IBalanceService balanceService)
         {
             _kenoService = kenoService;
+            _balanceService = balanceService;
         }
 
         [HttpPost("getOdds")]
-        public IActionResult GetOdds([FromBody] KenoStartGameRequest request)
+        public async Task<IActionResult> GetOdds([FromBody] KenoGameRequest request)
         {
 
             var validationResult = CheckForValidInput(request.PlayerNumbers);
             if (validationResult != null) return validationResult;
 
 
-            var odds = _kenoService.GetOdds(request.PlayerNumbers);
+            var odds = await _kenoService.GetOdds(request.PlayerNumbers);
             
             return Ok(odds);
-
 
         }
 
 
         [HttpPost("getRandomPlayerNumbers")]
-        public IActionResult GetRandomPlayerNumbers(int amountOfNumbers)
+        public async Task<IActionResult> GetRandomPlayerNumbers(int amountOfNumbers)
         {
 
             try
             {
+                if (amountOfNumbers is > 10 or < 1) 
+                {
+                    return BadRequest(new { message = "Forkert input.Du kan kun vælge mellem 1 - 10 numre." });
+                }
                 
-                var numbers = _kenoService.GetRandomPlayerNumbers(amountOfNumbers);
+                var numbers = await _kenoService.GetRandomPlayerNumbers(amountOfNumbers);
                 
                 return Ok(new { message = "Your numbers:", playerNumberList = numbers });
             
@@ -55,27 +63,29 @@ namespace Backend.Games.Keno.KenoController
                 return BadRequest(new { message = ex.Message });
             
             }
-
-
         }
 
 
         [HttpPost("playGame")]
-        public IActionResult PlayGame([FromBody] KenoStartGameRequest request)
+        public async Task<IActionResult> PlayGame([FromBody] KenoGameRequest request, int userId)
         {
 
             var validationResult = CheckForValidInput(request.PlayerNumbers);
             if (validationResult != null) return validationResult;
 
+            var balance = await _balanceService.PlaceBetAsync(userId, request.BetAmount);
+            if (balance < 0) // Hvis der er et problem med trækningen af penge (f.eks. utilsigtet negativ balance)
+                return BadRequest("Fejl - Kunne ikke trække spilløb fra saldo.");
 
-            var result = _kenoService.PlayGame(request.PlayerNumbers);
-            return Ok(new
+            var result = await _kenoService.PlayGame(request.PlayerNumbers, request.BetAmount);
+
+            if (result.IsWin)
             {
-                message = "Yeeeehaaaay! - Det virker!",
-                drawnedNumbers = result.DrawnNumbers,
-                currectMatches = result.Matches,
-                multiplier = result.Multiplier
-            });
+                await _balanceService.WinAmountAsync(userId, result.Payout);
+            }
+
+
+            return Ok(result);
 
         }
 

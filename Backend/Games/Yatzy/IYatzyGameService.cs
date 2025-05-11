@@ -4,6 +4,6 @@ namespace Backend.Games.Yatzy
 {
     public interface IYatzyGameService
     {
-        YatzyGameResult PlayGame(YatzyGameRequest request);
+        Task<YatzyGameResult> PlayGame(int userId, decimal betAmount);
     }
 }

@@ -8,6 +8,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.Globalization;
 using System.Linq;
 using Azure.Core;
+using Backend.Interfaces.IBalance;
 
 namespace Backend.Games.Yatzy.YatzyController
 {
@@ -17,18 +18,29 @@ namespace Backend.Games.Yatzy.YatzyController
     {
 
         private readonly IYatzyGameService _yatzyGameService;
+        private readonly IBalanceService _balanceService;
 
-        public YatzyGameController(IYatzyGameService yatzyGameService)
+        public YatzyGameController(IYatzyGameService yatzyGameService, IBalanceService balanceService)
         {
             _yatzyGameService = yatzyGameService;
+            _balanceService = balanceService;
         }
 
 
         [HttpPost("playGame")]
-        public IActionResult PlayGame([FromBody] YatzyGameRequest request)
+        public async Task<IActionResult> PlayGame([FromBody] YatzyGameRequest request)
         {
 
-            var result = _yatzyGameService.PlayGame(request);
+            var balance = await _balanceService.PlaceBetAsync(request.UserId, request.BetAmount);
+            if (balance < 0) // Hvis der er et problem med trækningen af penge (f.eks. utilsigtet negativ balance)
+                return BadRequest("Fejl - Kunne ikke trække spilløb fra saldo.");
+
+            var result = await _yatzyGameService.PlayGame(request.UserId, request.BetAmount);
+
+            if (result.IsWin)
+            {
+                await _balanceService.WinAmountAsync(request.UserId, result.Payout);
+            }
 
             return Ok(result);
         }

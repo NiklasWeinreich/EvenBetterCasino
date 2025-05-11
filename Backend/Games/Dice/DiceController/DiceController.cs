@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Backend.Games.Dice;
 using System.Collections.Concurrent;
 using Backend.Games.Bombastic;
+using Backend.Interfaces.IBalance;
 
 
 namespace Backend.Games.Dice.DiceController
@@ -13,31 +14,37 @@ namespace Backend.Games.Dice.DiceController
     {
 
         private readonly IDiceGameService _diceGameService;
+        private readonly IBalanceService _balanceService;
 
-        public DiceController(IDiceGameService diceGameService)
+        public DiceController(IDiceGameService diceGameService, IBalanceService balanceService)
         {
             _diceGameService = diceGameService;
+            _balanceService = balanceService;
+            
 
         }
 
 
         [HttpPost("playGame")]
-        public IActionResult PlayGame([FromBody] DiceClickRequest request)
+        public async Task<IActionResult> PlayGame([FromBody] DiceClickRequest request)
         {
 
 
             if (request.PlayerNumber < 1 || request.PlayerNumber > 100)
                 return BadRequest("Player number must be between 1 and 100.");
 
-            if (request.BetAmount <= 0)
-                return BadRequest("Bet amount must be greater than zero.");
 
-            var result = _diceGameService.PlayGame(request.PlayerNumber, request.IsGuessOver, request.BetAmount);
+            var balance = await _balanceService.PlaceBetAsync(request.UserId, request.BetAmount);
+            if (balance < 0) // Hvis der er et problem med trækningen af penge (f.eks. utilsigtet negativ balance)
+                return BadRequest("Fejl - Kunne ikke trække spilløb fra saldo.");
 
-            //if (result.IsWin)
-            //{
-            //    await _balanceService.DepositAsync(request.UserId, result.Payout);
-            //}
+
+            var result = await _diceGameService.PlayGame(request.PlayerNumber, request.IsGuessOver, request.BetAmount);
+
+            if (result.IsWin)
+            {
+                await _balanceService.WinAmountAsync(request.UserId, result.Payout);
+            }
 
 
             return Ok(result);

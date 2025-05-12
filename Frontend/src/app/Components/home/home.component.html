@@ -3,7 +3,6 @@
         <h1 class="display-5 text-primary fw-bold">Velkommen til EvenBetterCasino</h1>
         <p class="lead">Danmarks mest underholdende online casino!</p>
     </div>
-
     <!-- Nyhedsbrev sektion nederst -->
     <div class="rounded shadow bg-dark p-3 mt-auto border border-primary">
         <div class="row align-items-center justify-content-center g-2">
@@ -28,7 +27,6 @@
         <div *ngIf="isSubscribed" class="text-primary text-center mt-2">
             Du er allerede tilmeldt nyhedsbrevet.
         </div>
-
         <div *ngIf="message" [ngClass]="messageClass" class="text-center fw-semibold mt-2">
             {{ message }}
         </div>

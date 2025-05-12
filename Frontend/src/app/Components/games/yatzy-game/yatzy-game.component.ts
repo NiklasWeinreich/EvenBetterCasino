@@ -7,7 +7,7 @@ import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-yatzy-game',
-  imports: [FormsModule, CommonModule, GameLayoutComponent, NgClass],
+  imports: [FormsModule, CommonModule, GameLayoutComponent],
   templateUrl: './yatzy-game.component.html',
   styleUrl: './yatzy-game.component.css'
 })

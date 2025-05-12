@@ -57,9 +57,15 @@
           <p class="text-muted">Du kan vælge at udelukke dig selv fra platformen i en periode.</p>
 
           <div class="mb-3">
-            <label for="exclusionPeriod">Vælg udelukkelsesperiode (i timer):</label>
-            <input type="number" min="1" class="form-control w-50 mx-auto" [(ngModel)]="exclusionPeriodHours"
-              name="exclusionPeriod">
+            <label for="exclusionPeriod">Vælg udelukkelsesperiode:</label>
+            <select class="form-control w-50 mx-auto" [(ngModel)]="exclusionPeriodHours" name="exclusionPeriod">
+              <option [ngValue]="null">-- Vælg periode --</option>
+              <option [ngValue]="1">1 dag</option>
+              <option [ngValue]="3">3 dage</option>
+              <option [ngValue]="7">1 uge</option>
+              <option [ngValue]="14">2 uger</option>
+              <option [ngValue]="30">1 måned</option>
+            </select>
           </div>
 
           <button class="btn btn-danger" (click)="excludeUser()">Udeluk mig</button>

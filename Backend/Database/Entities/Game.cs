@@ -13,8 +13,8 @@ namespace Backend.Database.Entities
         [Column(TypeName = "int")]
         public required int KategoriId { get; set; }
 
-        [Column(TypeName = "int")]
-        public int JackpotAmount { get; set; }
+        [Column(TypeName = "decimal")]
+        public decimal JackpotAmount { get; set; }
 
         [Column(TypeName = "nvarchar(255)")]
         public string? ImageUrl { get; set; } 

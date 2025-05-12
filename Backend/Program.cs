@@ -20,6 +20,9 @@ using Backend.Services.BalanceService;
 using Backend.Authentication;
 using Backend.Interfaces.IEmail;
 using Backend.Services.EmailService;
+using Backend.Interfaces.IJackpot;
+using Backend.Repositories.JackpotRepository;
+using Backend.Services.JackpotService;
 
 
 
@@ -45,6 +48,8 @@ namespace Backend
             builder.Services.AddScoped<IBalanceRepository, BalanceRepository>();
             builder.Services.AddScoped<IBalanceService, BalanceService>();
             builder.Services.AddScoped<IEmailService, EmailService>();
+            builder.Services.AddScoped<IJackpotRepository, JackpotRepository>();
+            builder.Services.AddScoped<IJackpotService, JackpotService>();
 
 
             builder.Services.AddScoped<IJwtUtils, JwtUtils>();

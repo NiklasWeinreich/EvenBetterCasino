@@ -1,7 +1,18 @@
-<h1 class="text-center">Dice it or slice it!</h1>
-<div>
-    <label for="customRange1" class="form-label">Vælg et nummer:</label>
-    <input type="range" class="form-range" min="1" max="100" id="customRange1">
-
-
-</div> 
+<app-game-layout>
+    <div slot="title-area">
+        <h4>DICE</h4>
+    </div>    
+    <div slot="jackpot-area">
+        <div>
+            JACKPOT:
+        </div>
+        <div>
+            500.000 kr
+        </div>
+    </div>
+    <div slot="game-area">
+        <label>Dit tal: {{ selectedNumber }}</label>
+        <input id="playerNumber" type="range" min="1" max="100" [(ngModel)]="selectedNumber" />
+    </div>
+  </app-game-layout>
+  

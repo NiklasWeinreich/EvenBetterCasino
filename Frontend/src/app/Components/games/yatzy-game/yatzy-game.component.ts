@@ -13,6 +13,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class YatzyGameComponent {
 
+  jackpot : number = 500000;
   
 
 }

@@ -17,7 +17,6 @@ namespace Backend.Database.Entities
         [Column(TypeName = "nvarchar(50)")]
         public string Type { get; set; }
 
-        [Column(TypeName = "datetime")]
         public DateTime Date { get; set; }
 
         [Column(TypeName = "nvarchar(50)")]

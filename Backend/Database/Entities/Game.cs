@@ -28,6 +28,6 @@ namespace Backend.Database.Entities
         [ForeignKey("CategoryId")]
         public Category Category { get; set; }
 
-        public ICollection<GamesHistory> GamesHistories { get; set; }
+        public ICollection<GameHistory> GameHistories { get; set; } = new List<GameHistory>();
     }
 }

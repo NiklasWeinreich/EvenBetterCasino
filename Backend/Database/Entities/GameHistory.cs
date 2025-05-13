@@ -2,21 +2,20 @@
 
 namespace Backend.Database.Entities
 {
-    public class GamesHistory
+    public class GameHistory
     {
         [Key]
-        public int GamesHistoryId { get; set; }
+        public int GameHistoryId { get; set; }
 
-        [Column(TypeName = "datetime")]
         public DateTime Date {  get; set; }
 
         [Column(TypeName = "int")]
         public required int UserId { get; set; }
         
         [Column(TypeName = "int")]
-        public required int GamesId { get; set; }
+        public required int GameId { get; set; } 
 
-        [Column(TypeName = "decimal")]
+        [Column(TypeName = "decimal(18,2)")]
         public required decimal BetAmount { get; set; }
         
         public required bool IsWin { get; set; } = false;

@@ -20,7 +20,6 @@ export class GameLayoutComponent {
       alert('Indsats skal være mindst 1 kr');
       return;
     }
-
     this.betPlaced.emit(this.betAmount); // <-- sender indsats til parent
   }
 }

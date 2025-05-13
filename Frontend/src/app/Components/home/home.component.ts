@@ -4,6 +4,8 @@ import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { UserService } from '../../Services/User/user.service';
 import { AuthService } from '../../Services/Security/auth.service';
+import { GameService } from '../../Services/Games/games.service';
+import { Game } from '../../Models/games.model';
 
 @Component({
   selector: 'app-home',
@@ -17,15 +19,31 @@ export class HomeComponent implements OnInit {
   isSubscribed: boolean = false;
   message: string = '';
   messageClass: string = '';
+  games: Game[] = [];
 
   constructor(
     private userService: UserService,
-    public authService: AuthService
+    public authService: AuthService,
+    public gamesService: GameService
   ) {}
 
   ngOnInit(): void {
     this.loadUserEmail();
+    this.loadGames();
+  }
 
+  loadGames(): void {
+    this.gamesService.getAllGames().subscribe({
+      next: (games) => {
+        this.games = games;
+        console.log('spil hentet', games);
+
+      },
+      error: (err) => {
+        console.error(err);
+        console.log('Fejl ved hentning af spil' + err);
+      },
+    });
   }
 
   loadUserEmail(): void {

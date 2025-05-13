@@ -64,8 +64,8 @@ namespace Backend.Database.DatabaseContext
 
             modelBuilder.Entity<Categori>()
                 .HasMany(c => c.Games)
-                .WithOne(g => g.Categori)
-                .HasForeignKey(g => g.KategoriId)
+                .WithOne(g => g.Category)
+                .HasForeignKey(g => g.CategoryId)
                 .OnDelete(DeleteBehavior.Cascade);
         }
 
@@ -127,7 +127,7 @@ namespace Backend.Database.DatabaseContext
                 {
                     Id = 1,
                     Name = "Football Match",
-                    KategoriId = 1,
+                    CategoryId = 1,
                     JackpotAmount = 10000,
                     ImageUrl = "https://i.imgflip.com/7nz6q8.png?a484848",
                     Status = true
@@ -136,7 +136,7 @@ namespace Backend.Database.DatabaseContext
                 {
                     Id = 2,
                     Name = "Blackjack",
-                    KategoriId = 2,
+                    CategoryId = 2,
                     JackpotAmount = 5000,
                     ImageUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTUKs7TFCPgIxI0i4E3IwOiAEAGbdfCg8zKmA&s",
                     Status = true

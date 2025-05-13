@@ -21,7 +21,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\GameController\" />
     <Folder Include="Controllers\BalanceController\" />
     <Folder Include="Games\HorseRace\HorseRaceController\" />
     <Folder Include="Games\Minesweeper\MinesweeperController\" />

@@ -11,18 +11,22 @@ namespace Backend.Database.Entities
         public required string Name { get; set; }
 
         [Column(TypeName = "int")]
-        public required int KategoriId { get; set; }
-
-        [Column(TypeName = "int")]
-        public int JackpotAmount { get; set; }
+        public required int CategoryId { get; set; }
 
         [Column(TypeName = "nvarchar(255)")]
-        public string? ImageUrl { get; set; } 
+        public string? WebUrl { get; set; }
+
+        [Column(TypeName = "decimal")]
+        public decimal JackpotAmount { get; set; }
+
+        [Column(TypeName = "nvarchar(255)")]
+        public string? ImageUrl { get; set; }
+
 
         public required bool Status { get; set; } = false;
 
-        [ForeignKey("KategoriId")]
-        public Categori Categori { get; set; }
+        [ForeignKey("CategoryId")]
+        public Categori Category { get; set; }
 
         public ICollection<GamesHistory> GamesHistories { get; set; }
     }

@@ -1,10 +1,10 @@
-import { Injectable } from "@angular/core";
-import { BehaviorSubject, map, Observable } from "rxjs";
-import { User } from "../../Models/user.model";
-import { HttpClient } from "@angular/common/http";
-import { TokenService } from "./token.service";
-import { environment } from "../../Environments/environment";
-import { LoginResponse } from "../../Models/loginresponse.model";
+import { Injectable } from '@angular/core';
+import { BehaviorSubject, map, Observable, switchMap, throwError } from 'rxjs';
+import { User } from '../../Models/user.model';
+import { HttpClient } from '@angular/common/http';
+import { TokenService } from './token.service';
+import { environment } from '../../Environments/environment';
+import { LoginResponse } from '../../Models/loginresponse.model';
 
 @Injectable({
   providedIn: 'root',
@@ -22,8 +22,8 @@ export class AuthService {
 
     const storedToken = this.tokenService.getToken();
     if (storedToken) {
-      const storedBasicUserInfo = 
-        localStorage.getItem('basicUserInfo') || 
+      const storedBasicUserInfo =
+        localStorage.getItem('basicUserInfo') ||
         sessionStorage.getItem('basicUserInfo');
 
       if (storedBasicUserInfo) {
@@ -55,24 +55,38 @@ export class AuthService {
   public login(email: string, password: string, rememberMe: boolean) {
     const authenticateUrl = `${environment.apiUrl}/Auth/login`;
 
-    return this.http.post<LoginResponse>(authenticateUrl, { email, password }).pipe(
-      map((loginResp) => {
-        this.tokenService.setToken(loginResp.token, rememberMe);
+    return this.http
+      .post<LoginResponse>(authenticateUrl, { email, password })
+      .pipe(
+        switchMap((loginResp) => {
+          this.tokenService.setToken(loginResp.token, rememberMe);
 
-        if (rememberMe) {
-          localStorage.setItem('basicUserInfo', JSON.stringify(loginResp));
-        } else {
-          sessionStorage.setItem('basicUserInfo', JSON.stringify(loginResp));
-        }
+          const storage = rememberMe ? localStorage : sessionStorage;
+          storage.setItem('basicUserInfo', JSON.stringify(loginResp));
 
-        this.getUserDetails(loginResp.id).subscribe({
-          next: (fullUser) => this.currentUserSubject.next(fullUser),
-          error: (err) => console.error('Fejl ved hentning af brugerinfo:', err),
-        });
+          return this.getUserDetails(loginResp.id).pipe(
+            switchMap((fullUser) => {
+              if (
+                fullUser.excludedUntil &&
+                new Date(fullUser.excludedUntil) > new Date()
+              ) {
+                this.logout();
+                const msg =
+                  'Din konto er midlertidigt udelukket indtil ' +
+                  new Date(fullUser.excludedUntil).toLocaleString();
+                this.setGlobalMessage(msg);
+                return throwError(() => new Error(msg));
+              }
 
-        return loginResp;
-      })
-    );
+              this.currentUserSubject.next(fullUser);
+              return new Observable<LoginResponse>((observer) => {
+                observer.next(loginResp);
+                observer.complete();
+              });
+            })
+          );
+        })
+      );
   }
 
   public logout() {

@@ -1,7 +1,9 @@
 ﻿using Backend.DTO.UserDTO;
 using Backend.Interfaces.IUser;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using static Backend.Authentication.Authentication;
 
 namespace Backend.Controllers.UserController
 {
@@ -101,6 +103,47 @@ namespace Backend.Controllers.UserController
                 return Problem(ex.Message);
             }
         }
+
+        [HttpPost]
+        [Route("Newsletter/Subscribe/{email}")]
+        public async Task<IActionResult> SubscribeNewsletter([FromRoute] string email)
+        {
+            try
+            {
+                UserResponse userResponse = await _userService.SubscribeNewsletter(email);
+
+                if (userResponse != null)
+                {
+                    return Ok(userResponse);
+                }
+                return Problem();
+            }
+            catch (Exception ex)
+            {
+                return Problem(ex.Message);
+            }
+        }
+
+        [HttpPost]
+        [Route("Newsletter/Unsubscribe/{email}")]
+        public async Task<IActionResult> UnsubscribeNewsletter([FromRoute] string email)
+        {
+            try
+            {
+                UserResponse userResponse = await _userService.UnsubscribeNewsletter(email);
+
+                if (userResponse != null)
+                {
+                    return Ok(userResponse);
+                }
+                return NotFound("User not found or already unsubscribed.");
+            }
+            catch (Exception ex)
+            {
+                return Problem(ex.Message);
+            }
+        }
+
 
     }
 }

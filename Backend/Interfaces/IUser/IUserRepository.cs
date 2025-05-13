@@ -11,6 +11,10 @@ namespace Backend.Interfaces.IUser
         Task<bool> DeleteUserAsync(int id);
         Task<User> GetUserByEmail(string email);
         Task<User?> ExcludeUserAsync(int Id, int exclusionPeriodHours);
+        Task<List<User>> GetNewsletterSubscribersAsync();
+        Task<User> UnsubscribeNewsletter(string email);
+        Task<User?> SubscribeNewsletter(string email);
+
     }
 }
 

@@ -1,14 +1,18 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit, Renderer2} from '@angular/core';
-import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
+import { Component, OnInit, Renderer2 } from '@angular/core';
+import {
+  FormBuilder,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { AuthService } from '../../Services/Security/auth.service';
 import { UserService } from '../../Services/User/user.service';
 import { Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
 import { User } from '../../Models/user.model';
-
-
 
 @Component({
   selector: 'app-login-signup',
@@ -33,7 +37,7 @@ export class LoginSignupComponent implements OnInit {
     this.loginForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required],
-      rememberMe: [false], 
+      rememberMe: [false],
     });
 
     this.registerForm = this.formBuilder.group({
@@ -41,8 +45,8 @@ export class LoginSignupComponent implements OnInit {
       lastName: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required],
-      phoneNumber: ['', Validators.required],   
-      birthDate: ['', Validators.required],  
+      phoneNumber: ['', Validators.required],
+      birthDate: ['', Validators.required],
       newsLetterIsSubscribed: [false],
     });
   }
@@ -57,42 +61,35 @@ export class LoginSignupComponent implements OnInit {
     }
   }
 
- 
-  login(): void {
-    this.message = '';
-    const { email, password, rememberMe } = this.loginForm.value;
-    console.log(
-      'Forsøger at logge ind med:',
-      email,
-      password,
-      'Husk mig?',
-      rememberMe
-    );
-    this.authSerice.login(email, password, rememberMe).subscribe({
-      next: (loginResp) => {
-        console.log('Login succesfuldt! Modtog (LoginResponse):', loginResp);
-        this.router.navigate(['/']);
-        this.message = 'Login Successful';
-        console.log('Navigerer til /');
-        alert(this.message);
-      },
-      error: (err: HttpErrorResponse) => {
-        console.error('Login error:', err);
-        if (err.status === 401) {
-          this.message = 'Forkert brugernavn eller adgangskode.';
-        } else {
-          this.message = 'Noget gik galt ved login. Prøv igen.';
-        }
-        alert(this.message);
-      },
-    });
-  }
+login(): void {
+  this.message = '';
+  const { email, password, rememberMe } = this.loginForm.value;
+
+  this.authSerice.login(email, password, rememberMe).subscribe({
+    next: (loginResp) => {
+      console.log('Login succesfuldt! Modtog (LoginResponse):', loginResp);
+      this.router.navigate(['/']);
+    },
+    error: (err) => {
+      console.error('Login fejl:', err);
+
+      // Check for the custom exclusion error
+      if (err instanceof Error && err.message.includes('Din konto er midlertidigt udelukket')) {
+        this.message = err.message;
+      } else if (err.status === 401) {
+        this.message = 'Forkert brugernavn eller adgangskode.';
+      } else {
+        this.message = 'Noget gik galt ved login. Prøv igen.';
+      }
+    }
+  });
+}
 
 
   register(): void {
     this.message = '';
     // Læs data fra registerForm
-    const { firstName, lastName, email, password, age} =
+    const { firstName, lastName, email, password, age } =
       this.registerForm.value;
 
     const newUser: User = {
@@ -107,7 +104,7 @@ export class LoginSignupComponent implements OnInit {
       balance: 0,
       profit: 0,
       loss: 0,
-      newsLetterIsSubscribed: false, 
+      newsLetterIsSubscribed: false,
     };
 
     console.log('Forsøger at registrere ny bruger:', newUser);
@@ -135,10 +132,8 @@ export class LoginSignupComponent implements OnInit {
   togglePasswordVisibility() {
     this.showPassword = true;
   }
-  
+
   hidePassword(input: HTMLInputElement) {
     this.showPassword = false;
   }
-  
 }
-

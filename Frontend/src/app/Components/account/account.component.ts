@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { User} from '../../Models/user.model';
+import { User } from '../../Models/user.model';
 import { UserService } from '../../Services/User/user.service';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../Services/Security/auth.service';
@@ -15,6 +15,9 @@ export class AccountComponent implements OnInit {
   public user!: User;
   updateError = '';
   updateSuccess = '';
+  exclusionPeriodHours: number = 24;
+  excludeSuccess = '';
+  excludeError = '';
 
   constructor(
     private userService: UserService,
@@ -46,10 +49,10 @@ export class AccountComponent implements OnInit {
 
   updateUser(): void {
     if (!this.user) return;
-  
+
     this.userService.updateUser(this.user).subscribe({
       next: (updatedUser) => {
-        this.user = { ...this.user, ...updatedUser };       
+        this.user = { ...this.user, ...updatedUser };
         this.updateSuccess = 'Din profil er blevet opdateret!';
         this.updateError = '';
         console.log('Bruger opdateret:', updatedUser);
@@ -61,4 +64,29 @@ export class AccountComponent implements OnInit {
       },
     });
   }
-}  
+
+  excludeUser(): void {
+    if (
+      !this.user ||
+      !this.exclusionPeriodHours ||
+      this.exclusionPeriodHours <= 0
+    ) {
+      this.excludeError = 'Indtast venligst et gyldigt antal timer.';
+      return;
+    }
+
+    this.userService
+      .excludeUser(this.user.id, this.exclusionPeriodHours)
+      .subscribe({
+        next: () => {
+          this.excludeSuccess = `Du er nu udelukket i ${this.exclusionPeriodHours} timer.`;
+          this.excludeError = '';
+        },
+        error: (err) => {
+          this.excludeSuccess = '';
+          this.excludeError = 'Der opstod en fejl under udelukkelsen.';
+          console.error(err);
+        },
+      });
+  }
+}

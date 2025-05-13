@@ -17,4 +17,6 @@ export class GameLayoutComponent {
   placeBet() {
     console.log('Indsat beløb:', this.betAmount);
   }
+
+  // Function to find the game.
 }

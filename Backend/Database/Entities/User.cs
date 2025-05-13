@@ -25,16 +25,16 @@ namespace Backend.Database.Entities
         [Column(TypeName = "int")]
         public int? PhoneNumber { get; set; }
 
-        [Column(TypeName = "decimal")]
+        [Column(TypeName = "decimal(18,2)")]
         public decimal Balance { get; set; }
 
         [Column(TypeName = "datetime")]
         public DateTime? ExcludedUntil { get; set; }
 
-        [Column(TypeName = "decimal")]
+        [Column(TypeName = "decimal(18,2)")]
         public decimal Profit { get; set; }
 
-        [Column(TypeName = "int")]
+        [Column(TypeName = "decimal(18,2)")]
         public decimal Loss { get; set; }
 
         public Role Role { get; set; }

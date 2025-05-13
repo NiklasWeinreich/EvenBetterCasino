@@ -1,6 +1,8 @@
 ﻿using Backend.Games.Dice;
 using Backend.Helper;
+using Backend.Interfaces.IBalance;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Cryptography;
 
 namespace Backend.Games.Yatzy.Service
 {
@@ -8,8 +10,6 @@ namespace Backend.Games.Yatzy.Service
     {
 
 
-        private static Random _random = new Random();
-        private bool isWin = false;
 
         #region gameVaribles & payouts
         // Game Variables
@@ -27,22 +27,37 @@ namespace Backend.Games.Yatzy.Service
         private const decimal fiveMatches = 50.00m;
         #endregion
 
+        private readonly IBalanceService _balanceService;
+
+        public YatzyGameService(IBalanceService balanceService)
+        {
+            _balanceService = balanceService;
+        }
 
         public async Task<YatzyGameResult> PlayGame(int userId, decimal betAmount)
         {
+
+            var balance = await _balanceService.PlaceBetAsync(userId, betAmount);
+            if (balance < 0)
+                throw new InvalidOperationException("Fejl - Kunne ikke trække spilbeløb fra saldo.");
+
             List<int> numbers = new List<int>();
 
             for (int i = 0; i < numbOfDice; i++)
             {
-                int _tempNum = _random.Next(minDiceValue, maxDiceValue + 1);
-                numbers.Add(_tempNum);
+                int diceValue = RandomNumberGenerator.GetInt32(minDiceValue, maxDiceValue + 1);
+                numbers.Add(diceValue);
             }
 
 
             YatzyGameResult result = CheckForWin(numbers);
 
-            decimal payout = betAmount * result.Multiplier; 
+            decimal payout = betAmount * result.Multiplier;
 
+            if (result.IsWin)
+            {
+                await _balanceService.WinAmountAsync(userId, payout);
+            }
 
             return new YatzyGameResult
             {
@@ -73,7 +88,7 @@ namespace Backend.Games.Yatzy.Service
                 return new YatzyGameResult { Combination = "Du har 4 ens!", Multiplier = fourMatches, IsWin = true };
 
             // 3 + 2 ens til spilleren
-            if (counts.SequenceEqual(new List<int> { 3, 2 }))
+            if (counts.Contains(3) && counts.Contains(2))
                 return new YatzyGameResult { Combination = "Du har fuld hus!!", Multiplier = threeAndTwoMatches, IsWin = true };
 
             // 3 ens til spilleren

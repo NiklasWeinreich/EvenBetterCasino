@@ -220,7 +220,7 @@ namespace Backend.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<decimal>("Balance")
-                        .HasColumnType("decimal");
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<DateTime>("BirthDate")
                         .HasColumnType("datetime2");
@@ -240,8 +240,8 @@ namespace Backend.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<int>("Loss")
-                        .HasColumnType("int");
+                    b.Property<decimal>("Loss")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<bool>("NewsLetterIsSubscribed")
                         .HasColumnType("bit");
@@ -254,7 +254,7 @@ namespace Backend.Migrations
                         .HasColumnType("int");
 
                     b.Property<decimal>("Profit")
-                        .HasColumnType("decimal");
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("Role")
                         .HasColumnType("int");
@@ -272,9 +272,9 @@ namespace Backend.Migrations
                             Email = "NiklasErEnMaskine@mail.com",
                             FirstName = "Niklas",
                             LastName = "Maskine",
-                            Loss = 25,
+                            Loss = 25m,
                             NewsLetterIsSubscribed = true,
-                            Password = "$2a$11$aqgloJsGTM4ujnzOI.2wX.ZSjT8Y0qi9bdX7umSrIxFVArEERFlb.",
+                            Password = "$2a$11$pLI7kn.OUYNTf.OwHyx4ROCQPYW3x0oHQ3XgSDdrST7KiaLJf1Wc.",
                             PhoneNumber = 12345678,
                             Profit = 50m,
                             Role = 1
@@ -287,9 +287,9 @@ namespace Backend.Migrations
                             Email = "johndoe@example.com",
                             FirstName = "John",
                             LastName = "Doe",
-                            Loss = 55,
+                            Loss = 55m,
                             NewsLetterIsSubscribed = false,
-                            Password = "$2a$11$kXfKebXkxQI/7EvCqCWADu6VAnCfwsl5SQwkcW519QvmEl1.hb62y",
+                            Password = "$2a$11$8n2JEhceHpE4kebH9fKj7.TG.gFr147xAacJzvt3YAjVpWjNkzK32",
                             PhoneNumber = 87654321,
                             Profit = 33m,
                             Role = 0
@@ -302,9 +302,9 @@ namespace Backend.Migrations
                             Email = "anna.jensen@example.com",
                             FirstName = "Anna",
                             LastName = "Jensen",
-                            Loss = 15,
+                            Loss = 15m,
                             NewsLetterIsSubscribed = true,
-                            Password = "$2a$11$4vdt4VS0YWTh7k4w.yqKueN/BmwhWeTswuqKFKRzxkz5iqsJ0Ci.q",
+                            Password = "$2a$11$BHtaQP1ih.qiAOzgNxm2mOkJsClbevA9WCW3p/3TncSxIJOREGEk6",
                             PhoneNumber = 11111111,
                             Profit = 20m,
                             Role = 0
@@ -317,9 +317,9 @@ namespace Backend.Migrations
                             Email = "mark.larsen@example.com",
                             FirstName = "Mark",
                             LastName = "Larsen",
-                            Loss = 10,
+                            Loss = 10m,
                             NewsLetterIsSubscribed = true,
-                            Password = "$2a$11$iTt7.02xkOOKD/EDBs4jc.XrESy6.nHMaBVWBD/x/bmE5a68Gs0Cu",
+                            Password = "$2a$11$uYgo7mvV/lxdjJQAjs2piexkHWwofd0ZFot4wDlVVWcn.GxNUdtse",
                             PhoneNumber = 22222222,
                             Profit = 40m,
                             Role = 0
@@ -332,9 +332,9 @@ namespace Backend.Migrations
                             Email = "sara.hansen@example.com",
                             FirstName = "Sara",
                             LastName = "Hansen",
-                            Loss = 25,
+                            Loss = 25m,
                             NewsLetterIsSubscribed = false,
-                            Password = "$2a$11$ftAx4zk0D7us6OydUQVAOOs6G/Y/SzjcxGoKs.XIq.1l1Y.rCtmg2",
+                            Password = "$2a$11$9dGxvZj7G1pJmlHrCJB38.rNQ.gel4rnxUrcvgDXQDYpU9VHdrY3G",
                             PhoneNumber = 33333333,
                             Profit = 30m,
                             Role = 0
@@ -347,9 +347,9 @@ namespace Backend.Migrations
                             Email = "peter.madsen@example.com",
                             FirstName = "Peter",
                             LastName = "Madsen",
-                            Loss = 40,
+                            Loss = 40m,
                             NewsLetterIsSubscribed = true,
-                            Password = "$2a$11$ZBVRl.ODzwgWvj5DkYu9yu/yKdrAGxeyF.IoqlBk1TYOYvCP0jCXq",
+                            Password = "$2a$11$ID6iZqJkjjBlmJFLQeJv5uLnC4HqeANSSP4TH8L4i4dOnUOUz71ee",
                             PhoneNumber = 44444444,
                             Profit = 70m,
                             Role = 0
@@ -362,9 +362,9 @@ namespace Backend.Migrations
                             Email = "laura.poulsen@example.com",
                             FirstName = "Laura",
                             LastName = "Poulsen",
-                            Loss = 5,
+                            Loss = 5m,
                             NewsLetterIsSubscribed = true,
-                            Password = "$2a$11$Kx4Lb2EYQM2QJ7mnB47yU.e4YiOHIADWYeLZUk2a8rvYcARUkLYZG",
+                            Password = "$2a$11$h3RaCcZhahfwv/mEB1MrXeDL9xJc1DqKTg2eYZlWuiADmgcXwnVUa",
                             PhoneNumber = 55555555,
                             Profit = 25m,
                             Role = 0
@@ -377,9 +377,9 @@ namespace Backend.Migrations
                             Email = "thomas.christensen@example.com",
                             FirstName = "Thomas",
                             LastName = "Christensen",
-                            Loss = 20,
+                            Loss = 20m,
                             NewsLetterIsSubscribed = true,
-                            Password = "$2a$11$oderarFloxgSNHMFmVo9depNVakP19sDeL8z2QS1JVjGN/.NeUrcm",
+                            Password = "$2a$11$u2ESsaY9pkBpk0Ly/NWxjOgbln27TiiT8Vr6OnSou8B0.RiCQW9rG",
                             PhoneNumber = 66666666,
                             Profit = 60m,
                             Role = 0
@@ -392,9 +392,9 @@ namespace Backend.Migrations
                             Email = "emma.andersen@example.com",
                             FirstName = "Emma",
                             LastName = "Andersen",
-                            Loss = 10,
+                            Loss = 10m,
                             NewsLetterIsSubscribed = true,
-                            Password = "$2a$11$A0.NZgPYJLKQW1d8iE8fzOkSQE2i6H6eSGpzWdolbL8omvcFB0GY6",
+                            Password = "$2a$11$wTaTjLRkHrWbe5DA00nhT.asweXLO8vvZco3IBufbaPwAgjFYnGUa",
                             PhoneNumber = 77777777,
                             Profit = 80m,
                             Role = 0
@@ -407,9 +407,9 @@ namespace Backend.Migrations
                             Email = "mikkel.olsen@example.com",
                             FirstName = "Mikkel",
                             LastName = "Olsen",
-                            Loss = 10,
+                            Loss = 10m,
                             NewsLetterIsSubscribed = false,
-                            Password = "$2a$11$EHP99aIId4asX4xB60Cose3SRvyxXI0yZ9WvI0M84zQkkKNwdZbKi",
+                            Password = "$2a$11$Q4.OZMwV23DX4YLBY628Q.SnBeHZC2J.lYjHDrqN1ctE92WERAum6",
                             PhoneNumber = 88888888,
                             Profit = 10m,
                             Role = 0

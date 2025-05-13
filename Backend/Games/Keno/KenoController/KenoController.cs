@@ -17,13 +17,10 @@ namespace Backend.Games.Keno.KenoController
 
         private int totalNumber = 40;
         private readonly IKenoService _kenoService;
-        private readonly IBalanceService _balanceService;
 
-
-        public KenoController(IKenoService kenoService, IBalanceService balanceService)
+        public KenoController(IKenoService kenoService)
         {
             _kenoService = kenoService;
-            _balanceService = balanceService;
         }
 
         [HttpPost("getOdds")]
@@ -67,23 +64,13 @@ namespace Backend.Games.Keno.KenoController
 
 
         [HttpPost("playGame")]
-        public async Task<IActionResult> PlayGame([FromBody] KenoGameRequest request, int userId)
+        public async Task<IActionResult> PlayGame([FromBody] KenoGameRequest request)
         {
 
             var validationResult = CheckForValidInput(request.PlayerNumbers);
             if (validationResult != null) return validationResult;
 
-            var balance = await _balanceService.PlaceBetAsync(userId, request.BetAmount);
-            if (balance < 0) // Hvis der er et problem med trækningen af penge (f.eks. utilsigtet negativ balance)
-                return BadRequest("Fejl - Kunne ikke trække spilløb fra saldo.");
-
-            var result = await _kenoService.PlayGame(request.PlayerNumbers, request.BetAmount);
-
-            if (result.IsWin)
-            {
-                await _balanceService.WinAmountAsync(userId, result.Payout);
-            }
-
+            var result = await _kenoService.PlayGame(request.UserId, request.PlayerNumbers, request.BetAmount);
 
             return Ok(result);
 

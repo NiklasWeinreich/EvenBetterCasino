@@ -1,5 +1,5 @@
 ﻿
-using Azure.Core;
+using Backend.Interfaces.IBalance;
 using System;
 using System.Security.Cryptography;
 
@@ -8,8 +8,16 @@ namespace Backend.Games.Keno.Service
     public class KenoService : IKenoService
     {
 
+
         private const int totalNumber = 40;
         private const int numbersDrawn = 10;
+
+        private readonly IBalanceService _balanceService;
+
+        public KenoService(IBalanceService balanceService)
+        {
+            _balanceService = balanceService;
+        }
 
         public async Task<List<KenoOdds>> GetOdds(List<int> playerNumbers)
         {
@@ -52,12 +60,16 @@ namespace Backend.Games.Keno.Service
 
         }
 
-        public async Task<KenoGameResult> PlayGame(List<int> playerNumbers, decimal betAmount)
+        public async Task<KenoGameResult> PlayGame(int userId, List<int> playerNumbers, decimal betAmount)
         {
+
+            var balance = await _balanceService.PlaceBetAsync(userId, betAmount);
+            if (balance < 0)
+                throw new InvalidOperationException("Fejl - Kunne ikke trække spilbeløb fra saldo.");
+
 
             var availableNumber = MakeAvailableNumberList(totalNumber);
             var drawnNumbers = new List<int>();
-            int matches;
 
 
             for (int i = 0; i < numbersDrawn; i++)
@@ -69,15 +81,21 @@ namespace Backend.Games.Keno.Service
 
             drawnNumbers.Sort();
 
-            matches = drawnNumbers.Intersect(playerNumbers).Count();
+            int matches = drawnNumbers.Intersect(playerNumbers).Count();
 
 
             decimal multiplier = GetPayoutMultiplier(playerNumbers.Count, matches);
-
-            bool isWin = multiplier > 0 ? true : false;
+            
+            bool isWin = multiplier > 0;
 
             decimal payout = isWin ? Math.Round( betAmount * multiplier)
                 : 0;
+
+            if (payout > 0)
+            {
+                await _balanceService.WinAmountAsync(userId, payout);
+            }
+
 
 
             return new KenoGameResult

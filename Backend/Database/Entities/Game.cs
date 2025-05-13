@@ -5,7 +5,7 @@ namespace Backend.Database.Entities
     public class Game
     {
         [Key]
-        public int Id { get; set; }
+        public int GameId { get; set; }
 
         [Column(TypeName = "nvarchar(50)")]
         public required string Name { get; set; }
@@ -26,7 +26,7 @@ namespace Backend.Database.Entities
         public required bool Status { get; set; } = false;
 
         [ForeignKey("CategoryId")]
-        public Categori Category { get; set; }
+        public Category Category { get; set; }
 
         public ICollection<GamesHistory> GamesHistories { get; set; }
     }

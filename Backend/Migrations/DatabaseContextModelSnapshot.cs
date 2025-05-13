@@ -59,14 +59,14 @@ namespace Backend.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("int");
+
                     b.Property<string>("ImageUrl")
                         .HasColumnType("nvarchar(255)");
 
-                    b.Property<int>("JackpotAmount")
-                        .HasColumnType("int");
-
-                    b.Property<int>("KategoriId")
-                        .HasColumnType("int");
+                    b.Property<decimal>("JackpotAmount")
+                        .HasColumnType("decimal");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -75,9 +75,12 @@ namespace Backend.Migrations
                     b.Property<bool>("Status")
                         .HasColumnType("bit");
 
+                    b.Property<string>("WebUrl")
+                        .HasColumnType("nvarchar(255)");
+
                     b.HasKey("Id");
 
-                    b.HasIndex("KategoriId");
+                    b.HasIndex("CategoryId");
 
                     b.ToTable("Games");
 
@@ -85,18 +88,18 @@ namespace Backend.Migrations
                         new
                         {
                             Id = 1,
+                            CategoryId = 1,
                             ImageUrl = "https://i.imgflip.com/7nz6q8.png?a484848",
-                            JackpotAmount = 10000,
-                            KategoriId = 1,
+                            JackpotAmount = 10000m,
                             Name = "Football Match",
                             Status = true
                         },
                         new
                         {
                             Id = 2,
+                            CategoryId = 2,
                             ImageUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTUKs7TFCPgIxI0i4E3IwOiAEAGbdfCg8zKmA&s",
-                            JackpotAmount = 5000,
-                            KategoriId = 2,
+                            JackpotAmount = 5000m,
                             Name = "Blackjack",
                             Status = true
                         });
@@ -274,7 +277,7 @@ namespace Backend.Migrations
                             LastName = "Maskine",
                             Loss = 25,
                             NewsLetterIsSubscribed = true,
-                            Password = "$2a$11$UPkdnYnEa5Tn3pn0bmk1me0oN3xiiD.qyYSRrgrw4qzYlHo9x16hy",
+                            Password = "$2a$11$cOGjayjF6g/rb1arhx.ZKuMzmTYkvbkBuqlqSiGqyHW8TRpZ2P76G",
                             PhoneNumber = 12345678,
                             Profit = 50m,
                             Role = 1
@@ -289,7 +292,7 @@ namespace Backend.Migrations
                             LastName = "Doe",
                             Loss = 55,
                             NewsLetterIsSubscribed = false,
-                            Password = "$2a$11$Xzzg1opPelDPVemG9kpPVuBtVdc/0KinMWIikbllD5GsrxLAuLLq.",
+                            Password = "$2a$11$92IcV/TMhAb/jlwmCZeRTeUy2XZhNOOGgX5NBsVcrgWwI2YhSkvsO",
                             PhoneNumber = 87654321,
                             Profit = 33m,
                             Role = 0
@@ -304,7 +307,7 @@ namespace Backend.Migrations
                             LastName = "Jensen",
                             Loss = 15,
                             NewsLetterIsSubscribed = true,
-                            Password = "$2a$11$cK0XFpRDguCw5Sg7yoUazuta2dYFZ2z2HnO7Z6rfEqtZQzTE3o30y",
+                            Password = "$2a$11$mQhKLWUa4eWPejS/QRfeiuVe9YdMFb1mfmPWo6OZ3c37Pnq6WSMB6",
                             PhoneNumber = 11111111,
                             Profit = 20m,
                             Role = 0
@@ -319,7 +322,7 @@ namespace Backend.Migrations
                             LastName = "Larsen",
                             Loss = 10,
                             NewsLetterIsSubscribed = true,
-                            Password = "$2a$11$negso4tg5jNY8Xw73zOCKuVHgmmuRmtNJhztyHvm9UaOsJNh6NqUq",
+                            Password = "$2a$11$XhPhaZeUqOrh3IFgPsTzvelXtjWPsnIa5jBumQbyYcN6PKM3R7wky",
                             PhoneNumber = 22222222,
                             Profit = 40m,
                             Role = 0
@@ -334,7 +337,7 @@ namespace Backend.Migrations
                             LastName = "Hansen",
                             Loss = 25,
                             NewsLetterIsSubscribed = false,
-                            Password = "$2a$11$Az05iJ6z32MzqeMq4AexD.spt/TKqUUkD3rQK4zQZ0JT0MzcdIsUi",
+                            Password = "$2a$11$DOxB04ucK44AKj/IQh/hnOLjeHLPZhtSF1s3Ew0dtdhDh4DmE26lS",
                             PhoneNumber = 33333333,
                             Profit = 30m,
                             Role = 0
@@ -349,6 +352,7 @@ namespace Backend.Migrations
                             LastName = "Madsen",
                             Loss = 40,
                             NewsLetterIsSubscribed = true,
+                            Password = "$2a$11$vVBbNZXI48fV3HiFVOhAmex6lrwj9Eeyb4LdzZw3Xom1MAlNw2vEK",
                             Password = "$2a$11$8CBR0P9ClV0pKI4Svyq5OOWcRHjN12s2yKk5IaTFdDg7u.mEequlq",
                             PhoneNumber = 44444444,
                             Profit = 70m,
@@ -364,7 +368,7 @@ namespace Backend.Migrations
                             LastName = "Poulsen",
                             Loss = 5,
                             NewsLetterIsSubscribed = true,
-                            Password = "$2a$11$Cx995uzezGZzdLb60ovQ7ulvVTng3IDVvNxVorM1unbJP8TBTtPGa",
+                            Password = "$2a$11$sYMqD4DIGuH0Xm2WWezO7.Ah8/JaA.926vcbpCI3TRWDJBZ9aMTVi",
                             PhoneNumber = 55555555,
                             Profit = 25m,
                             Role = 0
@@ -379,7 +383,7 @@ namespace Backend.Migrations
                             LastName = "Christensen",
                             Loss = 20,
                             NewsLetterIsSubscribed = true,
-                            Password = "$2a$11$vg7V35odmM7JcbKjelGHKOTaw/68POdQlek4WEHRfQgUcHXuV6J0q",
+                            Password = "$2a$11$yQTLvQd33Jvq0c805t7FB.znk/dw8iHO2pTdaJ68slzy/TFMjUfCK",
                             PhoneNumber = 66666666,
                             Profit = 60m,
                             Role = 0
@@ -394,7 +398,7 @@ namespace Backend.Migrations
                             LastName = "Andersen",
                             Loss = 10,
                             NewsLetterIsSubscribed = true,
-                            Password = "$2a$11$YKl7s35cTCGzeH9Ww.ZIvuTN8x8vSt5jiN78BPHp9.V5MWF0CRpt2",
+                            Password = "$2a$11$chCBTNDfPDD18PG2kqtW6OgLlhzUAgd4j8zY1pjEltMU6AJhdxapu",
                             PhoneNumber = 77777777,
                             Profit = 80m,
                             Role = 0
@@ -409,7 +413,7 @@ namespace Backend.Migrations
                             LastName = "Olsen",
                             Loss = 10,
                             NewsLetterIsSubscribed = false,
-                            Password = "$2a$11$uKpUw7V6IaIuNdj5uz62jOBZhfyLHbqPCAxCipqSuLEfOoY8qBn9.",
+                            Password = "$2a$11$yw39.7v7Gw5yayr6WmyvXu3.mTcCOtBjiy3avEQ7YbC0ZrmZx8Kyy",
                             PhoneNumber = 88888888,
                             Profit = 10m,
                             Role = 0
@@ -418,13 +422,13 @@ namespace Backend.Migrations
 
             modelBuilder.Entity("Backend.Database.Entities.Game", b =>
                 {
-                    b.HasOne("Backend.Database.Entities.Categori", "Categori")
+                    b.HasOne("Backend.Database.Entities.Categori", "Category")
                         .WithMany("Games")
-                        .HasForeignKey("KategoriId")
+                        .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Categori");
+                    b.Navigation("Category");
                 });
 
             modelBuilder.Entity("Backend.Database.Entities.GamesHistory", b =>

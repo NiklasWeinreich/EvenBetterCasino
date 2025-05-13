@@ -33,7 +33,7 @@ namespace Backend.Controllers.UserController
             var user = await _userService.GetUserByIdAsync(id);
             if (user == null)
             {
-                return NotFound("Brugeren blev ikke fundet!"); 
+                return NotFound($"User, with id {id}, not found."); 
             }
 
             return Ok(user);
@@ -48,7 +48,7 @@ namespace Backend.Controllers.UserController
                 var mail = await _userService.GetUserByEmailAsync(request.Email);
                 if (mail != null)
                 {
-                    return Conflict("Email is already in use");
+                    return Conflict("Email is already in use.");
                 }
 
                 UserResponse userResponse = await _userService.CreateUserAsync(request);
@@ -67,7 +67,7 @@ namespace Backend.Controllers.UserController
             var updatedUser = await _userService.UpdateUserAsync(id, request);
 
             if (updatedUser == null)
-                return NotFound(new { message = "User not found" });
+                return NotFound(new { message = $"User, with id {id}, not found." });
 
             return Ok(new { message = "User updated successfully", user = updatedUser });
         }
@@ -79,7 +79,7 @@ namespace Backend.Controllers.UserController
             var isDeleted = await _userService.DeleteUserAsync(id);
 
             if (!isDeleted)
-                return NotFound(new { message = "User not found" });
+                return NotFound(new { message = $"User, with id {id}, not found." });
 
             return Ok(new { message = "User deleted successfully" });
         }
@@ -93,7 +93,7 @@ namespace Backend.Controllers.UserController
 
                 if (userResponse == null)
                 {
-                    return NotFound(new { message = "User not found." });
+                    return NotFound(new { message = $"User, with id {id}, not found." });
                 }
 
                 return Ok(userResponse);

@@ -25,6 +25,10 @@ export class AccountComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.loadUser();
+  }
+
+  loadUser(): void {
     const currentUser = this.authService.currentUserValue;
 
     if (currentUser) {

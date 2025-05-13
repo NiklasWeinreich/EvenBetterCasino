@@ -140,7 +140,18 @@ namespace Backend.Database.DatabaseContext
                     JackpotAmount = 5000,
                     ImageUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTUKs7TFCPgIxI0i4E3IwOiAEAGbdfCg8zKmA&s",
                     Status = true
+                },
+                new Game
+                {
+                    Id = 3,
+                    Name = "Bombastic",
+                    CategoryId = 2,
+                    JackpotAmount = 15000,
+                    ImageUrl = "https://upload.wikimedia.org/wikipedia/commons/thumb/7/70/Fireball.svg/1024px-Fireball.svg.png",
+                    Status = true,
+                    WebUrl = "bombastic"
                 }
+
             );
 
             modelBuilder.Entity<GamesHistory>().HasData(

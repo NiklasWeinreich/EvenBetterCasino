@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Backend.Migrations
 {
     /// <inheritdoc />
-    public partial class data : Migration
+    public partial class Data : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -140,29 +140,16 @@ namespace Backend.Migrations
                 columns: new[] { "Id", "Balance", "BirthDate", "Email", "ExcludedUntil", "FirstName", "LastName", "NewsLetterIsSubscribed", "Password", "PhoneNumber", "Profit", "Role" },
                 values: new object[,]
                 {
-<<<<<<<< HEAD:Backend/Migrations/20250514004841_data.cs
-                    { 1, 100m, new DateTime(1990, 5, 21, 0, 0, 0, 0, DateTimeKind.Unspecified), "NiklasErEnMaskine@mail.com", null, "Niklas", "Maskine", 25, true, "$2a$11$ktQt8dY3Sy3W2q07f5eNB.OeoIUv3pOrKih41JP8x8q5NrJwIRbuq", 12345678, 50m, 1 },
-                    { 2, 75m, new DateTime(1990, 5, 21, 0, 0, 0, 0, DateTimeKind.Unspecified), "johndoe@example.com", null, "John", "Doe", 55, false, "$2a$11$P4OnS9eHzRkZ7rw2Jt3kBeFDYPspL/2qipZH8rukyKHSeknOaLABm", 87654321, 33m, 0 },
-                    { 3, 100m, new DateTime(1995, 3, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), "anna.jensen@example.com", null, "Anna", "Jensen", 15, true, "$2a$11$wNsp9L7Bg4.iPK2sa6bbzumRCBR9r01t3eeEgv6bPiYbWFzxmiLVC", 11111111, 20m, 0 },
-                    { 4, 150m, new DateTime(1988, 7, 23, 0, 0, 0, 0, DateTimeKind.Unspecified), "mark.larsen@example.com", null, "Mark", "Larsen", 10, true, "$2a$11$GR2kXBj6/mq6kXw6WSoPp.dzYxDvf6D2GVQAA7StpkxqkkdVDcM9i", 22222222, 40m, 0 },
-                    { 5, 200m, new DateTime(1992, 9, 30, 0, 0, 0, 0, DateTimeKind.Unspecified), "sara.hansen@example.com", null, "Sara", "Hansen", 25, false, "$2a$11$fHB19s.1LQ2QBZHS1mtz1.smzGSBHVJ03uwqiQM/8hz4o9Bc/rGA2", 33333333, 30m, 0 },
-                    { 6, 300m, new DateTime(1985, 1, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), "peter.madsen@example.com", null, "Peter", "Madsen", 40, true, "$2a$11$5TVP07Ht6RD/MgSSgoNxy.3T1XBXM66TZoW9/eCrmZyzbsn5f7rfS", 44444444, 70m, 0 },
-                    { 7, 120m, new DateTime(1998, 12, 12, 0, 0, 0, 0, DateTimeKind.Unspecified), "laura.poulsen@example.com", null, "Laura", "Poulsen", 5, true, "$2a$11$4DCHtxmqavZV9ooiR4A4he9F6CgPzWmA7AJ.2LG1HHQ7EgU89y94O", 55555555, 25m, 0 },
-                    { 8, 180m, new DateTime(1982, 4, 8, 0, 0, 0, 0, DateTimeKind.Unspecified), "thomas.christensen@example.com", null, "Thomas", "Christensen", 20, true, "$2a$11$80XAvvxKMRYpPHDYSmNZKe3oTvhISpCuQEYKSDgnycMJV1fUp5nXS", 66666666, 60m, 0 },
-                    { 9, 220m, new DateTime(1994, 6, 5, 0, 0, 0, 0, DateTimeKind.Unspecified), "emma.andersen@example.com", null, "Emma", "Andersen", 10, true, "$2a$11$vZ7ZLtcZzAQKleTwM86yxuOVF2GPsJlNShAvi0cH6bejccgMijSPe", 77777777, 80m, 0 },
-                    { 10, 90m, new DateTime(1989, 11, 19, 0, 0, 0, 0, DateTimeKind.Unspecified), "mikkel.olsen@example.com", null, "Mikkel", "Olsen", 10, false, "$2a$11$znEEwFZhBFMraFdXdTC8Qu6I2Qk.jdR/0Bj14an1AJhSSAVJo45Jy", 88888888, 10m, 0 }
-========
-                    { 1, 100m, new DateTime(1990, 5, 21, 0, 0, 0, 0, DateTimeKind.Unspecified), "NiklasErEnMaskine@mail.com", null, "Niklas", "Maskine", true, "$2a$11$JN1IjMEL2gc/pQttRlh/1euYYK0hVLra4qD1ZBbMmUVUQLdi5Y.Hu", 12345678, 50m, 1 },
-                    { 2, 75m, new DateTime(1990, 5, 21, 0, 0, 0, 0, DateTimeKind.Unspecified), "johndoe@example.com", null, "John", "Doe", false, "$2a$11$5oN22yoBa5Wgj3yL2Il1JeXlBSSbZpbU6klUJkLYQO6a60N368p2C", 87654321, 33m, 0 },
-                    { 3, 100m, new DateTime(1995, 3, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), "anna.jensen@example.com", null, "Anna", "Jensen", true, "$2a$11$2/dQoAFmckHRq3NZKfk8tOWTV4d0mzrVVjzFVvia.PIi.1M4ZDzI.", 11111111, 20m, 0 },
-                    { 4, 150m, new DateTime(1988, 7, 23, 0, 0, 0, 0, DateTimeKind.Unspecified), "mark.larsen@example.com", null, "Mark", "Larsen", true, "$2a$11$toryJu342xGdfsEdjiJ7K.ix8CAXNV7mh./WE5ELHq8Bj900mdkh.", 22222222, 40m, 0 },
-                    { 5, 200m, new DateTime(1992, 9, 30, 0, 0, 0, 0, DateTimeKind.Unspecified), "sara.hansen@example.com", null, "Sara", "Hansen", false, "$2a$11$1u2Aca7aMSmWgFuNPxnkWuxGxEWn8ecj/rd1A5B9HrLz0TVdklSnS", 33333333, 30m, 0 },
-                    { 6, 300m, new DateTime(1985, 1, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), "peter.madsen@example.com", null, "Peter", "Madsen", true, "$2a$11$NOYQX62GSXUfeEE/xkDq3OI5abKB38r63qyf51FPRTi/NHu6dUBOG", 44444444, 70m, 0 },
-                    { 7, 120m, new DateTime(1998, 12, 12, 0, 0, 0, 0, DateTimeKind.Unspecified), "laura.poulsen@example.com", null, "Laura", "Poulsen", true, "$2a$11$SqgvHCnI8dcCGE3gvSjtneOyAXMMRCyOUK6OiyeF78iRCBj8JnzIS", 55555555, 25m, 0 },
-                    { 8, 180m, new DateTime(1982, 4, 8, 0, 0, 0, 0, DateTimeKind.Unspecified), "thomas.christensen@example.com", null, "Thomas", "Christensen", true, "$2a$11$TfSHipysw8BmGMkN.4QjF.cypfVq26javfNv2XKgYFFegFFTy9PWi", 66666666, 60m, 0 },
-                    { 9, 220m, new DateTime(1994, 6, 5, 0, 0, 0, 0, DateTimeKind.Unspecified), "emma.andersen@example.com", null, "Emma", "Andersen", true, "$2a$11$YNtvMx49WvtV1xIQXhfwHuqcS7pAGrQkQH.AeAnt3uhg.Oz2o4ed2", 77777777, 80m, 0 },
-                    { 10, 90m, new DateTime(1989, 11, 19, 0, 0, 0, 0, DateTimeKind.Unspecified), "mikkel.olsen@example.com", null, "Mikkel", "Olsen", false, "$2a$11$hyIeCsqO4oDPgpLUe/P7Au.TUbQMxI5VgkGzcYR74uretVS.NQ8fG", 88888888, 10m, 0 }
->>>>>>>> 859dc315392e1bd84ff870e107c30441494bd24c:Backend/Migrations/20250514090124_InitialDB.cs
+                    { 1, 100m, new DateTime(1990, 5, 21, 0, 0, 0, 0, DateTimeKind.Unspecified), "NiklasErEnMaskine@mail.com", null, "Niklas", "Maskine", true, "$2a$11$QYXQxxjbapKEKyXrkVZF3uVf1c43PxRcfqwV/OypmqKIDOckAWXWm", 12345678, 50m, 1 },
+                    { 2, 75m, new DateTime(1990, 5, 21, 0, 0, 0, 0, DateTimeKind.Unspecified), "johndoe@example.com", null, "John", "Doe", false, "$2a$11$27YNZRzTK2p/kBTG.WFX4OUlvESmSO2FgP2qLLeaGy9UwAtB2dq2e", 87654321, 33m, 0 },
+                    { 3, 100m, new DateTime(1995, 3, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), "anna.jensen@example.com", null, "Anna", "Jensen", true, "$2a$11$wNkZv7sE00Smkzxi/IHwsuIZesiEoU1tOZ7wyyr2uKi4lO7YD2X32", 11111111, 20m, 0 },
+                    { 4, 150m, new DateTime(1988, 7, 23, 0, 0, 0, 0, DateTimeKind.Unspecified), "mark.larsen@example.com", null, "Mark", "Larsen", true, "$2a$11$cU2qJXyUJUavgkvQ3tHZgu54zrnF1hir/eJIbTyut4imsDk6bkzuW", 22222222, 40m, 0 },
+                    { 5, 200m, new DateTime(1992, 9, 30, 0, 0, 0, 0, DateTimeKind.Unspecified), "sara.hansen@example.com", null, "Sara", "Hansen", false, "$2a$11$wfuq0b.jFQfyy5xT7uAawOEo7XhO/.FaeptZkZXWckQtt.tpqXV2i", 33333333, 30m, 0 },
+                    { 6, 300m, new DateTime(1985, 1, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), "peter.madsen@example.com", null, "Peter", "Madsen", true, "$2a$11$2wB80cdtes5hy026eV8baO.pf5qSEW2ezsdSNdcJA77hcN./pkVY2", 44444444, 70m, 0 },
+                    { 7, 120m, new DateTime(1998, 12, 12, 0, 0, 0, 0, DateTimeKind.Unspecified), "laura.poulsen@example.com", null, "Laura", "Poulsen", true, "$2a$11$XdBHLrwbB/CL7kMYJjRBiOIKurAFeGwbqZmoz6Pp0zskIaDlxH1Ki", 55555555, 25m, 0 },
+                    { 8, 180m, new DateTime(1982, 4, 8, 0, 0, 0, 0, DateTimeKind.Unspecified), "thomas.christensen@example.com", null, "Thomas", "Christensen", true, "$2a$11$ncc6ZPVAv0Wq8ZJevSH2g.UTpIZ7Ky0.bIhUT837GaRSwLG.cqSZi", 66666666, 60m, 0 },
+                    { 9, 220m, new DateTime(1994, 6, 5, 0, 0, 0, 0, DateTimeKind.Unspecified), "emma.andersen@example.com", null, "Emma", "Andersen", true, "$2a$11$d6j.ncCS6rAgIytrI8AlMOupFr6aWBwzoe7P/AT2mwjXCMFkUxT/S", 77777777, 80m, 0 },
+                    { 10, 90m, new DateTime(1989, 11, 19, 0, 0, 0, 0, DateTimeKind.Unspecified), "mikkel.olsen@example.com", null, "Mikkel", "Olsen", false, "$2a$11$DjMXaOr7bTcFSIyi54dynuXmlURePhqbJIfWu1DhScDm6OrZ.XR.K", 88888888, 10m, 0 }
                 });
 
             migrationBuilder.InsertData(
@@ -170,8 +157,8 @@ namespace Backend.Migrations
                 columns: new[] { "GameId", "CategoryId", "ImageUrl", "JackpotAmount", "Name", "Status", "WebUrl" },
                 values: new object[,]
                 {
-                    { 1, 1, "https://assets.funnygames.dk/2/114572/100319/1024x1024/yatzy.webp", 10000m, "yatzy", true, "yatzy" },
-                    { 2, 2, "https://cdn.prod.website-files.com/5ae2e7a18cb7532f0710bdfb/5e21d7084c5acfd2a75b5c0f_small.jpg", 5000m, "Dice", true, "dice" },
+                    { 1, 1, "https://assets.funnygames.dk/2/114572/100319/1024x1024/yatzy.webp", 10000m, "Football Match", true, "yatzy" },
+                    { 2, 2, "https://cdn.prod.website-files.com/5ae2e7a18cb7532f0710bdfb/5e21d7084c5acfd2a75b5c0f_small.jpg", 5000m, "Blackjack", true, "dice" },
                     { 3, 2, "https://mediumrare.imgix.net/12c3bb0487e2239772248e61550a121ee20fe8400a63f386d08896d1122d1655?q=85", 15000m, "Bombastic", true, "bombastic" }
                 });
 
@@ -180,8 +167,8 @@ namespace Backend.Migrations
                 columns: new[] { "TransactionsId", "Amount", "Date", "Direction", "Type", "UserId" },
                 values: new object[,]
                 {
-                    { new Guid("6ac4ebe5-2586-45cc-b030-a25e791b40eb"), 300, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Out", "Withdrawal", 2 },
-                    { new Guid("f9a12da0-acc1-472a-8f04-761a3c4605e9"), 500, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "In", "Deposit", 1 }
+                    { new Guid("0a52356a-ea62-49c8-a772-a410cc2cfcf7"), 500, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "In", "Deposit", 1 },
+                    { new Guid("c4c4079a-a18f-49fe-8806-4c8ab0de1112"), 300, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Out", "Withdrawal", 2 }
                 });
 
             migrationBuilder.InsertData(
@@ -189,8 +176,8 @@ namespace Backend.Migrations
                 columns: new[] { "GameHistoryId", "BetAmount", "Date", "GameId", "IsJackpotWin", "IsWin", "UserId", "WasCashedOut", "WinAmount" },
                 values: new object[,]
                 {
-                    { new Guid("2f1095cb-a49f-4665-a385-b861758b77e3"), 100m, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, false, true, 1, false, 0m },
-                    { new Guid("60351852-6ce6-4a86-99f3-232df94eadc9"), 50m, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 2, false, false, 2, false, 0m }
+                    { new Guid("300165e8-c72f-472d-b504-4a082260846c"), 100m, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, false, true, 1, false, 0m },
+                    { new Guid("4de9f2fb-ff38-43c5-a5fb-913712462dde"), 50m, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 2, false, false, 2, false, 0m }
                 });
 
             migrationBuilder.CreateIndex(

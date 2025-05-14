@@ -135,7 +135,7 @@ namespace Backend.Database.DatabaseContext
                 },
                 new Game
                 {
-                    Id = 3,
+                    GameId = 3,
                     Name = "Bombastic",
                     CategoryId = 2,
                     JackpotAmount = 15000,

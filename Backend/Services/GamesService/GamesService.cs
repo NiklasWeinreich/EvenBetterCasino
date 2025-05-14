@@ -86,7 +86,7 @@ namespace Backend.Services.GamesService
             return new GamesResponse
             {
                 
-                Id = response.Id,
+                Id = response.GameId,
                 Name = response.Name,
                 CategoryId = response.CategoryId,
                 WebUrl = response.WebUrl,

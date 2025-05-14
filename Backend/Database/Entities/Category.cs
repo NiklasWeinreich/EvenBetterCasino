@@ -3,11 +3,11 @@
 namespace Backend.Database.Entities
 {
 
-        public class Categori
+        public class Category
         {
             [Key]
             [Column(TypeName = "int")]
-            public int Id { get; set; }
+            public int CategoryId { get; set; }
 
             [Column(TypeName = "nvarchar(50)")]
             public required string Name { get; set; }

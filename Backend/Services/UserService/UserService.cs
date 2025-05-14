@@ -109,7 +109,6 @@ namespace Backend.Services.UserService
 
                 Balance = 0,
                 Profit = 0,
-                Loss = 0,
                 ExcludedUntil = null
             };
 
@@ -130,7 +129,6 @@ namespace Backend.Services.UserService
                 NewsLetterIsSubscribed = user.NewsLetterIsSubscribed,
                 Balance = user.Balance,
                 Profit = user.Profit,
-                Loss = user.Loss,
                 ExcludedUntil = user.ExcludedUntil,
                 Role = user.Role,
             };

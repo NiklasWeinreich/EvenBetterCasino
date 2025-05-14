@@ -48,7 +48,7 @@ namespace Backend.Repositories.GamesRepository
 
         public async Task<Game> UpdateGameAsync(Game updateGame)
         {
-            var existingGame = await _databaseContext.Games.FindAsync(updateGame.Id);
+            var existingGame = await _databaseContext.Games.FindAsync(updateGame.GameId);
             if (existingGame == null) return null;
 
             _databaseContext.Entry(existingGame).CurrentValues.SetValues(updateGame);

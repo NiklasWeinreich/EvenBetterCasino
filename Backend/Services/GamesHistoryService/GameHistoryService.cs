@@ -1,8 +1,10 @@
-﻿using Backend.Database.Entities;
-using Backend.DTO.GamesDTO;
+﻿using Backend.Database.DatabaseContext;
+using Backend.Database.Entities;
 using Backend.DTO.GamesHistoryDTO;
+using Backend.Interfaces.IGames;
 using Backend.Interfaces.IGamesHistory;
-using Backend.Repositories.GamesHistoryRepository;
+using Backend.Interfaces.IUser;
+using Backend.Services.GamesService;
 
 namespace Backend.Services.GamesHistoryService
 {
@@ -10,11 +12,16 @@ namespace Backend.Services.GamesHistoryService
     {
 
         private readonly IGameHistoryRepository _gameHistoryRepository;
+        private readonly IUserService _userService;
+        private readonly IGamesService _gamesService;
 
-        public GameHistoryService(IGameHistoryRepository gameHistoryRepository)
+        public GameHistoryService(IGameHistoryRepository gameHistoryRepository, IUserService userService, IGamesService gamesService)
         {
             _gameHistoryRepository = gameHistoryRepository;
+            _userService = userService;
+            _gamesService = gamesService;
         }
+
 
         public async Task<List<GameHistoryResponse>> GetAllGameHistoryTicketsAsync()
         {
@@ -22,26 +29,63 @@ namespace Backend.Services.GamesHistoryService
 
             return ticket.Select(MapEntityToResponse).ToList();
         }
-        public async Task<GameHistoryResponse?> GetGameHistoryByUserIdAsync(int userId)
+
+
+        public async Task<List<GameHistoryResponse>> GetGameHistoryByUserIdAsync(int userId)
         {
+            var user = await _userService.GetUserByIdAsync(userId);
+            if (user == null) throw new ArgumentException($"User with ID {userId} does not exist.");
 
-            var ticket = await _gameHistoryRepository.GetGameHistoryByUserIdAsync(userId);
-            if (ticket == null) return null;
+            var tickets = await _gameHistoryRepository.GetGameHistoryByUserIdAsync(userId);
 
-            return MapEntityToResponse(ticket);
-
+            return tickets.Select(MapEntityToResponse).ToList();
 
         }
 
-        public async Task<GameHistoryResponse?> GetGameHistoryByGameIdAsync(int gameId)
-        {
-            var ticket = await _gameHistoryRepository.GetGameHistoryByGameIdAsync(gameId);
-            if (ticket == null) return null;
 
-            return MapEntityToResponse(ticket);
+        public async Task<List<GameHistoryResponse>> GetGameHistoryByGameIdAsync(int gameId)
+        {
+
+            var game = await _gamesService.GetGameByIdAsync(gameId);
+            if (game == null) throw new ArgumentException($"Game with ID {gameId} does not exist.");
+
+            var tickets = await _gameHistoryRepository.GetGameHistoryByGameIdAsync(gameId);
+
+            return tickets.Select(MapEntityToResponse).ToList();
         }
+
+
+        public async Task<List<GameHistoryResponse>> GetGameHistoryByGameIdAndUserIdAsync(int userId, int gameId)
+        {
+            var user = await _userService.GetUserByIdAsync(userId);
+            if (user == null) throw new ArgumentException($"User with ID {userId} does not exist.");
+
+            // Tjek om spillet eksisterer
+            var game = await _gamesService.GetGameByIdAsync(gameId);
+            if (game == null) throw new ArgumentException($"Game with ID {gameId} does not exist.");
+
+
+            var tickets = await _gameHistoryRepository.GetGameHistoryByGameIdAndUserIdAsync(userId, gameId);
+
+
+
+            return tickets.Select(MapEntityToResponse).ToList();
+
+        }
+
+
         public async Task<GameHistoryResponse> CreateGameHistoryTicket(GameHistoryRequest request)
         {
+
+            var user = await _userService.GetUserByIdAsync(request.UserId);
+            if (user == null) throw new ArgumentException($"User with ID {request.UserId} does not exist.");
+            
+
+            var game = await _gamesService.GetGameByIdAsync(request.GameId);
+            if (game == null) throw new ArgumentException($"Game with ID {request.GameId} does not exist.");
+
+            if (!request.IsWin && (request.WinAmount > 0 || request.WasCashedOut))
+                throw new ArgumentException("WinAmount and WasCashedOut can only be set if IsWin is true.");
 
 
             var newTicket = new GameHistory
@@ -49,8 +93,10 @@ namespace Backend.Services.GamesHistoryService
                 UserId = request.UserId,
                 GameId = request.GameId,
                 BetAmount = request.BetAmount,
+                WinAmount = request.WinAmount,
                 IsWin = request.IsWin,
                 IsJackpotWin = request.IsJackpotWin,
+                WasCashedOut = request.WasCashedOut,
                 Date = DateTime.UtcNow
             };
 
@@ -66,10 +112,14 @@ namespace Backend.Services.GamesHistoryService
 
                 GameHistoryId = response.GameHistoryId,
                 GameId = response.GameId,
+                GameName = response.Game?.Name,
                 UserId = response.UserId,
+                UserName = response.User?.FirstName + " " + response.User?.LastName,
                 BetAmount = response.BetAmount,
-                IsJackpotWin = response.IsJackpotWin,
+                WinAmount = response.WinAmount,
                 IsWin = response.IsWin,
+                WasCashedOut = response.WasCashedOut,
+                IsJackpotWin = response.IsJackpotWin,
                 Date = response.Date,
 
 

@@ -24,15 +24,31 @@ namespace Backend.Repositories.GamesHistoryRepository
                 .ToListAsync();
 
         }
-        public async Task<GameHistory?> GetGameHistoryByGameIdAsync(int id)
+        public async Task<List<GameHistory>> GetGameHistoryByGameIdAsync(int id)
         {
-            return await _databaseContext.GameHistories.FindAsync(id);
+            return await _databaseContext.GameHistories
+                .Where(g => g.User.Id == id)
+                .Include(g => g.User)
+                .Include(g => g.Game)
+                .ToListAsync();
 
         }
 
-        public async Task<GameHistory?> GetGameHistoryByUserIdAsync(int id)
+        public async Task<List<GameHistory>> GetGameHistoryByUserIdAsync(int id)
         {
-            return await _databaseContext.GameHistories.FindAsync(id);
+            return await _databaseContext.GameHistories
+                .Where(g => g.Game.GameId == id)
+                .Include(g => g.User)
+                .Include(g => g.Game)
+                .ToListAsync();
+        }
+        public async Task<List<GameHistory>> GetGameHistoryByGameIdAndUserIdAsync(int userId, int gameId)
+        {
+            return await _databaseContext.GameHistories
+                .Where(g => g.GameId == gameId && g.UserId == userId)
+                .Include(g => g.User)
+                .Include(g => g.Game)
+                .ToListAsync();
         }
 
         public async Task<GameHistory> CreateGameHistoryTicket(GameHistory ticket)

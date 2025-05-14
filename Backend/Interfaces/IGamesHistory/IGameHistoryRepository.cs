@@ -10,13 +10,14 @@ namespace Backend.Interfaces.IGamesHistory
         Task<List<GameHistory>> GetAllGameHistoryTicketsAsync();
 
         // Get BY USER ID 
-        Task<GameHistory?> GetGameHistoryByUserIdAsync(int id);
+        Task<List<GameHistory>> GetGameHistoryByUserIdAsync(int id);
 
         // Get BY GAME ID
-        Task<GameHistory?> GetGameHistoryByGameIdAsync(int id);
+        Task<List<GameHistory>> GetGameHistoryByGameIdAsync(int id);
 
 
-        // USER ID && DATO
+        // USER ID && GAME ID
+        Task<List<GameHistory>> GetGameHistoryByGameIdAndUserIdAsync(int userId, int gameId);
 
         // USER ID && DATO
 

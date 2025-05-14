@@ -6,7 +6,7 @@ namespace Backend.Database.Entities
     {
 
         [Key]
-        public int TransactionsId { get; set; }
+        public Guid TransactionsId { get; set; } = Guid.NewGuid();
 
         [Column(TypeName = "int")]        
         public int UserId { get; set; }

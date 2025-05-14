@@ -1,5 +1,6 @@
 ﻿using Backend.Database.Entities;
 using Backend.DTO.GamesHistoryDTO;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Backend.Interfaces.IGamesHistory
 {
@@ -10,13 +11,15 @@ namespace Backend.Interfaces.IGamesHistory
         Task<List<GameHistoryResponse>> GetAllGameHistoryTicketsAsync();
 
         // Get BY USER ID 
-        Task<GameHistoryResponse?> GetGameHistoryByUserIdAsync(int userId);
+        Task<List<GameHistoryResponse>> GetGameHistoryByUserIdAsync(int userId);
 
         // Get BY GAME ID
-        Task<GameHistoryResponse?> GetGameHistoryByGameIdAsync(int gameId);
+        Task<List<GameHistoryResponse>> GetGameHistoryByGameIdAsync(int gameId);
 
 
-        // USER ID && DATO
+        // USER ID && GAME ID
+        Task<List<GameHistoryResponse>> GetGameHistoryByGameIdAndUserIdAsync(int userId, int gameId);
+
 
         // USER ID && DATO
 

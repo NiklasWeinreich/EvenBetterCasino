@@ -136,7 +136,7 @@ namespace Backend.Database.DatabaseContext
             modelBuilder.Entity<GameHistory>().HasData(
                 new GameHistory
                 {
-                    GameHistoryId = 1,
+                    GameHistoryId = Guid.NewGuid(),
                     UserId = 1,
                     GameId = 1,
                     Date = new DateTime(),
@@ -146,7 +146,7 @@ namespace Backend.Database.DatabaseContext
                 },
                 new GameHistory
                 {
-                    GameHistoryId = 2,
+                    GameHistoryId = Guid.NewGuid(),
                     UserId = 2,
                     GameId = 2,
                     Date = new DateTime(),
@@ -159,7 +159,7 @@ namespace Backend.Database.DatabaseContext
             modelBuilder.Entity<Transactions>().HasData(
                 new Transactions
                 {
-                    TransactionsId = 1,
+                    TransactionsId = Guid.NewGuid(),
                     UserId = 1,
                     Amount = 500,
                     Date = new DateTime(),
@@ -168,7 +168,7 @@ namespace Backend.Database.DatabaseContext
                 },
                 new Transactions
                 {
-                    TransactionsId = 2,
+                    TransactionsId = Guid.NewGuid(),
                     UserId = 2,
                     Amount = 300,
                     Date = new DateTime(),

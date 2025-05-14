@@ -8,13 +8,11 @@ namespace Backend.DTO.GamesHistoryDTO
     {
  
         public required int UserId { get; set; }
-
         public required int GameId { get; set; }
-
         public required decimal BetAmount { get; set; }
-
+        public decimal WinAmount { get; set; }
         public required bool IsWin { get; set; } = false;
-
+        public bool WasCashedOut { get; set; }
         public required bool IsJackpotWin { get; set; } = false;
     }
 }

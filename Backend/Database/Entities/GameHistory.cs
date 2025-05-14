@@ -5,7 +5,7 @@ namespace Backend.Database.Entities
     public class GameHistory
     {
         [Key]
-        public int GameHistoryId { get; set; }
+        public Guid GameHistoryId { get; set; } = Guid.NewGuid();
 
         public DateTime Date {  get; set; }
 
@@ -17,9 +17,13 @@ namespace Backend.Database.Entities
 
         [Column(TypeName = "decimal(18,2)")]
         public required decimal BetAmount { get; set; }
-        
+
+        [Column(TypeName = "decimal(18,2)")]
+        public decimal WinAmount { get; set; }
+
         public required bool IsWin { get; set; } = false;
-        
+        public bool WasCashedOut { get; set; } = false;
+
         public required bool IsJackpotWin { get; set; } = false;
 
         [ForeignKey("UserId")]

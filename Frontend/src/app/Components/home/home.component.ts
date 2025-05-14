@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { Router, RouterLink, RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { UserService } from '../../Services/User/user.service';
 import { AuthService } from '../../Services/Security/auth.service';
@@ -10,7 +10,7 @@ import { Game } from '../../Models/games.model';
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, RouterModule, FormsModule],
+  imports: [CommonModule, RouterModule, FormsModule,],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
 })
@@ -24,12 +24,20 @@ export class HomeComponent implements OnInit {
   constructor(
     private userService: UserService,
     public authService: AuthService,
-    public gamesService: GameService
+    public gamesService: GameService,
+    private router: Router,
   ) {}
 
   ngOnInit(): void {
     this.loadUserEmail();
     this.loadGames();
+
+  }
+
+    navigateToGame(games: Game): void {
+    if (games.webUrl) {
+      this.router.navigate(['/Games', games.webUrl]);
+    }
   }
 
   loadGames(): void {

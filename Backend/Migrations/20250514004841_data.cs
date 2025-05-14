@@ -141,16 +141,16 @@ namespace Backend.Migrations
                 columns: new[] { "Id", "Balance", "BirthDate", "Email", "ExcludedUntil", "FirstName", "LastName", "Loss", "NewsLetterIsSubscribed", "Password", "PhoneNumber", "Profit", "Role" },
                 values: new object[,]
                 {
-                    { 1, 100m, new DateTime(1990, 5, 21, 0, 0, 0, 0, DateTimeKind.Unspecified), "NiklasErEnMaskine@mail.com", null, "Niklas", "Maskine", 25, true, "$2a$11$Z4bJXM9i/zBVvKzEedRF3ejREdGWanAZMWMVup0p6s2lwKyfu1X.a", 12345678, 50m, 1 },
-                    { 2, 75m, new DateTime(1990, 5, 21, 0, 0, 0, 0, DateTimeKind.Unspecified), "johndoe@example.com", null, "John", "Doe", 55, false, "$2a$11$DSFdgPIq3IDRRYNokL1Emuqbi2KnioGwDEOsq1PQ61UfmYWidk3MW", 87654321, 33m, 0 },
-                    { 3, 100m, new DateTime(1995, 3, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), "anna.jensen@example.com", null, "Anna", "Jensen", 15, true, "$2a$11$pgVS1C9kZKYMDKBjkLa6SeihItDH3dEetYXVKxa3yfDobNPY7KzXC", 11111111, 20m, 0 },
-                    { 4, 150m, new DateTime(1988, 7, 23, 0, 0, 0, 0, DateTimeKind.Unspecified), "mark.larsen@example.com", null, "Mark", "Larsen", 10, true, "$2a$11$7Y/qx1UV7SRXZi4uVZva.uCpxcOchC/enEfDXqB7TpMs4JOWyIDju", 22222222, 40m, 0 },
-                    { 5, 200m, new DateTime(1992, 9, 30, 0, 0, 0, 0, DateTimeKind.Unspecified), "sara.hansen@example.com", null, "Sara", "Hansen", 25, false, "$2a$11$vql51N7JdNp0dL7mekcvFOI6Kgv4.e4agpiZs1LWk6l0A6PbMDHgi", 33333333, 30m, 0 },
-                    { 6, 300m, new DateTime(1985, 1, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), "peter.madsen@example.com", null, "Peter", "Madsen", 40, true, "$2a$11$boKZj3IX7v.xiIlDpIq.aOZZoj1FQ0qRU4.l2moeEtxDZ7U4g21Jy", 44444444, 70m, 0 },
-                    { 7, 120m, new DateTime(1998, 12, 12, 0, 0, 0, 0, DateTimeKind.Unspecified), "laura.poulsen@example.com", null, "Laura", "Poulsen", 5, true, "$2a$11$Fylf3WWILVOqLRMcjfTcyOHv3bd9MYabFWIKPlK.U7ZquN5d6uBhu", 55555555, 25m, 0 },
-                    { 8, 180m, new DateTime(1982, 4, 8, 0, 0, 0, 0, DateTimeKind.Unspecified), "thomas.christensen@example.com", null, "Thomas", "Christensen", 20, true, "$2a$11$X9WCYXfNM8VywbUS3CMWD./Cll4UY.Q0PNN0deOIgV8g0IJVZVvMi", 66666666, 60m, 0 },
-                    { 9, 220m, new DateTime(1994, 6, 5, 0, 0, 0, 0, DateTimeKind.Unspecified), "emma.andersen@example.com", null, "Emma", "Andersen", 10, true, "$2a$11$4mzy7vq4f405bcgdYa99we3N1ImpkQHriCBJEuEyqIELtAzsmrwAG", 77777777, 80m, 0 },
-                    { 10, 90m, new DateTime(1989, 11, 19, 0, 0, 0, 0, DateTimeKind.Unspecified), "mikkel.olsen@example.com", null, "Mikkel", "Olsen", 10, false, "$2a$11$Ph7u9I0cGKQab3kka2MAguhe/ZSk3JVXWi3WKuhFgD7EawiwceJT2", 88888888, 10m, 0 }
+                    { 1, 100m, new DateTime(1990, 5, 21, 0, 0, 0, 0, DateTimeKind.Unspecified), "NiklasErEnMaskine@mail.com", null, "Niklas", "Maskine", 25, true, "$2a$11$ktQt8dY3Sy3W2q07f5eNB.OeoIUv3pOrKih41JP8x8q5NrJwIRbuq", 12345678, 50m, 1 },
+                    { 2, 75m, new DateTime(1990, 5, 21, 0, 0, 0, 0, DateTimeKind.Unspecified), "johndoe@example.com", null, "John", "Doe", 55, false, "$2a$11$P4OnS9eHzRkZ7rw2Jt3kBeFDYPspL/2qipZH8rukyKHSeknOaLABm", 87654321, 33m, 0 },
+                    { 3, 100m, new DateTime(1995, 3, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), "anna.jensen@example.com", null, "Anna", "Jensen", 15, true, "$2a$11$wNsp9L7Bg4.iPK2sa6bbzumRCBR9r01t3eeEgv6bPiYbWFzxmiLVC", 11111111, 20m, 0 },
+                    { 4, 150m, new DateTime(1988, 7, 23, 0, 0, 0, 0, DateTimeKind.Unspecified), "mark.larsen@example.com", null, "Mark", "Larsen", 10, true, "$2a$11$GR2kXBj6/mq6kXw6WSoPp.dzYxDvf6D2GVQAA7StpkxqkkdVDcM9i", 22222222, 40m, 0 },
+                    { 5, 200m, new DateTime(1992, 9, 30, 0, 0, 0, 0, DateTimeKind.Unspecified), "sara.hansen@example.com", null, "Sara", "Hansen", 25, false, "$2a$11$fHB19s.1LQ2QBZHS1mtz1.smzGSBHVJ03uwqiQM/8hz4o9Bc/rGA2", 33333333, 30m, 0 },
+                    { 6, 300m, new DateTime(1985, 1, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), "peter.madsen@example.com", null, "Peter", "Madsen", 40, true, "$2a$11$5TVP07Ht6RD/MgSSgoNxy.3T1XBXM66TZoW9/eCrmZyzbsn5f7rfS", 44444444, 70m, 0 },
+                    { 7, 120m, new DateTime(1998, 12, 12, 0, 0, 0, 0, DateTimeKind.Unspecified), "laura.poulsen@example.com", null, "Laura", "Poulsen", 5, true, "$2a$11$4DCHtxmqavZV9ooiR4A4he9F6CgPzWmA7AJ.2LG1HHQ7EgU89y94O", 55555555, 25m, 0 },
+                    { 8, 180m, new DateTime(1982, 4, 8, 0, 0, 0, 0, DateTimeKind.Unspecified), "thomas.christensen@example.com", null, "Thomas", "Christensen", 20, true, "$2a$11$80XAvvxKMRYpPHDYSmNZKe3oTvhISpCuQEYKSDgnycMJV1fUp5nXS", 66666666, 60m, 0 },
+                    { 9, 220m, new DateTime(1994, 6, 5, 0, 0, 0, 0, DateTimeKind.Unspecified), "emma.andersen@example.com", null, "Emma", "Andersen", 10, true, "$2a$11$vZ7ZLtcZzAQKleTwM86yxuOVF2GPsJlNShAvi0cH6bejccgMijSPe", 77777777, 80m, 0 },
+                    { 10, 90m, new DateTime(1989, 11, 19, 0, 0, 0, 0, DateTimeKind.Unspecified), "mikkel.olsen@example.com", null, "Mikkel", "Olsen", 10, false, "$2a$11$znEEwFZhBFMraFdXdTC8Qu6I2Qk.jdR/0Bj14an1AJhSSAVJo45Jy", 88888888, 10m, 0 }
                 });
 
             migrationBuilder.InsertData(
@@ -158,9 +158,9 @@ namespace Backend.Migrations
                 columns: new[] { "Id", "CategoryId", "ImageUrl", "JackpotAmount", "Name", "Status", "WebUrl" },
                 values: new object[,]
                 {
-                    { 1, 1, "https://i.imgflip.com/7nz6q8.png?a484848", 10000m, "Football Match", true, null },
-                    { 2, 2, "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTUKs7TFCPgIxI0i4E3IwOiAEAGbdfCg8zKmA&s", 5000m, "Blackjack", true, null },
-                    { 3, 2, "https://upload.wikimedia.org/wikipedia/commons/thumb/7/70/Fireball.svg/1024px-Fireball.svg.png", 15000m, "Bombastic", true, "bombastic" }
+                    { 1, 1, "https://assets.funnygames.dk/2/114572/100319/1024x1024/yatzy.webp", 10000m, "yatzy", true, "yatzy" },
+                    { 2, 2, "https://cdn.prod.website-files.com/5ae2e7a18cb7532f0710bdfb/5e21d7084c5acfd2a75b5c0f_small.jpg", 5000m, "Dice", true, "dice" },
+                    { 3, 2, "https://mediumrare.imgix.net/12c3bb0487e2239772248e61550a121ee20fe8400a63f386d08896d1122d1655?q=85", 15000m, "Bombastic", true, "bombastic" }
                 });
 
             migrationBuilder.InsertData(

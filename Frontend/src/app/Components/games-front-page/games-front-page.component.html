@@ -1,11 +1,11 @@
 <p>games works!</p>
 
-<div *ngFor="let game of games" class="game-card">
+<!-- <div *ngFor="let game of games" class="game-card">
   <img [src]="game.imageUrl" alt="{{ game.name }}" width="200" />
   <h3>{{ game.name }}</h3>
   <p>Jackpot: {{ game.jackpotAmount | currency:'DKK' }}</p>
   <button (click)="navigateToGame(game)">Spil {{ game.name }}</button>
-</div>
+</div> -->
 
 <div class="p-5">
     <button [routerLink]="['/games/yatzy']" > Spil Yatzy!</button>

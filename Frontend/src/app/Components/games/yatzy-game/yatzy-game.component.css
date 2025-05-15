@@ -1,2 +1,111 @@
+.yatzy__title {
+  font-size: 2rem;
+  text-align: center;
+  margin-bottom: 1rem;
+}
 
-  
+.yatzy__form {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: center;
+  align-items: center;
+}
+
+.yatzy__label {
+  font-weight: 600;
+}
+
+.yatzy__input {
+  width: 80px;
+  padding: 0.25rem;
+  border: 1px solid #ccc;
+  border-radius: 0.25rem;
+}
+
+.yatzy__button {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 0.5rem;
+  background: #007bff;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.yatzy__button[disabled] {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.yatzy__button:hover:not([disabled]) {
+  background-color: #0056b3;
+}
+
+.yatzy__dice-container {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin-top: 1rem;
+  flex-wrap: wrap;
+}
+
+.yatzy__dice {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  width: auto !important;
+  height: auto !important;
+  padding: 0;
+  font-size: 2.5rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  user-select: none;
+  cursor: default;
+  transition: none;
+}
+
+
+.roll-animation {
+  animation: shake 0.5s ease-in-out infinite;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  75% { transform: translateX(5px); }
+}
+
+.yatzy__result {
+  text-align: center;
+  margin-top: 1rem;
+  word-wrap: break-word;
+}
+
+.yatzy__jackpot {
+  text-align: center;
+  margin: 1rem 0;
+  font-weight: 700;
+}
+
+.yatzy__jackpot-value {
+  color: #e63946;
+  margin-left: 0.5rem;
+}
+
+.yatzy__feedback {
+  text-align: center;
+  margin-top: 1rem;
+  min-height: 3rem;
+}
+
+.yatzy__win {
+  color: #28a745;
+  font-weight: bold;
+}
+
+.yatzy__lose {
+  color: #dc3545;
+  font-weight: bold;
+}

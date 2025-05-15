@@ -3,7 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { GameLayoutComponent } from '../game-layout/game-layout.component';
 import { DiceService } from '../../../Services/Games/dice.service';
 import { CommonModule } from '@angular/common';
-import { DiceGameResult } from '../../../Models/dicegame.model';
+import { DiceGame } from '../../../Models/dicegame.model';
 import { AuthService } from '../../../Services/Security/auth.service';
 
 @Component({
@@ -11,13 +11,18 @@ import { AuthService } from '../../../Services/Security/auth.service';
   standalone: true,
   imports: [FormsModule, GameLayoutComponent, CommonModule],
   templateUrl: './dice-game.component.html',
+  styleUrls: ['./dice-game.component.css'],
 })
 export class DiceGameComponent {
   selectedNumber = 50;
   isGuessOver = true;
-  betAmount = 100;
-  dicegameResult?: DiceGameResult;
-  //dicegameHistory: DiceGameResult[] = [];
+  betAmount = 50;
+  dicegameResult?: DiceGame;
+  payout = 0;
+
+  /** Animation flags **/
+  showDiceAnimation = false;
+  diceAnimationKey = 0;
 
   constructor(
     private diceService: DiceService,
@@ -25,12 +30,26 @@ export class DiceGameComponent {
   ) {}
 
   playDiceGame(betAmount: number) {
+    this.diceAnimationKey++;
+    this.showDiceAnimation = true;
+
+    setTimeout(() => {
+      this.showDiceAnimation = false;
+      this.runDiceService(betAmount);
+    }, 1500);
+  }
+
+  private runDiceService(bet: number) {
+    this.betAmount = bet;
     this.diceService
-      .playGame(this.selectedNumber, this.isGuessOver, betAmount)
+      .playGame(this.selectedNumber, this.isGuessOver, bet)
       .subscribe({
-        next: (response) => {
-          this.dicegameResult = response;
-          console.log('Spillet kørte:', response);
+        next: (response: DiceGame) => {
+          this.dicegameResult = {
+            ...response,
+            selectedNumber: this.selectedNumber,
+            isGuessOver: this.isGuessOver,
+          };
         },
         error: (error) => {
           console.error('Fejl:', error);
@@ -41,6 +60,8 @@ export class DiceGameComponent {
             isWin: false,
             payout: 0,
             winProbability: 0,
+            selectedNumber: this.selectedNumber,
+            isGuessOver: this.isGuessOver,
           };
         },
       });

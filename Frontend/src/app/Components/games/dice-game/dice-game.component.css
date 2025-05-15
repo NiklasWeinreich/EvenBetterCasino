@@ -1,0 +1,49 @@
+.dice-animation-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100px;
+  margin-bottom: 1rem;
+}
+
+.dice {
+  font-size: 50px;
+  animation: dice-roll 1.5s ease-in-out;
+}
+
+@keyframes dice-roll {
+  0% {
+    transform: rotate(0deg) scale(1) translateY(0);
+    opacity: 0.5;
+  }
+  25% {
+    transform: rotate(360deg) scale(1.2) translateY(-20px);
+    opacity: 1;
+  }
+  50% {
+    transform: rotate(720deg) scale(0.9) translateY(10px);
+  }
+  75% {
+    transform: rotate(1080deg) scale(1.1) translateY(-10px);
+  }
+  100% {
+    transform: rotate(1440deg) scale(1) translateY(0);
+    opacity: 1;
+  }
+}
+
+.yatzy__feedback {
+  text-align: center;
+  margin-top: 1rem;
+  min-height: 3rem;
+}
+
+.yatzy__win {
+  color: #28a745;
+  font-weight: bold;
+}
+
+.yatzy__lose {
+  color: #dc3545;
+  font-weight: bold;
+}

@@ -10,7 +10,7 @@ import { Game } from '../../Models/games.model';
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, RouterModule, FormsModule,],
+  imports: [CommonModule, RouterModule, FormsModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
 })
@@ -25,16 +25,15 @@ export class HomeComponent implements OnInit {
     private userService: UserService,
     public authService: AuthService,
     public gamesService: GameService,
-    private router: Router,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
     this.loadUserEmail();
     this.loadGames();
-
   }
 
-    navigateToGame(games: Game): void {
+  navigateToGame(games: Game): void {
     if (games.webUrl) {
       this.router.navigate(['/Games', games.webUrl]);
     }
@@ -43,9 +42,8 @@ export class HomeComponent implements OnInit {
   loadGames(): void {
     this.gamesService.getAllGames().subscribe({
       next: (games) => {
-        this.games = games;
+        this.games = games.sort(() => 0.5 - Math.random()).slice(0, 3);
         console.log('spil hentet', games);
-
       },
       error: (err) => {
         console.error(err);
@@ -60,7 +58,6 @@ export class HomeComponent implements OnInit {
       this.userEmail = user.email;
       this.isSubscribed = user.newsLetterIsSubscribed;
     }
-
   }
 
   subscribeToNewsletter() {
@@ -98,7 +95,6 @@ export class HomeComponent implements OnInit {
   }
 
   alreadySubscribed(): boolean {
-  return this.isSubscribed;
-}
-
+    return this.isSubscribed;
+  }
 }

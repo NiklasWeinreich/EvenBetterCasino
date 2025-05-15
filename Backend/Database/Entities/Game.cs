@@ -19,6 +19,9 @@ namespace Backend.Database.Entities
         [Column(TypeName = "nvarchar(255)")]
         public string? ImageUrl { get; set; }
 
+        [Column(TypeName = "nvarchar(255)")]
+        public string description { get; set; }
+
         public required bool Status { get; set; } = false;
 
         [ForeignKey("CategoryId")]

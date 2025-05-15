@@ -66,7 +66,7 @@ export class BankComponent implements OnInit {
         this.depositAmount = 0;
       },
       error: () => {
-        this.errorMessage = 'Fejl ved indsættelse.';
+        this.errorMessage = 'Du skal minimum indsætte 50 kr!';
         this.successMessage = '';
       }
     });

@@ -1,26 +1,39 @@
-<app-game-layout>
+<app-game-layout [betAmount]="betAmount" (betPlaced)="playYatzyGame($event)">
+    <!-- Titel -->
     <div slot="title-area">
-        <h4>Yatzy</h4>
+        <h1 class="yatzy__title">Yatzy 🎲</h1>
     </div>
-    <div slot="game-area">
-        <div class="text-center">
-        </div>
-        <div class="row text-center">
-            <div class="dice-container">
-                <div>
-                    Terninger skal være her.
-                </div>
+
+    <!-- Spilindhold -->
+    <div slot="game-area" class="yatzy__play-area">
+
+
+        <div *ngIf="diceResults.length" class="yatzy__dice-container">
+            <div class="yatzy__dice" *ngFor="let die of diceResults; trackBy: trackByIndex"
+                [class.roll-animation]="isLoading">
+                🎲 {{ die }}
             </div>
-            <p class="mt-5">PLACEHOLDER FOR TEKST</p>
+        </div>
+
+        <div *ngIf="diceResults.length" class="yatzy__result">
+            <p><strong>Kombination:</strong> {{ combinationText }}</p>
+            <!-- <p><strong>Udbetaling:</strong> {{ payout | currency:'DKK':'symbol':'1.2-2':'da-DK' }}</p> -->
         </div>
     </div>
-    <div slot="jackpot-area">
-        <div>
-            JACKPOT: {{ jackpot | currency}}
-        </div>
+
+    <!-- Jackpot -->
+    <div slot="jackpot-area" class="yatzy__jackpot">
+        <span>JACKPOT:</span>
+        <span class="yatzy__jackpot-value">{{ jackpot | currency:'DKK':'symbol':'1.2-2':'da-DK' }}</span>
+
     </div>
-    <div slot="bet-area">
-        
-        Test test test
+
+    <!-- Bet-område -->
+    <div slot="bet-area" class="yatzy__feedback">
+        <!-- <p><strong>Indsats valgt:</strong> {{ betAmount | currency:'DKK':'symbol':'1.2-2':'da-DK' }}</p> -->
+        <p *ngIf="payout > 0" class="yatzy__win">Du vandt {{ payout | currency:'DKK':'symbol':'1.2-2':'da-DK' }}</p>
+        <p *ngIf="diceResults.length && payout === 0" class="yatzy__lose">
+            Desværre, ingen gevinst denne gang.
+        </p>
     </div>
 </app-game-layout>

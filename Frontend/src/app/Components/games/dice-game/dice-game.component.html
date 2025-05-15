@@ -1,4 +1,4 @@
-<app-game-layout (betPlaced)="playDiceGame($event)">
+<app-game-layout [betAmount]="betAmount" (betPlaced)="playDiceGame($event)">
   <div slot="title-area">
     <h4>DICE</h4>
   </div>
@@ -8,16 +8,43 @@
     <div>500.000 kr</div>
   </div>
 
+  <div slot="left-area">
+  </div>
+
   <div slot="game-area">
-    <!-- Spil slider og resultatvisning -->
-    <label>Dit tal: {{ selectedNumber }}</label>
-    <input type="range" min="1" max="100" [(ngModel)]="selectedNumber" />
-    <div *ngIf="dicegameResult" class="mt-3 d-flex flex-wrap gap-3">
-      <p [ngClass]="dicegameResult.isWin ? 'text-success' : 'text-danger'"><strong>Resultat:</strong> {{ dicegameResult.message }}</p>
-      <p [ngClass]="dicegameResult.isWin ? 'text-success' : 'text-danger'"><strong>Terning slået:</strong> {{ dicegameResult.diceValue }}</p>
-      <p [ngClass]="dicegameResult.isWin ? 'text-success' : 'text-danger'"><strong>Vandt du?:</strong> {{ dicegameResult.isWin ? 'JA' : 'NEJ' }}</p>
-      <p [ngClass]="dicegameResult.isWin ? 'text-success' : 'text-danger'"><strong>Udbetaling:</strong> {{ dicegameResult.payout | number:'1.2-2' }} kr</p>
-      <p [ngClass]="dicegameResult.isWin ? 'text-success' : 'text-danger'"><strong>Vinderchancer:</strong> {{ dicegameResult.winProbability * 100 | number:'1.0-2' }}%</p>
+    <div class="dice-animation-wrapper" *ngIf="showDiceAnimation" [attr.key]="diceAnimationKey">
+      <div class="dice">🎲</div>
+    </div>
+
+
+    <div class="d-flex flex-column align-items-center">
+      <label class="fw-bold">Dit tal: {{ selectedNumber }}</label>
+      <input type="range" min="1" max="100" [(ngModel)]="selectedNumber" class="form-range" style="width: 150px;" />
+    </div>
+
+    <div *ngIf="dicegameResult" class="mt-3">
+      <div class="yatzy__feedback d-flex flex-row flex-wrap align-items-center gap-3 justify-content-center"
+        [ngClass]="dicegameResult.isWin ? 'yatzy__win' : 'yatzy__lose'">
+
+        <p><strong>{{ dicegameResult.message }}</strong></p>
+
+
+
+        <p>Terning slået: {{ dicegameResult.diceValue }}</p>
+        <p>Vinderchancer: {{ dicegameResult.winProbability * 100 | number:'1.2-2' }}%</p>
+      </div>
+    </div>
+
+  </div>
+
+  <div slot="bet-area">
+    <div class="yatzy__feedback">
+      <p *ngIf="dicegameResult && dicegameResult.payout > 0" class="yatzy__win">
+        Du vandt {{ dicegameResult.payout | currency:'DKK':'symbol':'1.2-2':'da-DK' }}
+      </p>
+      <p *ngIf="dicegameResult && !dicegameResult.isWin" class="yatzy__lose">
+        Desværre, ingen gevinst denne gang.
+      </p>
     </div>
   </div>
 </app-game-layout>

@@ -27,6 +27,9 @@ using Backend.Interfaces.IGamesHistory;
 using Backend.Services.GamesHistoryService;
 using Backend.Repositories.GamesHistoryRepository;
 using Backend.Database.Entities;
+using Backend.Interfaces.ITransactions;
+using Backend.Services.TransactionsService;
+using Backend.Repositories.TransactionsRepository;
 
 
 
@@ -56,6 +59,8 @@ namespace Backend
             builder.Services.AddScoped<IGamesRepository, GamesRepository>();
             builder.Services.AddScoped<IGameHistoryService, GameHistoryService>();
             builder.Services.AddScoped<IGameHistoryRepository, GameHistoryRepository>();
+            builder.Services.AddScoped<ITransactionService, TransactionService>();
+            builder.Services.AddScoped<ITransactionRepository, TransactionRepository>();
 
 
             builder.Services.AddScoped<IJwtUtils, JwtUtils>();

@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Backend.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20250514090124_InitialDB")]
+    [Migration("20250515101225_InitialDB")]
     partial class InitialDB
     {
         /// <inheritdoc />
@@ -149,7 +149,7 @@ namespace Backend.Migrations
                     b.HasData(
                         new
                         {
-                            GameHistoryId = new Guid("2f1095cb-a49f-4665-a385-b861758b77e3"),
+                            GameHistoryId = new Guid("c3f37671-f1a7-46f8-8569-343ea7054b85"),
                             BetAmount = 100m,
                             Date = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             GameId = 1,
@@ -161,7 +161,7 @@ namespace Backend.Migrations
                         },
                         new
                         {
-                            GameHistoryId = new Guid("60351852-6ce6-4a86-99f3-232df94eadc9"),
+                            GameHistoryId = new Guid("f0bede7d-852c-4790-8e8b-7173845eb022"),
                             BetAmount = 50m,
                             Date = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             GameId = 2,
@@ -173,21 +173,17 @@ namespace Backend.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Backend.Database.Entities.Transactions", b =>
+            modelBuilder.Entity("Backend.Database.Entities.Transaction", b =>
                 {
-                    b.Property<Guid>("TransactionsId")
+                    b.Property<Guid>("TransactionId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("Amount")
-                        .HasColumnType("int");
+                    b.Property<decimal>("Amount")
+                        .HasColumnType("decimal");
 
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
-
-                    b.Property<string>("Direction")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("Type")
                         .IsRequired()
@@ -196,7 +192,7 @@ namespace Backend.Migrations
                     b.Property<int>("UserId")
                         .HasColumnType("int");
 
-                    b.HasKey("TransactionsId");
+                    b.HasKey("TransactionId");
 
                     b.HasIndex("UserId");
 
@@ -205,20 +201,18 @@ namespace Backend.Migrations
                     b.HasData(
                         new
                         {
-                            TransactionsId = new Guid("f9a12da0-acc1-472a-8f04-761a3c4605e9"),
-                            Amount = 500,
+                            TransactionId = new Guid("2fc75fb7-0778-4df8-998a-c142edc1df33"),
+                            Amount = 500m,
                             Date = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Direction = "In",
-                            Type = "Deposit",
+                            Type = "Indbetaling",
                             UserId = 1
                         },
                         new
                         {
-                            TransactionsId = new Guid("6ac4ebe5-2586-45cc-b030-a25e791b40eb"),
-                            Amount = 300,
+                            TransactionId = new Guid("7f580475-2774-4161-bb35-cd6d653d3463"),
+                            Amount = 300m,
                             Date = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Direction = "Out",
-                            Type = "Withdrawal",
+                            Type = "Udbetaling",
                             UserId = 2
                         });
                 });
@@ -282,7 +276,7 @@ namespace Backend.Migrations
                             FirstName = "Niklas",
                             LastName = "Maskine",
                             NewsLetterIsSubscribed = true,
-                            Password = "$2a$11$JN1IjMEL2gc/pQttRlh/1euYYK0hVLra4qD1ZBbMmUVUQLdi5Y.Hu",
+                            Password = "$2a$11$iFgNrxYMo/R23S697eFWMOfh0CkYJxS7hHisUq.4Jk.q5LLdh/7ey",
                             PhoneNumber = 12345678,
                             Profit = 50m,
                             Role = 1
@@ -296,7 +290,7 @@ namespace Backend.Migrations
                             FirstName = "John",
                             LastName = "Doe",
                             NewsLetterIsSubscribed = false,
-                            Password = "$2a$11$5oN22yoBa5Wgj3yL2Il1JeXlBSSbZpbU6klUJkLYQO6a60N368p2C",
+                            Password = "$2a$11$omthS6sfTClswt2X7UfrdOVUNfTH7qFjoWzhnlR2tGvKHdFWY7tR6",
                             PhoneNumber = 87654321,
                             Profit = 33m,
                             Role = 0
@@ -310,7 +304,7 @@ namespace Backend.Migrations
                             FirstName = "Anna",
                             LastName = "Jensen",
                             NewsLetterIsSubscribed = true,
-                            Password = "$2a$11$2/dQoAFmckHRq3NZKfk8tOWTV4d0mzrVVjzFVvia.PIi.1M4ZDzI.",
+                            Password = "$2a$11$e7ridjWeTiObKUMKQctBFeiabWt02KbRNMGrncVvakyR88U5bTmry",
                             PhoneNumber = 11111111,
                             Profit = 20m,
                             Role = 0
@@ -324,7 +318,7 @@ namespace Backend.Migrations
                             FirstName = "Mark",
                             LastName = "Larsen",
                             NewsLetterIsSubscribed = true,
-                            Password = "$2a$11$toryJu342xGdfsEdjiJ7K.ix8CAXNV7mh./WE5ELHq8Bj900mdkh.",
+                            Password = "$2a$11$UpjkaFGk8o3WYKACpZV/e.OhP66fH8PshoQPFTzSMCro1oDXKnAGO",
                             PhoneNumber = 22222222,
                             Profit = 40m,
                             Role = 0
@@ -338,7 +332,7 @@ namespace Backend.Migrations
                             FirstName = "Sara",
                             LastName = "Hansen",
                             NewsLetterIsSubscribed = false,
-                            Password = "$2a$11$1u2Aca7aMSmWgFuNPxnkWuxGxEWn8ecj/rd1A5B9HrLz0TVdklSnS",
+                            Password = "$2a$11$ek.rsuJuhePhCOQ6H.yKou2FBTkOPDMOZ15rM26p0Nn/YzBOED5Xq",
                             PhoneNumber = 33333333,
                             Profit = 30m,
                             Role = 0
@@ -352,7 +346,7 @@ namespace Backend.Migrations
                             FirstName = "Peter",
                             LastName = "Madsen",
                             NewsLetterIsSubscribed = true,
-                            Password = "$2a$11$NOYQX62GSXUfeEE/xkDq3OI5abKB38r63qyf51FPRTi/NHu6dUBOG",
+                            Password = "$2a$11$obbpSZlN5LsofF/cflswV.wESUmYF89fNsLHxTNN27gFMRGGZrQ42",
                             PhoneNumber = 44444444,
                             Profit = 70m,
                             Role = 0
@@ -366,7 +360,7 @@ namespace Backend.Migrations
                             FirstName = "Laura",
                             LastName = "Poulsen",
                             NewsLetterIsSubscribed = true,
-                            Password = "$2a$11$SqgvHCnI8dcCGE3gvSjtneOyAXMMRCyOUK6OiyeF78iRCBj8JnzIS",
+                            Password = "$2a$11$OanM6zJlp12bMSGRETs3feNNsGpfNqGGT7LzHDcoXrrKE9NyvXJhq",
                             PhoneNumber = 55555555,
                             Profit = 25m,
                             Role = 0
@@ -380,7 +374,7 @@ namespace Backend.Migrations
                             FirstName = "Thomas",
                             LastName = "Christensen",
                             NewsLetterIsSubscribed = true,
-                            Password = "$2a$11$TfSHipysw8BmGMkN.4QjF.cypfVq26javfNv2XKgYFFegFFTy9PWi",
+                            Password = "$2a$11$./Fb8pSHRwJ9cinRf00d7.P9GHkm8BsecFFBKOx0y/omGMGaaDhm2",
                             PhoneNumber = 66666666,
                             Profit = 60m,
                             Role = 0
@@ -394,7 +388,7 @@ namespace Backend.Migrations
                             FirstName = "Emma",
                             LastName = "Andersen",
                             NewsLetterIsSubscribed = true,
-                            Password = "$2a$11$YNtvMx49WvtV1xIQXhfwHuqcS7pAGrQkQH.AeAnt3uhg.Oz2o4ed2",
+                            Password = "$2a$11$3pGnmnBmw0Z4CQtIz44Qj.cEEUZhVejvfBZrPidBg839rZh.ElB2S",
                             PhoneNumber = 77777777,
                             Profit = 80m,
                             Role = 0
@@ -408,7 +402,7 @@ namespace Backend.Migrations
                             FirstName = "Mikkel",
                             LastName = "Olsen",
                             NewsLetterIsSubscribed = false,
-                            Password = "$2a$11$hyIeCsqO4oDPgpLUe/P7Au.TUbQMxI5VgkGzcYR74uretVS.NQ8fG",
+                            Password = "$2a$11$mRub5sgXHHmcZ2fjscgY4.iQiCJCL2CcUPH/68NUoOOsYE05Gp82G",
                             PhoneNumber = 88888888,
                             Profit = 10m,
                             Role = 0
@@ -445,7 +439,7 @@ namespace Backend.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Backend.Database.Entities.Transactions", b =>
+            modelBuilder.Entity("Backend.Database.Entities.Transaction", b =>
                 {
                     b.HasOne("Backend.Database.Entities.User", "User")
                         .WithMany("Transactions")

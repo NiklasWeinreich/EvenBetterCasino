@@ -19,8 +19,8 @@ namespace Backend.Repositories.GamesHistoryRepository
         public async Task<List<GameHistory>> GetAllGameHistoryTicketsAsync()
         {
             return await _databaseContext.GameHistories
-                .Include(gh => gh.User)
-                .Include(gh => gh.Game)
+                .Include(g => g.User)
+                .Include(g => g.Game)
                 .ToListAsync();
 
         }

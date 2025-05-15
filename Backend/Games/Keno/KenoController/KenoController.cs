@@ -70,7 +70,7 @@ namespace Backend.Games.Keno.KenoController
             var validationResult = CheckForValidInput(request.PlayerNumbers);
             if (validationResult != null) return validationResult;
 
-            var result = await _kenoService.PlayGame(request.UserId, request.PlayerNumbers, request.BetAmount);
+            var result = await _kenoService.PlayGame(request.UserId, request.GameId, request.PlayerNumbers, request.BetAmount);
 
             return Ok(result);
 

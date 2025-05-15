@@ -30,7 +30,7 @@ namespace Backend.Games.Dice.DiceController
                 return BadRequest("Player number must be between 2 and 99.");
 
 
-            var result = await _diceGameService.PlayGame(request.UserId, request.PlayerNumber, request.IsGuessOver, request.BetAmount);
+            var result = await _diceGameService.PlayGame(request.UserId, request.GameId, request.PlayerNumber, request.IsGuessOver, request.BetAmount);
 
             return Ok(result);
 

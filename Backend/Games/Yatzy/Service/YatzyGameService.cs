@@ -1,4 +1,5 @@
-﻿using Backend.Games.Dice;
+﻿using Backend.Database.Entities;
+using Backend.Games.Dice;
 using Backend.Helper;
 using Backend.Interfaces.IBalance;
 using Microsoft.AspNetCore.Mvc;
@@ -28,13 +29,15 @@ namespace Backend.Games.Yatzy.Service
         #endregion
 
         private readonly IBalanceService _balanceService;
+        private readonly GameHistoryHelper _gameHistoryHelper;
 
-        public YatzyGameService(IBalanceService balanceService)
+        public YatzyGameService(IBalanceService balanceService, GameHistoryHelper gameHistoryHelper)
         {
             _balanceService = balanceService;
+            _gameHistoryHelper = gameHistoryHelper;
         }
 
-        public async Task<YatzyGameResult> PlayGame(int userId, decimal betAmount)
+        public async Task<YatzyGameResult> PlayGame(int userId, int gameId, decimal betAmount)
         {
 
             var balance = await _balanceService.PlaceBetAsync(userId, betAmount);
@@ -58,6 +61,9 @@ namespace Backend.Games.Yatzy.Service
             {
                 await _balanceService.WinAmountAsync(userId, payout);
             }
+
+            await _gameHistoryHelper.LogGameWithoutCashOut(userId, gameId, betAmount, payout, result.IsWin);
+
 
             return new YatzyGameResult
             {

@@ -53,7 +53,7 @@ namespace Backend.Repositories.GamesHistoryRepository
                 .ToListAsync();
         }
 
-        public async Task<GameHistory> CreateGameHistoryTicket(GameHistory ticket)
+        public async Task<GameHistory> CreateGameHistoryTicketAsync(GameHistory ticket)
         {
 
             _databaseContext.GameHistories.Add(ticket);

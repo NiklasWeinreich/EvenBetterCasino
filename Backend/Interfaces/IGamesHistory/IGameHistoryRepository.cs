@@ -22,7 +22,7 @@ namespace Backend.Interfaces.IGamesHistory
         // USER ID && DATO
 
         // CREATE GH
-        Task<GameHistory> CreateGameHistoryTicket(GameHistory ticket);
+        Task<GameHistory> CreateGameHistoryTicketAsync(GameHistory ticket);
 
 
 

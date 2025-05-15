@@ -1,4 +1,6 @@
 ﻿
+using Backend.Database.Entities;
+using Backend.Helper;
 using Backend.Interfaces.IBalance;
 using System;
 using System.Security.Cryptography;
@@ -13,10 +15,12 @@ namespace Backend.Games.Keno.Service
         private const int numbersDrawn = 10;
 
         private readonly IBalanceService _balanceService;
+        private readonly GameHistoryHelper _gameHistoryHelper;
 
-        public KenoService(IBalanceService balanceService)
+        public KenoService(IBalanceService balanceService, GameHistoryHelper gameHistoryHelper)
         {
             _balanceService = balanceService;
+            _gameHistoryHelper = gameHistoryHelper;
         }
 
         public async Task<List<KenoOdds>> GetOdds(List<int> playerNumbers)
@@ -60,7 +64,7 @@ namespace Backend.Games.Keno.Service
 
         }
 
-        public async Task<KenoGameResult> PlayGame(int userId, List<int> playerNumbers, decimal betAmount)
+        public async Task<KenoGameResult> PlayGame(int userId, int gameId, List<int> playerNumbers, decimal betAmount)
         {
 
             var balance = await _balanceService.PlaceBetAsync(userId, betAmount);
@@ -96,6 +100,7 @@ namespace Backend.Games.Keno.Service
                 await _balanceService.WinAmountAsync(userId, payout);
             }
 
+            await _gameHistoryHelper.LogGameWithoutCashOut(userId, gameId, betAmount, payout, isWin);
 
 
             return new KenoGameResult

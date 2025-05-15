@@ -22,9 +22,8 @@ namespace Backend.Database.Entities
         public decimal WinAmount { get; set; }
 
         public required bool IsWin { get; set; } = false;
-        public bool WasCashedOut { get; set; } = false;
+        public bool? WasCashedOut { get; set; } = false;
 
-        public required bool IsJackpotWin { get; set; } = false;
 
         [ForeignKey("UserId")]
         public User User { get; set; }

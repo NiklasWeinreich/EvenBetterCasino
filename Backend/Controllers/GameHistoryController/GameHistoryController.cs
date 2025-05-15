@@ -83,7 +83,7 @@ namespace Backend.Controllers.GameHistoryController
             try
             {
 
-                var createdticket = await _gameHistoryService.CreateGameHistoryTicket(newGameHistoryTicket);
+                var createdticket = await _gameHistoryService.CreateGameHistoryTicketAsync(newGameHistoryTicket);
                 return Ok($"Ticket with id {createdticket.GameHistoryId}, userId {createdticket.UserId} and gameId {createdticket.GameId}, was successfully created.");
 
             }

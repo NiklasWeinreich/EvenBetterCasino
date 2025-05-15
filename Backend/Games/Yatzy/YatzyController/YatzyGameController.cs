@@ -30,7 +30,7 @@ namespace Backend.Games.Yatzy.YatzyController
         {
 
 
-            var result = await _yatzyGameService.PlayGame(request.UserId, request.BetAmount);
+            var result = await _yatzyGameService.PlayGame(request.UserId, request.GameId, request.BetAmount);
 
 
             return Ok(result);

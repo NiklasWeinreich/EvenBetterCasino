@@ -61,6 +61,9 @@ namespace Backend
             builder.Services.AddScoped<IGameHistoryRepository, GameHistoryRepository>();
             builder.Services.AddScoped<ITransactionService, TransactionService>();
             builder.Services.AddScoped<ITransactionRepository, TransactionRepository>();
+            
+            builder.Services.AddScoped<GameHistoryHelper>();
+
 
 
             builder.Services.AddScoped<IJwtUtils, JwtUtils>();

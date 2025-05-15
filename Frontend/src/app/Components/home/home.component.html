@@ -11,7 +11,7 @@
             <div class="row g-4">
                 <div class="col-md-4" *ngFor="let game of games">
                     <div class="card bg-dark text-light h-100 shadow rounded-4 d-flex flex-column">
-                        <img [src]="game.imageUrl || 'https://picsum.photos/400/300?random=' + game.id"
+                        <img [src]="game.imageUrl"
                             class="card-img-top rounded-top-4 object-fit-fill" style="height: 200px; object-fit: cover;"
                             [alt]="game.name + ' spilbillede'" />
                         <div class="card-body d-flex flex-column">

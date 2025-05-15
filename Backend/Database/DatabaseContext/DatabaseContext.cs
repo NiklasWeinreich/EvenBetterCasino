@@ -121,17 +121,19 @@ namespace Backend.Database.DatabaseContext
                     JackpotAmount = 10000,
                     ImageUrl = "https://assets.funnygames.dk/2/114572/100319/1024x1024/yatzy.webp",
                     Status = true,
-                    WebUrl = "yatzy"
+                    WebUrl = "yatzy",
+                    description = "Klassisk terningspil, hvor du skal slå forskellige kombinationer som \"fem ens\" og \"fuldt hus\".\r\nStrategi og held går hånd i hånd i jagten på den højeste score."
                 },
                 new Game
                 {
                     GameId = 2,
-                    Name = "Blackjack",
+                    Name = "Dice",
                     CategoryId = 2,
                     JackpotAmount = 5000,
                     ImageUrl = "https://cdn.prod.website-files.com/5ae2e7a18cb7532f0710bdfb/5e21d7084c5acfd2a75b5c0f_small.jpg",
                     Status = true,
-                    WebUrl = "dice"
+                    WebUrl = "dice",
+                    description = "Gæt om det næste terningekast bliver højere eller lavere end det forrige.\r\nEt hurtigt og simpelt spil, hvor intuition og held afgør sejren."
                 },
                 new Game
                 {
@@ -141,7 +143,18 @@ namespace Backend.Database.DatabaseContext
                     JackpotAmount = 15000,
                     ImageUrl = "https://mediumrare.imgix.net/12c3bb0487e2239772248e61550a121ee20fe8400a63f386d08896d1122d1655?q=85",
                     Status = true,
-                    WebUrl = "bombastic"
+                    WebUrl = "bombastic",
+                    description = "Har du nerver er stål? er du gjort af det rette stof? .\r\nHvor mange gange kan du klikke på bomben inden den springer! "
+                },
+                new Game
+                {
+                    GameId = 4,
+                    Name = "KENO",
+                    CategoryId = 2,
+                    Status = true,
+                    ImageUrl = "https://play-lh.googleusercontent.com/N4wmqXoa1smDCr8Iuc8SdZXJL7N3HJQbbB2bHe-DM4HGjMXX6fHnkJ6htuQAiOQRvQIy",
+                    WebUrl = "Keno",
+                    description = "Vælg dine lykketal og se, hvor mange du rammer, når tallene bliver trukket.\r\nEt simpelt og spændende lotterispil med chance for store gevinster."
                 }
 
             );

@@ -60,6 +60,7 @@ namespace Backend.Migrations
                     WebUrl = table.Column<string>(type: "nvarchar(255)", nullable: true),
                     JackpotAmount = table.Column<decimal>(type: "decimal(18,0)", nullable: false),
                     ImageUrl = table.Column<string>(type: "nvarchar(255)", nullable: true),
+                    description = table.Column<string>(type: "nvarchar(255)", nullable: false),
                     Status = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
@@ -140,26 +141,27 @@ namespace Backend.Migrations
                 columns: new[] { "Id", "Balance", "BirthDate", "Email", "ExcludedUntil", "FirstName", "LastName", "NewsLetterIsSubscribed", "Password", "PhoneNumber", "Profit", "Role" },
                 values: new object[,]
                 {
-                    { 1, 100m, new DateTime(1990, 5, 21, 0, 0, 0, 0, DateTimeKind.Unspecified), "NiklasErEnMaskine@mail.com", null, "Niklas", "Maskine", true, "$2a$11$24M9E64PSxQt77wHpsEpG.w0.3TGYlI3F.miac4F/saLl7z4GUnrm", 12345678, 50m, 1 },
-                    { 2, 75m, new DateTime(1990, 5, 21, 0, 0, 0, 0, DateTimeKind.Unspecified), "johndoe@example.com", null, "John", "Doe", false, "$2a$11$nEb4RGybZAX75Dk4A3xA..v.3YDZ5N/znr0GscVi8Aarnh/EbMObm", 87654321, 33m, 0 },
-                    { 3, 100m, new DateTime(1995, 3, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), "anna.jensen@example.com", null, "Anna", "Jensen", true, "$2a$11$kfitXySD7XK2v2.OoKzRx.fLX3l/oO0yob6BRk7Xd4gNA9FgMheXq", 11111111, 20m, 0 },
-                    { 4, 150m, new DateTime(1988, 7, 23, 0, 0, 0, 0, DateTimeKind.Unspecified), "mark.larsen@example.com", null, "Mark", "Larsen", true, "$2a$11$5Hx4rGK5wKBcx0mU4a6CgOqraGQTsALVyx.7SLvzAfCfW1Xux9MMG", 22222222, 40m, 0 },
-                    { 5, 200m, new DateTime(1992, 9, 30, 0, 0, 0, 0, DateTimeKind.Unspecified), "sara.hansen@example.com", null, "Sara", "Hansen", false, "$2a$11$e96g1HTAV15C0bSEd.AqoukDugHKgLvlvLNP76ABXH4Ho31P3xAYG", 33333333, 30m, 0 },
-                    { 6, 300m, new DateTime(1985, 1, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), "peter.madsen@example.com", null, "Peter", "Madsen", true, "$2a$11$QuC0FLWfDkwR9BuqlE0HeOgFmdAa4mP1TMRqZqeo5oL4nJCrEc.WS", 44444444, 70m, 0 },
-                    { 7, 120m, new DateTime(1998, 12, 12, 0, 0, 0, 0, DateTimeKind.Unspecified), "laura.poulsen@example.com", null, "Laura", "Poulsen", true, "$2a$11$h90EcasXD8Z69CDkBVc95Oa5JjKeAPDESR4tTLMCH29ZcU1SB9eEW", 55555555, 25m, 0 },
-                    { 8, 180m, new DateTime(1982, 4, 8, 0, 0, 0, 0, DateTimeKind.Unspecified), "thomas.christensen@example.com", null, "Thomas", "Christensen", true, "$2a$11$IetRj7Ww57r2wsAUxmhqtu6bREpsud4gZczRIcO3w6NIFBWwcFRl.", 66666666, 60m, 0 },
-                    { 9, 220m, new DateTime(1994, 6, 5, 0, 0, 0, 0, DateTimeKind.Unspecified), "emma.andersen@example.com", null, "Emma", "Andersen", true, "$2a$11$TuA1AdWnkeZbrOCCpNjtYO3VjRJo8INGAy8P1pM9Ex.YPHzKFkWEG", 77777777, 80m, 0 },
-                    { 10, 90m, new DateTime(1989, 11, 19, 0, 0, 0, 0, DateTimeKind.Unspecified), "mikkel.olsen@example.com", null, "Mikkel", "Olsen", false, "$2a$11$S.0eXchqhNr/WjhF.17eIe2zlG2muX8RRxvSC1lKOkJkzej0g5V9K", 88888888, 10m, 0 }
+                    { 1, 100m, new DateTime(1990, 5, 21, 0, 0, 0, 0, DateTimeKind.Unspecified), "NiklasErEnMaskine@mail.com", null, "Niklas", "Maskine", true, "$2a$11$c1fToxLG.wS0CISaUSaH2OYPbC2Xst7SfwNF5w9rI.HD1ZCjtkBAy", 12345678, 50m, 1 },
+                    { 2, 75m, new DateTime(1990, 5, 21, 0, 0, 0, 0, DateTimeKind.Unspecified), "johndoe@example.com", null, "John", "Doe", false, "$2a$11$ZI/xqPfj/qdmePBgLb5xNO4lZDlrN.7sNRmE1th0P5Px1hFyaHAh.", 87654321, 33m, 0 },
+                    { 3, 100m, new DateTime(1995, 3, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), "anna.jensen@example.com", null, "Anna", "Jensen", true, "$2a$11$OPQY1FuVpNrb8UuJixT9Nu/hI6SOJARkR4S9UoBoOPzwLocq1qNyu", 11111111, 20m, 0 },
+                    { 4, 150m, new DateTime(1988, 7, 23, 0, 0, 0, 0, DateTimeKind.Unspecified), "mark.larsen@example.com", null, "Mark", "Larsen", true, "$2a$11$H6VUx0.d0WyLGrs8254dGu2y7h4K2YZaQyMIBnHXlkExxmW0REWZu", 22222222, 40m, 0 },
+                    { 5, 200m, new DateTime(1992, 9, 30, 0, 0, 0, 0, DateTimeKind.Unspecified), "sara.hansen@example.com", null, "Sara", "Hansen", false, "$2a$11$5dSCEUq5CFJ5ain.0QO6EeM03D9nz16mRWf1esqTpS73c2x6zVgCm", 33333333, 30m, 0 },
+                    { 6, 300m, new DateTime(1985, 1, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), "peter.madsen@example.com", null, "Peter", "Madsen", true, "$2a$11$.cjADPF4CWQxrV7W8ne6.O568TGHe5lpEahVMfsEkMBA/L9U4b9Vi", 44444444, 70m, 0 },
+                    { 7, 120m, new DateTime(1998, 12, 12, 0, 0, 0, 0, DateTimeKind.Unspecified), "laura.poulsen@example.com", null, "Laura", "Poulsen", true, "$2a$11$t8EcLX4EWqmEZMlmW58byexgkmLsLutV8HydWxMjYK14LuOCxaV16", 55555555, 25m, 0 },
+                    { 8, 180m, new DateTime(1982, 4, 8, 0, 0, 0, 0, DateTimeKind.Unspecified), "thomas.christensen@example.com", null, "Thomas", "Christensen", true, "$2a$11$Imv2iC6Gf.c8o.6xV/RnnuSIN1xkhXr40Zh1.NwrEShmdiLJ3wHvK", 66666666, 60m, 0 },
+                    { 9, 220m, new DateTime(1994, 6, 5, 0, 0, 0, 0, DateTimeKind.Unspecified), "emma.andersen@example.com", null, "Emma", "Andersen", true, "$2a$11$Br3AFT.I.AcjW7z2WlWCp.9n6CL7W.ysN0NLSBauUBfJ68.dYH5sq", 77777777, 80m, 0 },
+                    { 10, 90m, new DateTime(1989, 11, 19, 0, 0, 0, 0, DateTimeKind.Unspecified), "mikkel.olsen@example.com", null, "Mikkel", "Olsen", false, "$2a$11$QjZo6/E3gzKcb5fwpFmSouoyGQ/kQHJWI/Eeez3gWao2l9bLsDpzG", 88888888, 10m, 0 }
                 });
 
             migrationBuilder.InsertData(
                 table: "Games",
-                columns: new[] { "GameId", "CategoryId", "ImageUrl", "JackpotAmount", "Name", "Status", "WebUrl" },
+                columns: new[] { "GameId", "CategoryId", "ImageUrl", "JackpotAmount", "Name", "Status", "WebUrl", "description" },
                 values: new object[,]
                 {
-                    { 1, 1, "https://assets.funnygames.dk/2/114572/100319/1024x1024/yatzy.webp", 10000m, "Yatzy", true, "yatzy" },
-                    { 2, 2, "https://cdn.prod.website-files.com/5ae2e7a18cb7532f0710bdfb/5e21d7084c5acfd2a75b5c0f_small.jpg", 5000m, "Blackjack", true, "dice" },
-                    { 3, 2, "https://mediumrare.imgix.net/12c3bb0487e2239772248e61550a121ee20fe8400a63f386d08896d1122d1655?q=85", 15000m, "Bombastic", true, "bombastic" }
+                    { 1, 1, "https://assets.funnygames.dk/2/114572/100319/1024x1024/yatzy.webp", 10000m, "Yatzy", true, "yatzy", "Klassisk terningspil, hvor du skal slå forskellige kombinationer som \"fem ens\" og \"fuldt hus\".\r\nStrategi og held går hånd i hånd i jagten på den højeste score." },
+                    { 2, 2, "https://cdn.prod.website-files.com/5ae2e7a18cb7532f0710bdfb/5e21d7084c5acfd2a75b5c0f_small.jpg", 5000m, "Dice", true, "dice", "Gæt om det næste terningekast bliver højere eller lavere end det forrige.\r\nEt hurtigt og simpelt spil, hvor intuition og held afgør sejren." },
+                    { 3, 2, "https://mediumrare.imgix.net/12c3bb0487e2239772248e61550a121ee20fe8400a63f386d08896d1122d1655?q=85", 15000m, "Bombastic", true, "bombastic", "Har du nerver er stål? er du gjort af det rette stof? .\r\nHvor mange gange kan du klikke på bomben inden den springer! " },
+                    { 4, 2, "https://play-lh.googleusercontent.com/N4wmqXoa1smDCr8Iuc8SdZXJL7N3HJQbbB2bHe-DM4HGjMXX6fHnkJ6htuQAiOQRvQIy", 0m, "KENO", true, "Keno", "Vælg dine lykketal og se, hvor mange du rammer, når tallene bliver trukket.\r\nEt simpelt og spændende lotterispil med chance for store gevinster." }
                 });
 
             migrationBuilder.InsertData(
@@ -167,8 +169,8 @@ namespace Backend.Migrations
                 columns: new[] { "TransactionsId", "Amount", "Date", "Direction", "Type", "UserId" },
                 values: new object[,]
                 {
-                    { new Guid("0715b8d9-3e35-4552-a828-d1dc30cacea9"), 300, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Out", "Withdrawal", 2 },
-                    { new Guid("d644fccf-0da4-4fa7-9e04-b24c8142fd20"), 500, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "In", "Deposit", 1 }
+                    { new Guid("32263e72-dcb6-4327-9afa-e0faccbc8583"), 500, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "In", "Deposit", 1 },
+                    { new Guid("89d66529-5df1-4d8d-9e17-f918866093ef"), 300, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Out", "Withdrawal", 2 }
                 });
 
             migrationBuilder.InsertData(
@@ -176,8 +178,8 @@ namespace Backend.Migrations
                 columns: new[] { "GameHistoryId", "BetAmount", "Date", "GameId", "IsJackpotWin", "IsWin", "UserId", "WasCashedOut", "WinAmount" },
                 values: new object[,]
                 {
-                    { new Guid("113ef4b5-d0fb-45ec-afe0-26ac1c4fbff9"), 50m, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 2, false, false, 2, false, 0m },
-                    { new Guid("a5acd3cb-f6db-4b61-9fc4-f0e53897802b"), 100m, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, false, true, 1, false, 0m }
+                    { new Guid("18527b1c-0184-4e97-8c73-dd70ce0e2636"), 100m, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, false, true, 1, false, 0m },
+                    { new Guid("5c7c166c-e03a-4385-9eff-d5bb73a6ac40"), 50m, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 2, false, false, 2, false, 0m }
                 });
 
             migrationBuilder.CreateIndex(

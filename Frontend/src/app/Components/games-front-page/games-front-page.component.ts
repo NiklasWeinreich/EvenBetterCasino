@@ -14,6 +14,7 @@ import { GameService } from '../../Services/Games/games.service';
 })
 export class GamesComponent implements OnInit {
   games: Game[] = [];
+  loading: boolean = false;
 
   constructor(private gameService: GameService, private router: Router) {}
 
@@ -22,15 +23,17 @@ export class GamesComponent implements OnInit {
   }
 
   loadGames(): void {
+    this.loading = true;
     this.gameService.getAllGames().subscribe((res) => {
       this.games = res;
+      this.loading = false;
       console.log('Spil hentet:', this.games);
     });
   }
 
-  navigateToGame(games: Game): void {
-    if (games.webUrl) {
-      this.router.navigate(['/Games', games.webUrl]);
+  navigateToGame(game: Game): void {
+    if (game.webUrl) {
+      this.router.navigate(['/games', game.webUrl]);
     }
   }
 }

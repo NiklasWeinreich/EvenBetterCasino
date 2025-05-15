@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Backend.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20250515061920_data")]
+    [Migration("20250515102808_data")]
     partial class data
     {
         /// <inheritdoc />
@@ -81,6 +81,10 @@ namespace Backend.Migrations
                     b.Property<string>("WebUrl")
                         .HasColumnType("nvarchar(255)");
 
+                    b.Property<string>("description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(255)");
+
                     b.HasKey("GameId");
 
                     b.HasIndex("CategoryId");
@@ -96,7 +100,8 @@ namespace Backend.Migrations
                             JackpotAmount = 10000m,
                             Name = "Yatzy",
                             Status = true,
-                            WebUrl = "yatzy"
+                            WebUrl = "yatzy",
+                            description = "Klassisk terningspil, hvor du skal slå forskellige kombinationer som \"fem ens\" og \"fuldt hus\".\r\nStrategi og held går hånd i hånd i jagten på den højeste score."
                         },
                         new
                         {
@@ -104,9 +109,10 @@ namespace Backend.Migrations
                             CategoryId = 2,
                             ImageUrl = "https://cdn.prod.website-files.com/5ae2e7a18cb7532f0710bdfb/5e21d7084c5acfd2a75b5c0f_small.jpg",
                             JackpotAmount = 5000m,
-                            Name = "Blackjack",
+                            Name = "Dice",
                             Status = true,
-                            WebUrl = "dice"
+                            WebUrl = "dice",
+                            description = "Gæt om det næste terningekast bliver højere eller lavere end det forrige.\r\nEt hurtigt og simpelt spil, hvor intuition og held afgør sejren."
                         },
                         new
                         {
@@ -116,7 +122,19 @@ namespace Backend.Migrations
                             JackpotAmount = 15000m,
                             Name = "Bombastic",
                             Status = true,
-                            WebUrl = "bombastic"
+                            WebUrl = "bombastic",
+                            description = "Har du nerver er stål? er du gjort af det rette stof? .\r\nHvor mange gange kan du klikke på bomben inden den springer! "
+                        },
+                        new
+                        {
+                            GameId = 4,
+                            CategoryId = 2,
+                            ImageUrl = "https://play-lh.googleusercontent.com/N4wmqXoa1smDCr8Iuc8SdZXJL7N3HJQbbB2bHe-DM4HGjMXX6fHnkJ6htuQAiOQRvQIy",
+                            JackpotAmount = 0m,
+                            Name = "KENO",
+                            Status = true,
+                            WebUrl = "Keno",
+                            description = "Vælg dine lykketal og se, hvor mange du rammer, når tallene bliver trukket.\r\nEt simpelt og spændende lotterispil med chance for store gevinster."
                         });
                 });
 
@@ -161,7 +179,7 @@ namespace Backend.Migrations
                     b.HasData(
                         new
                         {
-                            GameHistoryId = new Guid("a5acd3cb-f6db-4b61-9fc4-f0e53897802b"),
+                            GameHistoryId = new Guid("18527b1c-0184-4e97-8c73-dd70ce0e2636"),
                             BetAmount = 100m,
                             Date = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             GameId = 1,
@@ -173,7 +191,7 @@ namespace Backend.Migrations
                         },
                         new
                         {
-                            GameHistoryId = new Guid("113ef4b5-d0fb-45ec-afe0-26ac1c4fbff9"),
+                            GameHistoryId = new Guid("5c7c166c-e03a-4385-9eff-d5bb73a6ac40"),
                             BetAmount = 50m,
                             Date = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             GameId = 2,
@@ -217,7 +235,7 @@ namespace Backend.Migrations
                     b.HasData(
                         new
                         {
-                            TransactionsId = new Guid("d644fccf-0da4-4fa7-9e04-b24c8142fd20"),
+                            TransactionsId = new Guid("32263e72-dcb6-4327-9afa-e0faccbc8583"),
                             Amount = 500,
                             Date = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Direction = "In",
@@ -226,7 +244,7 @@ namespace Backend.Migrations
                         },
                         new
                         {
-                            TransactionsId = new Guid("0715b8d9-3e35-4552-a828-d1dc30cacea9"),
+                            TransactionsId = new Guid("89d66529-5df1-4d8d-9e17-f918866093ef"),
                             Amount = 300,
                             Date = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Direction = "Out",
@@ -294,7 +312,7 @@ namespace Backend.Migrations
                             FirstName = "Niklas",
                             LastName = "Maskine",
                             NewsLetterIsSubscribed = true,
-                            Password = "$2a$11$24M9E64PSxQt77wHpsEpG.w0.3TGYlI3F.miac4F/saLl7z4GUnrm",
+                            Password = "$2a$11$c1fToxLG.wS0CISaUSaH2OYPbC2Xst7SfwNF5w9rI.HD1ZCjtkBAy",
                             PhoneNumber = 12345678,
                             Profit = 50m,
                             Role = 1
@@ -308,7 +326,7 @@ namespace Backend.Migrations
                             FirstName = "John",
                             LastName = "Doe",
                             NewsLetterIsSubscribed = false,
-                            Password = "$2a$11$nEb4RGybZAX75Dk4A3xA..v.3YDZ5N/znr0GscVi8Aarnh/EbMObm",
+                            Password = "$2a$11$ZI/xqPfj/qdmePBgLb5xNO4lZDlrN.7sNRmE1th0P5Px1hFyaHAh.",
                             PhoneNumber = 87654321,
                             Profit = 33m,
                             Role = 0
@@ -322,7 +340,7 @@ namespace Backend.Migrations
                             FirstName = "Anna",
                             LastName = "Jensen",
                             NewsLetterIsSubscribed = true,
-                            Password = "$2a$11$kfitXySD7XK2v2.OoKzRx.fLX3l/oO0yob6BRk7Xd4gNA9FgMheXq",
+                            Password = "$2a$11$OPQY1FuVpNrb8UuJixT9Nu/hI6SOJARkR4S9UoBoOPzwLocq1qNyu",
                             PhoneNumber = 11111111,
                             Profit = 20m,
                             Role = 0
@@ -336,7 +354,7 @@ namespace Backend.Migrations
                             FirstName = "Mark",
                             LastName = "Larsen",
                             NewsLetterIsSubscribed = true,
-                            Password = "$2a$11$5Hx4rGK5wKBcx0mU4a6CgOqraGQTsALVyx.7SLvzAfCfW1Xux9MMG",
+                            Password = "$2a$11$H6VUx0.d0WyLGrs8254dGu2y7h4K2YZaQyMIBnHXlkExxmW0REWZu",
                             PhoneNumber = 22222222,
                             Profit = 40m,
                             Role = 0
@@ -350,7 +368,7 @@ namespace Backend.Migrations
                             FirstName = "Sara",
                             LastName = "Hansen",
                             NewsLetterIsSubscribed = false,
-                            Password = "$2a$11$e96g1HTAV15C0bSEd.AqoukDugHKgLvlvLNP76ABXH4Ho31P3xAYG",
+                            Password = "$2a$11$5dSCEUq5CFJ5ain.0QO6EeM03D9nz16mRWf1esqTpS73c2x6zVgCm",
                             PhoneNumber = 33333333,
                             Profit = 30m,
                             Role = 0
@@ -364,7 +382,7 @@ namespace Backend.Migrations
                             FirstName = "Peter",
                             LastName = "Madsen",
                             NewsLetterIsSubscribed = true,
-                            Password = "$2a$11$QuC0FLWfDkwR9BuqlE0HeOgFmdAa4mP1TMRqZqeo5oL4nJCrEc.WS",
+                            Password = "$2a$11$.cjADPF4CWQxrV7W8ne6.O568TGHe5lpEahVMfsEkMBA/L9U4b9Vi",
                             PhoneNumber = 44444444,
                             Profit = 70m,
                             Role = 0
@@ -378,7 +396,7 @@ namespace Backend.Migrations
                             FirstName = "Laura",
                             LastName = "Poulsen",
                             NewsLetterIsSubscribed = true,
-                            Password = "$2a$11$h90EcasXD8Z69CDkBVc95Oa5JjKeAPDESR4tTLMCH29ZcU1SB9eEW",
+                            Password = "$2a$11$t8EcLX4EWqmEZMlmW58byexgkmLsLutV8HydWxMjYK14LuOCxaV16",
                             PhoneNumber = 55555555,
                             Profit = 25m,
                             Role = 0
@@ -392,7 +410,7 @@ namespace Backend.Migrations
                             FirstName = "Thomas",
                             LastName = "Christensen",
                             NewsLetterIsSubscribed = true,
-                            Password = "$2a$11$IetRj7Ww57r2wsAUxmhqtu6bREpsud4gZczRIcO3w6NIFBWwcFRl.",
+                            Password = "$2a$11$Imv2iC6Gf.c8o.6xV/RnnuSIN1xkhXr40Zh1.NwrEShmdiLJ3wHvK",
                             PhoneNumber = 66666666,
                             Profit = 60m,
                             Role = 0
@@ -406,7 +424,7 @@ namespace Backend.Migrations
                             FirstName = "Emma",
                             LastName = "Andersen",
                             NewsLetterIsSubscribed = true,
-                            Password = "$2a$11$TuA1AdWnkeZbrOCCpNjtYO3VjRJo8INGAy8P1pM9Ex.YPHzKFkWEG",
+                            Password = "$2a$11$Br3AFT.I.AcjW7z2WlWCp.9n6CL7W.ysN0NLSBauUBfJ68.dYH5sq",
                             PhoneNumber = 77777777,
                             Profit = 80m,
                             Role = 0
@@ -420,7 +438,7 @@ namespace Backend.Migrations
                             FirstName = "Mikkel",
                             LastName = "Olsen",
                             NewsLetterIsSubscribed = false,
-                            Password = "$2a$11$S.0eXchqhNr/WjhF.17eIe2zlG2muX8RRxvSC1lKOkJkzej0g5V9K",
+                            Password = "$2a$11$QjZo6/E3gzKcb5fwpFmSouoyGQ/kQHJWI/Eeez3gWao2l9bLsDpzG",
                             PhoneNumber = 88888888,
                             Profit = 10m,
                             Role = 0

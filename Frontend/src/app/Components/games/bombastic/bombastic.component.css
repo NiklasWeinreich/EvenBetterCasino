@@ -1,0 +1,15 @@
+.yatzy__win {
+  color: #28a745;
+  font-weight: bold;
+}
+
+.yatzy__lose {
+  color: #dc3545;
+  font-weight: bold;
+}
+
+.yatzy__feedback {
+  text-align: center;
+  margin-top: 1rem;
+  min-height: 3rem;
+}

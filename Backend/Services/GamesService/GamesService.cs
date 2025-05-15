@@ -58,11 +58,13 @@ namespace Backend.Services.GamesService
             existingGame.JackpotAmount = updateGame.JackpotAmount;
             existingGame.ImageUrl = updateGame.ImageUrl;
             existingGame.Status = updateGame.Status;
+            existingGame.description = updateGame.description;
+
 
             var updatedGame = await _gamesRepository.UpdateGameAsync(existingGame);
             return MapEntityToResponse(updatedGame);
 
-    }
+        }
 
         public Game MapRequestToEntity(GamesRequest request)
         {
@@ -75,6 +77,7 @@ namespace Backend.Services.GamesService
                 WebUrl = request.WebUrl,
                 ImageUrl = request.ImageUrl,
                 Status = request.Status,
+                description = request.description
 
             };
 
@@ -93,6 +96,7 @@ namespace Backend.Services.GamesService
                 JackpotAmount = response.JackpotAmount,
                 ImageUrl = response.ImageUrl,
                 Status = response.Status,
+                Description = response.description
 
             };
         }

@@ -15,7 +15,7 @@ namespace Backend.Database.DatabaseContext
         public DbSet<Game> Games { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<GameHistory> GameHistories { get; set; }
-        public DbSet<Transactions> Transactions { get; set; }
+        public DbSet<Transaction> Transactions { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -118,7 +118,6 @@ namespace Backend.Database.DatabaseContext
                     GameId = 1,
                     Name = "Yatzy",
                     CategoryId = 1,
-                    JackpotAmount = 10000,
                     ImageUrl = "https://assets.funnygames.dk/2/114572/100319/1024x1024/yatzy.webp",
                     Status = true,
                     WebUrl = "yatzy",
@@ -129,7 +128,6 @@ namespace Backend.Database.DatabaseContext
                     GameId = 2,
                     Name = "Dice",
                     CategoryId = 2,
-                    JackpotAmount = 5000,
                     ImageUrl = "https://cdn.prod.website-files.com/5ae2e7a18cb7532f0710bdfb/5e21d7084c5acfd2a75b5c0f_small.jpg",
                     Status = true,
                     WebUrl = "dice",
@@ -140,7 +138,6 @@ namespace Backend.Database.DatabaseContext
                     GameId = 3,
                     Name = "Bombastic",
                     CategoryId = 2,
-                    JackpotAmount = 15000,
                     ImageUrl = "https://mediumrare.imgix.net/12c3bb0487e2239772248e61550a121ee20fe8400a63f386d08896d1122d1655?q=85",
                     Status = true,
                     WebUrl = "bombastic",
@@ -168,7 +165,6 @@ namespace Backend.Database.DatabaseContext
                     Date = new DateTime(),
                     BetAmount = 100,
                     IsWin = true,
-                    IsJackpotWin = false
                 },
                 new GameHistory
                 {
@@ -178,28 +174,25 @@ namespace Backend.Database.DatabaseContext
                     Date = new DateTime(),
                     BetAmount = 50,
                     IsWin = false,
-                    IsJackpotWin = false
                 }
             );
 
-            modelBuilder.Entity<Transactions>().HasData(
-                new Transactions
+            modelBuilder.Entity<Transaction>().HasData(
+                new Transaction
                 {
-                    TransactionsId = Guid.NewGuid(),
+                    TransactionId = Guid.NewGuid(),
                     UserId = 1,
                     Amount = 500,
                     Date = new DateTime(),
-                    Type = TransactionTypes.Deposit,
-                    Direction = Directions.In
+                    Type = TransactionTypes.Deposit
                 },
-                new Transactions
+                new Transaction
                 {
-                    TransactionsId = Guid.NewGuid(),
+                    TransactionId = Guid.NewGuid(),
                     UserId = 2,
                     Amount = 300,
                     Date = new DateTime(),
-                    Type = TransactionTypes.Withdrawal,
-                    Direction = Directions.Out
+                    Type = TransactionTypes.Withdrawal
                 }
             );
         }

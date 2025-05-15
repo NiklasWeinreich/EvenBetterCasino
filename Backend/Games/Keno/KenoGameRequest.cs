@@ -1,13 +1,12 @@
-﻿namespace Backend.Games.Yatzy
+﻿namespace Backend.Games.Keno
 {
-    public class YatzyGameRequest
+    public class KenoGameRequest
     {
 
         public int UserId { get; set; }
-
         public int GameId { get; set; }
-
         public decimal BetAmount { get; set; }
+        public List<int> PlayerNumbers { get; set; }
 
     }
 }

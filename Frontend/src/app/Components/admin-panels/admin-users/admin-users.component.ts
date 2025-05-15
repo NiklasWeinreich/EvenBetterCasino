@@ -71,7 +71,7 @@ export class AdminUsersComponent implements OnInit {
     if (this.user.id == 0) {
       this.userService.createUser(this.user).subscribe({
         next: () => {
-          this.loadUsers(); // <-- Hent ny liste
+          this.loadUsers(); 
           this.user = resetUser();
           this.closeModal();
         },
@@ -87,7 +87,7 @@ export class AdminUsersComponent implements OnInit {
     if (!this.user || this.user.id === 0) return;
     this.userService.updateUser(this.user).subscribe({
       next: () => {
-        this.loadUsers(); // <-- Hent ny liste
+        this.loadUsers();
         this.user = resetUser();
         this.closeModal();
       },

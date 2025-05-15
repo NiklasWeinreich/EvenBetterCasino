@@ -63,7 +63,7 @@ export class BankComponent implements OnInit {
   
 
   deposit(): void {
-    if (this.depositAmount <= 0) {
+    if (this.depositAmount < 0) {
       this.errorMessage = 'Indtast et gyldigt beløb.';
       this.successMessage = '';
       return;
@@ -77,14 +77,14 @@ export class BankComponent implements OnInit {
         this.depositAmount = 0;
       },
       error: () => {
-        this.errorMessage = 'Du skal minimum indsætte 50 kr!';
+        this.errorMessage = 'Du skal minimum indsætte 50 kr.';
         this.successMessage = '';
       }
     });
   }
 
   withdraw(): void {
-    if (this.depositAmount <= 0) {
+    if (this.depositAmount < 50) {
       this.errorMessage = 'Indtast et gyldigt beløb.';
       this.successMessage = '';
       return;

@@ -74,7 +74,7 @@ namespace Backend.Services.GamesHistoryService
         }
 
 
-        public async Task<GameHistoryResponse> CreateGameHistoryTicket(GameHistoryRequest request)
+        public async Task<GameHistoryResponse> CreateGameHistoryTicketAsync(GameHistoryRequest request)
         {
 
             var user = await _userService.GetUserByIdAsync(request.UserId);
@@ -84,7 +84,7 @@ namespace Backend.Services.GamesHistoryService
             var game = await _gamesService.GetGameByIdAsync(request.GameId);
             if (game == null) throw new ArgumentException($"Game with ID {request.GameId} does not exist.");
 
-            if (!request.IsWin && (request.WinAmount > 0 || request.WasCashedOut))
+            if (!request.IsWin && (request.WinAmount > 0 || request.WasCashedOut == true))
                 throw new ArgumentException("WinAmount and WasCashedOut can only be set if IsWin is true.");
 
 
@@ -95,12 +95,11 @@ namespace Backend.Services.GamesHistoryService
                 BetAmount = request.BetAmount,
                 WinAmount = request.WinAmount,
                 IsWin = request.IsWin,
-                IsJackpotWin = request.IsJackpotWin,
                 WasCashedOut = request.WasCashedOut,
                 Date = DateTime.UtcNow
             };
 
-            var createdTicket = await _gameHistoryRepository.CreateGameHistoryTicket(newTicket);
+            var createdTicket = await _gameHistoryRepository.CreateGameHistoryTicketAsync(newTicket);
 
             return MapEntityToResponse(createdTicket);
         }
@@ -119,7 +118,6 @@ namespace Backend.Services.GamesHistoryService
                 WinAmount = response.WinAmount,
                 IsWin = response.IsWin,
                 WasCashedOut = response.WasCashedOut,
-                IsJackpotWin = response.IsJackpotWin,
                 Date = response.Date,
 
 

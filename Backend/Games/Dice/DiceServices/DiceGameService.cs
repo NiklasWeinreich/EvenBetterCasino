@@ -1,4 +1,8 @@
-﻿using Backend.Interfaces.IBalance;
+﻿using Backend.Database.Entities;
+using Backend.DTO.GamesHistoryDTO;
+using Backend.Helper;
+using Backend.Interfaces.IBalance;
+using Backend.Interfaces.IGamesHistory;
 using System.Security.Cryptography;
 
 namespace Backend.Games.Dice.DiceServices
@@ -11,15 +15,18 @@ namespace Backend.Games.Dice.DiceServices
         private const int maxDiceValue = 100; // Maksimum antal klik
 
         private readonly IBalanceService _balanceService;
+        private readonly GameHistoryHelper _gameHistoryHelper;
 
-        public DiceGameService(IBalanceService balanceService)
+
+        public DiceGameService(IBalanceService balanceService, GameHistoryHelper gameHistoryHelper)
         {
             _balanceService = balanceService;
+            _gameHistoryHelper = gameHistoryHelper;
 
         }
 
 
-        public async Task<DiceGameResult> PlayGame(int userId, int playerNumber, bool isGuessOver, decimal betAmount)
+        public async Task<DiceGameResult> PlayGame(int userId, int gameId, int playerNumber, bool isGuessOver, decimal betAmount)
         {
 
             // Kald balance service.
@@ -46,6 +53,8 @@ namespace Backend.Games.Dice.DiceServices
             {
                 await _balanceService.WinAmountAsync(userId, payout);
             }
+
+            await _gameHistoryHelper.LogGameWithoutCashOut(userId, gameId, betAmount, payout, isWin);
 
             return new DiceGameResult
             {

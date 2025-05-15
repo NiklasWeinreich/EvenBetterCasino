@@ -36,13 +36,12 @@
     <div class="container">
         <div class="row justify-content-center">
             <div *ngFor="let ticket of filteredGameHistory" class="col-md-8 mb-4">
-                <div class="card shadow-lg border-1 border-primary bg-dark text-light p-2">
+                <div [class.border-success]="ticket.winAmount > 0" [class.border-danger]="ticket.winAmount <= 0" class="card shadow-lg border-1 border-primary bg-dark text-light p-2">
                     <div class="card-body">
-                        <p class="text-dark-emphasis"> {{ ticket.gameHistoryId }} </p>
-                        <h5 class="card-title text-primary fw-bold">
-                            <i class="bi bi-controller"></i> {{ ticket.gameName }}
+                        <h4 [class.text-success]="ticket.winAmount > 0" [class.text-danger]="ticket.winAmount <= 0" class="card-title text-primary fw-bold">
+                            <i  class="bi bi-controller"></i> {{ ticket.gameName }}
                             
-                        </h5>
+                        </h4>
                         <hr class="bg-light">
                         <div class="row">
                             <!-- Left Column -->
@@ -63,7 +62,9 @@
                         </div>
                         <p class="card-text mt-5">
                             <strong><i class="bi bi-calendar"></i> Dato:</strong> {{ ticket.date | date:'short' }}
+                            
                         </p>
+                        <p class="text-dark-emphasis"> {{ ticket.gameHistoryId }} </p>
                     </div>
                 </div>
             </div>

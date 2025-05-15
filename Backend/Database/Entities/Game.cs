@@ -16,12 +16,8 @@ namespace Backend.Database.Entities
         [Column(TypeName = "nvarchar(255)")]
         public string? WebUrl { get; set; }
 
-        [Column(TypeName = "decimal")]
-        public decimal JackpotAmount { get; set; }
-
         [Column(TypeName = "nvarchar(255)")]
         public string? ImageUrl { get; set; }
-
 
         public required bool Status { get; set; } = false;
 

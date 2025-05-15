@@ -4,6 +4,7 @@ using Backend.Database.DatabaseContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Backend.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class DatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20250515061920_data")]
+    partial class data
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -170,7 +173,6 @@ namespace Backend.Migrations
                         },
                         new
                         {
-
                             GameHistoryId = new Guid("113ef4b5-d0fb-45ec-afe0-26ac1c4fbff9"),
                             BetAmount = 50m,
                             Date = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -183,17 +185,21 @@ namespace Backend.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Backend.Database.Entities.Transaction", b =>
+            modelBuilder.Entity("Backend.Database.Entities.Transactions", b =>
                 {
-                    b.Property<Guid>("TransactionId")
+                    b.Property<Guid>("TransactionsId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<decimal>("Amount")
-                        .HasColumnType("decimal");
+                    b.Property<int>("Amount")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("Direction")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("Type")
                         .IsRequired()
@@ -202,7 +208,7 @@ namespace Backend.Migrations
                     b.Property<int>("UserId")
                         .HasColumnType("int");
 
-                    b.HasKey("TransactionId");
+                    b.HasKey("TransactionsId");
 
                     b.HasIndex("UserId");
 
@@ -211,18 +217,20 @@ namespace Backend.Migrations
                     b.HasData(
                         new
                         {
-                            TransactionId = new Guid("2fc75fb7-0778-4df8-998a-c142edc1df33"),
-                            Amount = 500m,
+                            TransactionsId = new Guid("d644fccf-0da4-4fa7-9e04-b24c8142fd20"),
+                            Amount = 500,
                             Date = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Type = "Indbetaling",
+                            Direction = "In",
+                            Type = "Deposit",
                             UserId = 1
                         },
                         new
                         {
-                            TransactionId = new Guid("7f580475-2774-4161-bb35-cd6d653d3463"),
-                            Amount = 300m,
+                            TransactionsId = new Guid("0715b8d9-3e35-4552-a828-d1dc30cacea9"),
+                            Amount = 300,
                             Date = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Type = "Udbetaling",
+                            Direction = "Out",
+                            Type = "Withdrawal",
                             UserId = 2
                         });
                 });
@@ -449,7 +457,7 @@ namespace Backend.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Backend.Database.Entities.Transaction", b =>
+            modelBuilder.Entity("Backend.Database.Entities.Transactions", b =>
                 {
                     b.HasOne("Backend.Database.Entities.User", "User")
                         .WithMany("Transactions")

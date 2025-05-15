@@ -56,7 +56,8 @@ namespace Backend.Services.BalanceService
         public async Task<decimal> WithdrawAsync(int userId, decimal amount)
         {
 
-            CheckForAmount(amount, "withdraw");
+            if (amount < 50) throw new ArgumentException(ErrorText("withdraw"));
+
 
             var currentBalance = await _balanceRepository.GetBalanceAsync(userId);
             if (currentBalance < amount) throw new InvalidOperationException(ErrorText("insufficient funds"));

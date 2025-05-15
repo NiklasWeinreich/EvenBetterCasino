@@ -8,6 +8,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.Globalization;
 using System.Linq;
 using Azure.Core;
+using Backend.Interfaces.IBalance;
 
 namespace Backend.Games.Yatzy.YatzyController
 {
@@ -25,10 +26,12 @@ namespace Backend.Games.Yatzy.YatzyController
 
 
         [HttpPost("playGame")]
-        public IActionResult PlayGame([FromBody] YatzyGameRequest request)
+        public async Task<IActionResult> PlayGame([FromBody] YatzyGameRequest request)
         {
 
-            var result = _yatzyGameService.PlayGame(request);
+
+            var result = await _yatzyGameService.PlayGame(request.UserId, request.BetAmount);
+
 
             return Ok(result);
         }

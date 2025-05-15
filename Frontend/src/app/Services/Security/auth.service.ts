@@ -55,38 +55,37 @@ export class AuthService {
   public login(email: string, password: string, rememberMe: boolean) {
     const authenticateUrl = `${environment.apiUrl}/Auth/login`;
 
-    return this.http
-      .post<LoginResponse>(authenticateUrl, { email, password })
-      .pipe(
-        switchMap((loginResp) => {
-          this.tokenService.setToken(loginResp.token, rememberMe);
+return this.http
+  .post<LoginResponse>(authenticateUrl, { email, password })
+  .pipe(
+    switchMap((loginResp) => {
+      return this.getUserDetails(loginResp.id).pipe(
+        switchMap((fullUser) => {
+          if (
+            fullUser.excludedUntil &&
+            new Date(fullUser.excludedUntil) > new Date()
+          ) {
+            const msg =
+              'Din konto er midlertidigt udelukket indtil ' +
+              new Date(fullUser.excludedUntil).toLocaleString();
+            this.logout(); // rydder også storage
+            this.setGlobalMessage(msg);
+            return throwError(() => new Error(msg));
+          }
 
+          this.tokenService.setToken(loginResp.token, rememberMe);
           const storage = rememberMe ? localStorage : sessionStorage;
           storage.setItem('basicUserInfo', JSON.stringify(loginResp));
 
-          return this.getUserDetails(loginResp.id).pipe(
-            switchMap((fullUser) => {
-              if (
-                fullUser.excludedUntil &&
-                new Date(fullUser.excludedUntil) > new Date()
-              ) {
-                this.logout();
-                const msg =
-                  'Din konto er midlertidigt udelukket indtil ' +
-                  new Date(fullUser.excludedUntil).toLocaleString();
-                this.setGlobalMessage(msg);
-                return throwError(() => new Error(msg));
-              }
-
-              this.currentUserSubject.next(fullUser);
-              return new Observable<LoginResponse>((observer) => {
-                observer.next(loginResp);
-                observer.complete();
-              });
-            })
-          );
+          this.currentUserSubject.next(fullUser);
+          return new Observable<LoginResponse>((observer) => {
+            observer.next(loginResp);
+            observer.complete();
+          });
         })
       );
+    })
+  );
   }
 
   public logout() {

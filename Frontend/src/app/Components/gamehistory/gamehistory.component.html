@@ -40,20 +40,19 @@
                     <div class="card-body">
                         <h4 [class.text-success]="ticket.winAmount > 0" [class.text-danger]="ticket.winAmount <= 0" class="card-title text-primary fw-bold">
                             <i  class="bi bi-controller"></i> {{ ticket.gameName }}
-                            
                         </h4>
                         <hr class="bg-light">
                         <div class="row">
                             <!-- Left Column -->
                             <div class="col-sm-6">
                                 <p class="card-text">
-                                    <strong><i class="bi bi-cash"></i> Spil beløb:</strong> {{ ticket.betAmount | currency }}
+                                    <strong><i class="bi bi-cash"></i> Spil beløb:</strong><br> {{ ticket.betAmount | currency }}
                                 </p>
                             </div>
                             <!-- Right Column -->
                             <div class="col-sm-6">
                                 <p class="card-text">
-                                    <strong><i class="bi bi-trophy"></i> Gevinst:</strong>
+                                    <strong><i class="bi bi-trophy"></i> Gevinst:</strong><br>
                                     <span [class.text-success]="ticket.winAmount > 0" [class.text-danger]="ticket.winAmount <= 0">
                                         {{ ticket.winAmount | currency }}
                                     </span>

@@ -5,6 +5,7 @@ import { BalanceService } from '../../Services/Balance/Balance.service';
 import { Balance } from '../../Models/Balance.model';
 import { AuthService } from '../../Services/Security/auth.service';
 import { User } from '../../Models/user.model';
+import { TransactionService } from '../../Services/Transaction/transaction.service';
 
 @Component({
   selector: 'app-bank',
@@ -20,13 +21,23 @@ export class BankComponent implements OnInit {
   errorMessage: string = '';
   successMessage: string = '';	  
 
+    transactionHistory: any[] = [];
+
+
   constructor(
     private balanceService: BalanceService,
-    private authService: AuthService // <-- injicer AuthService
+    private authService: AuthService,
+    private transactionService: TransactionService
   ) {}
 
   ngOnInit() {
     this.loadUser();
+    this.fetchTransactionHistory();
+
+  }
+
+  ngOnChanges() {
+    this.fetchTransactionHistory();
   }
 
   loadUser(): void {
@@ -95,6 +106,18 @@ export class BankComponent implements OnInit {
       error: () => {
         this.errorMessage = 'Fejl ved hævning.';
         this.successMessage = '';
+      }
+    });
+  }
+
+  fetchTransactionHistory() {
+    this.transactionService.getTransactionTicketsByUserId(this.currentUser.id).subscribe({
+      next: (data) => {
+        this.transactionService = data;
+        this.transactionHistory = data;
+      },
+      error: (err) => {
+        console.error('Error fetching game history:', err);
       }
     });
   }

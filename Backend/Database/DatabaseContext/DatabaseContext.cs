@@ -116,7 +116,7 @@ namespace Backend.Database.DatabaseContext
                 new Game
                 {
                     GameId = 1,
-                    Name = "Football Match",
+                    Name = "Yatzy",
                     CategoryId = 1,
                     JackpotAmount = 10000,
                     ImageUrl = "https://assets.funnygames.dk/2/114572/100319/1024x1024/yatzy.webp",

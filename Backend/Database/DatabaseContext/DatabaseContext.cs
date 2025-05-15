@@ -15,7 +15,7 @@ namespace Backend.Database.DatabaseContext
         public DbSet<Game> Games { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<GameHistory> GameHistories { get; set; }
-        public DbSet<Transactions> Transactions { get; set; }
+        public DbSet<Transaction> Transactions { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -156,19 +156,19 @@ namespace Backend.Database.DatabaseContext
                 }
             );
 
-            modelBuilder.Entity<Transactions>().HasData(
-                new Transactions
+            modelBuilder.Entity<Transaction>().HasData(
+                new Transaction
                 {
-                    TransactionsId = Guid.NewGuid(),
+                    TransactionId = Guid.NewGuid(),
                     UserId = 1,
                     Amount = 500,
                     Date = new DateTime(),
                     Type = TransactionTypes.Deposit,
                     Direction = Directions.In
                 },
-                new Transactions
+                new Transaction
                 {
-                    TransactionsId = Guid.NewGuid(),
+                    TransactionId = Guid.NewGuid(),
                     UserId = 2,
                     Amount = 300,
                     Date = new DateTime(),

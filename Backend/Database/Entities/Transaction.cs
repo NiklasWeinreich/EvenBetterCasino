@@ -2,11 +2,11 @@
 
 namespace Backend.Database.Entities
 {
-    public class Transactions
+    public class Transaction
     {
 
         [Key]
-        public Guid TransactionsId { get; set; } = Guid.NewGuid();
+        public Guid TransactionId { get; set; } = Guid.NewGuid();
 
         [Column(TypeName = "int")]        
         public int UserId { get; set; }

@@ -1,5 +1,7 @@
 ﻿
-using Azure.Core;
+using Backend.Database.Entities;
+using Backend.Helper;
+using Backend.Interfaces.IBalance;
 using System;
 using System.Security.Cryptography;
 
@@ -8,10 +10,20 @@ namespace Backend.Games.Keno.Service
     public class KenoService : IKenoService
     {
 
+
         private const int totalNumber = 40;
         private const int numbersDrawn = 10;
 
-        public List<KenoOdds> GetOdds(List<int> playerNumbers)
+        private readonly IBalanceService _balanceService;
+        private readonly GameHistoryHelper _gameHistoryHelper;
+
+        public KenoService(IBalanceService balanceService, GameHistoryHelper gameHistoryHelper)
+        {
+            _balanceService = balanceService;
+            _gameHistoryHelper = gameHistoryHelper;
+        }
+
+        public async Task<List<KenoOdds>> GetOdds(List<int> playerNumbers)
         {
 
             if (playerNumbers.Count < 1 || playerNumbers.Count > 10)
@@ -24,22 +36,17 @@ namespace Backend.Games.Keno.Service
             var oddsTable = new List<KenoOdds>();
             for (int i = 0; i <= playerNumbers.Count; i++)
             {
-                double multiplier = payoutTable.ContainsKey(i) ? payoutTable[i] : 0.0;
+                decimal multiplier = payoutTable.ContainsKey(i) ? payoutTable[i] : 0.0m;
                 oddsTable.Add(new KenoOdds { PlayerNumbers = i, Multiplier = multiplier });
             }
             return oddsTable;
             
         }
 
-        public List<int> GetRandomPlayerNumbers(int amountOfNumbers)
+        public async Task<List<int>> GetRandomPlayerNumbers(int amountOfNumbers)
         {
 
-            if (amountOfNumbers is > 10 or < 1) 
-            { 
-                throw new ArgumentException("Forkert input. Du kan kun vælge mellem 1 - 10 numre."); 
-            }
-
-
+            
             var availableNumber = MakeAvailableNumberList(totalNumber);
             var selectedNumbers = new List<int>();
 
@@ -57,12 +64,16 @@ namespace Backend.Games.Keno.Service
 
         }
 
-        public (List<int> DrawnNumbers, int Matches, double Multiplier) PlayGame(List<int> playerNumbers)
+        public async Task<KenoGameResult> PlayGame(int userId, int gameId, List<int> playerNumbers, decimal betAmount)
         {
+
+            var balance = await _balanceService.PlaceBetAsync(userId, betAmount);
+            if (balance < 0)
+                throw new InvalidOperationException("Fejl - Kunne ikke trække spilbeløb fra saldo.");
+
 
             var availableNumber = MakeAvailableNumberList(totalNumber);
             var drawnNumbers = new List<int>();
-            int matches = 0;
 
 
             for (int i = 0; i < numbersDrawn; i++)
@@ -74,12 +85,33 @@ namespace Backend.Games.Keno.Service
 
             drawnNumbers.Sort();
 
-            matches = drawnNumbers.Intersect(playerNumbers).Count();
-
-            double multiplier = GetPayoutMultiplier(playerNumbers.Count, matches);
+            int matches = drawnNumbers.Intersect(playerNumbers).Count();
 
 
-            return (drawnNumbers, matches, multiplier);
+            decimal multiplier = GetPayoutMultiplier(playerNumbers.Count, matches);
+            
+            bool isWin = multiplier > 0;
+
+            decimal payout = isWin ? Math.Round( betAmount * multiplier)
+                : 0;
+
+            if (payout > 0)
+            {
+                await _balanceService.WinAmountAsync(userId, payout);
+            }
+
+            await _gameHistoryHelper.LogGameWithoutCashOut(userId, gameId, betAmount, payout, isWin);
+
+
+            return new KenoGameResult
+            {
+                DrawnNumbers = drawnNumbers,
+                Matches = matches,
+                Multiplier = multiplier,
+                IsWin = isWin,
+                Payout = payout
+            
+            };
         }
 
         private List<int> MakeAvailableNumberList(int maxNumber)
@@ -95,16 +127,17 @@ namespace Backend.Games.Keno.Service
             return tempList;
         }
 
-        double GetPayoutMultiplier(int playerCount, int hits)
+        private decimal GetPayoutMultiplier(int playerCount, int hits)
         {
             if (PayoutTable.FixedPayoutTables.TryGetValue(playerCount, out var payoutTable))
             {
-                if (payoutTable.TryGetValue(hits, out var multiplier))
+                if (payoutTable.TryGetValue(hits, out decimal multiplier))
                 {
+                    
                     return multiplier;
                 }
             }
-            return 0.0; // Standard hvis ingen payout defineret
+            return 0.0m; // Standard hvis ingen payout defineret
         }
     }
 }

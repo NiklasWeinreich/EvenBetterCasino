@@ -19,7 +19,7 @@ export const routes: Routes = [
         [
             { path: 'users', loadComponent: () => import('./Components/admin-panels/admin-users/admin-users.component').then(m => m.AdminUsersComponent) },
             { path: 'games', loadComponent: () => import('./Components/admin-panels/admin-games/admin-games.component').then(m => m.AdminGamesComponent) },
-            {path: 'newsletter', loadComponent: () => import('./Components/admin-panels/admin-newsletter/admin-newsletter.component').then(m => m.AdminNewsletterComponent) },
+            {path:  'newsletter', loadComponent: () => import('./Components/admin-panels/admin-newsletter/admin-newsletter.component').then(m => m.AdminNewsletterComponent) },
         ]
     },
 
@@ -34,10 +34,12 @@ export const routes: Routes = [
         ]
     },
 
-
-  
     { path: 'games', loadComponent: () => import('./Components/games-front-page/games-front-page.component').then(m => m.GamesComponent) },
     { path: 'games/dice', loadComponent: () => import('./Components/games/dice-game/dice-game.component').then(m => m.DiceGameComponent) },
-    { path: 'games/yatzy', loadComponent: () => import('./Components/games/yatzy-game/yatzy-game.component').then(m => m.YatzyGameComponent) } 
+    { path: 'games/yatzy', loadComponent: () => import('./Components/games/yatzy-game/yatzy-game.component').then(m => m.YatzyGameComponent) }, 
+    { path: 'games/bombastic', loadComponent: () => import('./Components/games/bombastic/bombastic.component').then(m => m.BombasticComponent) },
+
+    // Sæt ind i en "user / konto", lidt ligesom admin halløjet.
+    { path: 'history', loadComponent: () => import('./Components/gamehistory/gamehistory.component').then(m => m.GamehistoryComponent) }
 
 ];

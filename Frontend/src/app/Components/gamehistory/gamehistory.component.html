@@ -1,0 +1,78 @@
+<div class="text-center text-white" style="min-height: 100vh;">
+    <!-- Hero Section -->
+    <div class="container py-5">
+        <h1 class="fw-bold display-4 mb-3">Din spil historik</h1>
+        <p class="lead mb-4">
+            Se nedenfor din spil historik, hvor du kan finde alle dine tidligere spil og deres resultater.
+        </p>
+        <p class="lead mb-4">
+            <strong>Tip:</strong>
+            Brug søgefeltet til at finde specifikke spil hurtigt.
+        </p>
+    </div>
+
+    <!-- Search Section -->
+    <div class="container-lg mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <!-- Search Bar -->
+                <div class="input-group mb-4">
+                    <span class="input-group-text bg-primary text-white">
+                        <i class="bi bi-search"></i>
+                    </span>
+                    <input
+                        type="text"
+                        class="form-control"
+                        placeholder="Søg efter spilnavn..."
+                        [(ngModel)]="searchTerm"
+                        (ngModelChange)="filterGameHistory()"
+                    />
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cards Section -->
+    <div class="container">
+        <div class="row justify-content-center">
+            <div *ngFor="let ticket of filteredGameHistory" class="col-md-8 mb-4">
+                <div [class.border-success]="ticket.winAmount > 0" [class.border-danger]="ticket.winAmount <= 0" class="card shadow-lg border-1 border-primary bg-dark text-light p-2">
+                    <div class="card-body">
+                        <h4 [class.text-success]="ticket.winAmount > 0" [class.text-danger]="ticket.winAmount <= 0" class="card-title text-primary fw-bold">
+                            <i  class="bi bi-controller"></i> {{ ticket.gameName }}
+                            
+                        </h4>
+                        <hr class="bg-light">
+                        <div class="row">
+                            <!-- Left Column -->
+                            <div class="col-sm-6">
+                                <p class="card-text">
+                                    <strong><i class="bi bi-cash"></i> Spil beløb:</strong> {{ ticket.betAmount | currency }}
+                                </p>
+                            </div>
+                            <!-- Right Column -->
+                            <div class="col-sm-6">
+                                <p class="card-text">
+                                    <strong><i class="bi bi-trophy"></i> Gevinst:</strong>
+                                    <span [class.text-success]="ticket.winAmount > 0" [class.text-danger]="ticket.winAmount <= 0">
+                                        {{ ticket.winAmount | currency }}
+                                    </span>
+                                </p>
+                            </div>
+                        </div>
+                        <p class="card-text mt-5">
+                            <strong><i class="bi bi-calendar"></i> Dato:</strong> {{ ticket.date | date:'short' }}
+                            
+                        </p>
+                        <p class="text-dark-emphasis"> {{ ticket.gameHistoryId }} </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- No Data Message -->
+        <div *ngIf="!filteredGameHistory || filteredGameHistory.length === 0" class="text-center mt-4">
+            <p class="text-muted">Ingen spil historik tilgængelig i øjeblikket.</p>
+        </div>
+    </div>
+</div>

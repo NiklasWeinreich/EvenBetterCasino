@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 
@@ -11,8 +11,7 @@ import { RouterModule } from '@angular/router';
   styleUrls: ['./game-layout.component.css'],
 })
 export class GameLayoutComponent {
-  betAmount = 50;
-
+  @Input() betAmount!: number;
   @Output() betPlaced = new EventEmitter<number>();
 
   placeBet() {
@@ -20,6 +19,6 @@ export class GameLayoutComponent {
       alert('Indsats skal være mindst 1 kr');
       return;
     }
-    this.betPlaced.emit(this.betAmount); // <-- sender indsats til parent
+    this.betPlaced.emit(this.betAmount);
   }
 }

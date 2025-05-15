@@ -6,4 +6,5 @@ export interface Game {
     jackpotAmount: number;
     imageUrl: string;
     status: boolean;
+    description: string;
 }

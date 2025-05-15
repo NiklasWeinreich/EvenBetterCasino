@@ -55,14 +55,15 @@ namespace Backend.Services.GamesService
             existingGame.Name = updateGame.Name;
             existingGame.CategoryId = updateGame.CategoryId;
             existingGame.WebUrl = updateGame.WebUrl;
-            existingGame.JackpotAmount = updateGame.JackpotAmount;
             existingGame.ImageUrl = updateGame.ImageUrl;
             existingGame.Status = updateGame.Status;
+            existingGame.description = updateGame.description;
+
 
             var updatedGame = await _gamesRepository.UpdateGameAsync(existingGame);
             return MapEntityToResponse(updatedGame);
 
-    }
+        }
 
         public Game MapRequestToEntity(GamesRequest request)
         {
@@ -71,10 +72,10 @@ namespace Backend.Services.GamesService
 
                 Name = request.Name,
                 CategoryId = request.CategoryId,
-                JackpotAmount = request.JackpotAmount,
                 WebUrl = request.WebUrl,
                 ImageUrl = request.ImageUrl,
                 Status = request.Status,
+                description = request.description
 
             };
 
@@ -90,9 +91,9 @@ namespace Backend.Services.GamesService
                 Name = response.Name,
                 CategoryId = response.CategoryId,
                 WebUrl = response.WebUrl,
-                JackpotAmount = response.JackpotAmount,
                 ImageUrl = response.ImageUrl,
                 Status = response.Status,
+                Description = response.description
 
             };
         }

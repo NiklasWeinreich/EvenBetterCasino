@@ -1,19 +1,49 @@
 import { Component } from '@angular/core';
 import { environment } from '../../../Environments/environment';
 import { FormsModule } from '@angular/forms';
-import { CommonModule, NgClass } from '@angular/common';
-import { GameLayoutComponent } from "../game-layout/game-layout.component";
-import { HttpClient } from '@angular/common/http';
+import { CommonModule } from '@angular/common';
+import { GameLayoutComponent } from '../game-layout/game-layout.component';
+import { YatzyService } from '../../../Services/Games/yatzy.service';
+import { Game } from '../../../Models/games.model';
+import { Observable, finalize } from 'rxjs';
+import { YatzyGame } from '../../../Models/Yatzy.model';
 
 @Component({
   selector: 'app-yatzy-game',
+  standalone: true,
   imports: [FormsModule, CommonModule, GameLayoutComponent],
   templateUrl: './yatzy-game.component.html',
-  styleUrl: './yatzy-game.component.css'
+  styleUrl: './yatzy-game.component.css',
 })
 export class YatzyGameComponent {
+  jackpot = 500_000;
+  betAmount = 10;
+  diceResults: number[] = [];
+  combinationText = '';
+  payout = 0;
+  isLoading = false;
 
-  jackpot : number = 500000;
-  
+  constructor(private yatzyService: YatzyService) {}
 
+  playYatzyGame(betAmount: number) {
+    this.betAmount = betAmount;
+    this.isLoading = true;
+    this.yatzyService
+      .playGame(betAmount)
+      .pipe(finalize(() => (this.isLoading = false)))
+      .subscribe({
+        next: (res: YatzyGame) => {
+          this.diceResults = res.diceRolls;
+          this.combinationText = res.combination;
+          this.payout = res.payout;
+        },
+        error: (err) => {
+          console.error('Spilfejl:', err);
+        },
+      });
+  }
+
+  trackByIndex(index: number): number {
+    return index;
+  }
 }

@@ -1,0 +1,38 @@
+<app-game-layout [betAmount]="betAmount" (betPlaced)="startGame($event)">
+  <!-- Titel -->
+  <div slot="title-area">
+    <h4>Bombastic</h4>
+  </div>
+
+  <!-- Spilområde -->
+  <div slot="game-area">
+    <div class="text-center">
+      <p *ngIf="message">{{ message }}</p>
+
+      <button *ngIf="gameStarted" class="btn btn-danger my-3" (click)="clickBomb()">
+        Klik på Bomben 💣
+      </button>
+
+      <p *ngIf="gameStarted">Antal bomber klikket: {{ bombsClicked }}</p>
+    </div>
+  </div>
+
+  <!-- Jackpot -->
+  <div slot="jackpot-area">
+    <div>
+      JACKPOT: {{ jackpot | currency:'DKK':'symbol':'1.2-2':'da-DK' }}
+    </div>
+  </div>
+
+  <!-- Gevinst-visning -->
+  <div slot="bet-area">
+    <div class="yatzy__feedback">
+      <p *ngIf="lastPayout > 0" class="yatzy__win">
+        Du vandt {{ lastPayout | currency:'DKK':'symbol':'1.2-2':'da-DK' }}
+      </p>
+      <p *ngIf="!gameStarted && lastPayout === 0 && bombsClicked > 0" class="yatzy__lose">
+        Desværre, ingen gevinst denne gang.
+      </p>
+    </div>
+  </div>
+</app-game-layout>

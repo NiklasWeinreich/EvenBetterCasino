@@ -3,7 +3,11 @@
     public class YatzyGameRequest
     {
 
-        public double BetAmount { get; set; }
+        public int UserId { get; set; }
+
+        public int GameId { get; set; }
+
+        public decimal BetAmount { get; set; }
 
     }
 }

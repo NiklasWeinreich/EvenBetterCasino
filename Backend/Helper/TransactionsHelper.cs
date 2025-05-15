@@ -4,14 +4,8 @@
     {
         public static class TransactionTypes
         {
-            public const string Deposit = "Deposit";
-            public const string Withdrawal = "Withdrawal";
-        }
-
-        public static class Directions
-        {
-            public const string In = "In";
-            public const string Out = "Out";
+            public const string Deposit = "Indbetaling";
+            public const string Withdrawal = "Udbetaling";
         }
     }
 }

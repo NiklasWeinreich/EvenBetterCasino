@@ -24,6 +24,6 @@ namespace Backend.Interfaces.IGamesHistory
         // USER ID && DATO
 
         // CREATE GH
-        Task<GameHistoryResponse> CreateGameHistoryTicket(GameHistoryRequest newGameHistoryTicket);
+        Task<GameHistoryResponse> CreateGameHistoryTicketAsync(GameHistoryRequest ticket);
     }
 }

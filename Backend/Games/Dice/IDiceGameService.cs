@@ -2,7 +2,7 @@
 {
     public interface IDiceGameService
     {
-        DiceGameResult PlayGame(int playerNumber, bool isGuessOver, double betAmount);
+        Task<DiceGameResult> PlayGame(int userId, int gameId, int playerNumber, bool isGuessOver, decimal betAmount);
 
     }
 }

@@ -40,6 +40,6 @@ namespace Backend.Database.Entities
 
         //Relations
         public ICollection<GameHistory> GameHistories { get; set; } = new List<GameHistory>();
-        public ICollection<Transactions> Transactions { get; set; } = new List<Transactions>();
+        public ICollection<Transaction> Transactions { get; set; } = new List<Transaction>();
     }
 }

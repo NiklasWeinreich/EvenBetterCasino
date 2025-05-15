@@ -4,7 +4,7 @@
     {
         public bool IsWin { get; set; }
         public int DiceValue { get; set; }
-        public double WinProbability { get; set; }
-        public double Payout { get; set; }
+        public decimal WinProbability { get; set; }
+        public decimal Payout { get; set; }
     }
 }

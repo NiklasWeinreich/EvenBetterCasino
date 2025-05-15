@@ -1,14 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { Router, RouterLink, RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { UserService } from '../../Services/User/user.service';
 import { AuthService } from '../../Services/Security/auth.service';
+import { GameService } from '../../Services/Games/games.service';
+import { Game } from '../../Models/games.model';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, RouterModule, FormsModule],
+  imports: [CommonModule, RouterModule, FormsModule,],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
 })
@@ -17,15 +19,39 @@ export class HomeComponent implements OnInit {
   isSubscribed: boolean = false;
   message: string = '';
   messageClass: string = '';
+  games: Game[] = [];
 
   constructor(
     private userService: UserService,
-    public authService: AuthService
+    public authService: AuthService,
+    public gamesService: GameService,
+    private router: Router,
   ) {}
 
   ngOnInit(): void {
     this.loadUserEmail();
+    this.loadGames();
 
+  }
+
+    navigateToGame(games: Game): void {
+    if (games.webUrl) {
+      this.router.navigate(['/Games', games.webUrl]);
+    }
+  }
+
+  loadGames(): void {
+    this.gamesService.getAllGames().subscribe({
+      next: (games) => {
+        this.games = games;
+        console.log('spil hentet', games);
+
+      },
+      error: (err) => {
+        console.error(err);
+        console.log('Fejl ved hentning af spil' + err);
+      },
+    });
   }
 
   loadUserEmail(): void {

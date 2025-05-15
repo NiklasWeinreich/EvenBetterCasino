@@ -15,7 +15,7 @@ export class AccountComponent implements OnInit {
   public user!: User;
   updateError = '';
   updateSuccess = '';
-  exclusionPeriodHours: number = 24;
+  exclusionPeriodDays: number = 1;
   excludeSuccess = '';
   excludeError = '';
 
@@ -25,6 +25,10 @@ export class AccountComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.loadUser();
+  }
+
+  loadUser(): void {
     const currentUser = this.authService.currentUserValue;
 
     if (currentUser) {
@@ -66,27 +70,25 @@ export class AccountComponent implements OnInit {
   }
 
   excludeUser(): void {
-    if (
-      !this.user ||
-      !this.exclusionPeriodHours ||
-      this.exclusionPeriodHours <= 0
-    ) {
-      this.excludeError = 'Indtast venligst et gyldigt antal timer.';
+    if (!this.user?.id || this.exclusionPeriodDays <= 0) {
+      this.excludeError = 'Vælg venligst en gyldig udelukkelsesperiode.';
       return;
     }
 
-    this.userService
-      .excludeUser(this.user.id, this.exclusionPeriodHours)
-      .subscribe({
-        next: () => {
-          this.excludeSuccess = `Du er nu udelukket i ${this.exclusionPeriodHours} timer.`;
-          this.excludeError = '';
-        },
-        error: (err) => {
-          this.excludeSuccess = '';
-          this.excludeError = 'Der opstod en fejl under udelukkelsen.';
-          console.error(err);
-        },
-      });
+    const hours = this.exclusionPeriodDays * 24;
+    const excludedUntil = new Date();
+    excludedUntil.setDate(excludedUntil.getDate() + this.exclusionPeriodDays);
+
+    this.userService.excludeUser(this.user.id, hours).subscribe({
+      next: () => {
+        this.excludeSuccess = `Du er nu udelukket indtil ${excludedUntil.toLocaleString()}.`;
+        this.excludeError = '';
+      },
+      error: (err) => {
+        this.excludeSuccess = '';
+        this.excludeError = 'Der opstod en fejl under udelukkelsen.';
+        console.error(err);
+      },
+    });
   }
 }

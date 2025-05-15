@@ -9,6 +9,26 @@
     }
   },
   "profiles": {
+    "Patrick (https)": {
+      "commandName": "Project",
+      "dotnetRunMessages": true,
+      "launchBrowser": true,
+      "launchUrl": "swagger",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "applicationUrl": "https://192.168.0.21:8080"
+    },
+    "Niklas (https)": {
+      "commandName": "Project",
+      "dotnetRunMessages": true,
+      "launchBrowser": true,
+      "launchUrl": "swagger",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "applicationUrl": "https://192.168.8.153:8080"
+    },
     "http": {
       "commandName": "Project",
       "dotnetRunMessages": true,

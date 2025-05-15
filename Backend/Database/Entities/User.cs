@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using Backend.Helper;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Backend.Database.Entities
 {
@@ -16,24 +17,29 @@ namespace Backend.Database.Entities
         [Column(TypeName = "nvarchar(50)")]
         public required string Email { get; set; }
 
-        public DateOnly BirthDate { get; set; }
+        [Column(TypeName = "nvarchar(500)")]
+        public required string Password { get; set; }
+
+        public required DateOnly BirthDate { get; set; }
 
         [Column(TypeName = "int")]
-        public int PhoneNumber { get; set; }
+        public int? PhoneNumber { get; set; }
 
-        [Column(TypeName = "int")]
-        public int Balance { get; set; }
+        [Column(TypeName = "decimal(18,2)")]
+        public decimal Balance { get; set; }
 
         [Column(TypeName = "datetime")]
         public DateTime? ExcludedUntil { get; set; }
 
-        [Column(TypeName = "int")]
-        public int Profit { get; set; }
+        [Column(TypeName = "decimal(18,2)")]
+        public decimal Profit { get; set; }
 
-        [Column(TypeName = "int")]
-        public int Loss { get; set; }
+        public Role Role { get; set; }
 
-        [Column(TypeName = "nvarchar(50)")]
         public bool NewsLetterIsSubscribed { get; set; } = false;
+
+        //Relations
+        public ICollection<GameHistory> GameHistories { get; set; } = new List<GameHistory>();
+        public ICollection<Transactions> Transactions { get; set; } = new List<Transactions>();
     }
 }

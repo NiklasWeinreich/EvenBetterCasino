@@ -24,7 +24,7 @@ namespace Backend.Repositories.GamesHistoryRepository
                 .ToListAsync();
 
         }
-        public async Task<List<GameHistory>> GetGameHistoryByGameIdAsync(int id)
+        public async Task<List<GameHistory>> GetGameHistoryByUserIdAsync(int id)
         {
             return await _databaseContext.GameHistories
                 .Where(g => g.User.Id == id)
@@ -34,12 +34,13 @@ namespace Backend.Repositories.GamesHistoryRepository
 
         }
 
-        public async Task<List<GameHistory>> GetGameHistoryByUserIdAsync(int id)
+        public async Task<List<GameHistory>> GetGameHistoryByGameIdAsync(int id)
         {
             return await _databaseContext.GameHistories
                 .Where(g => g.Game.GameId == id)
                 .Include(g => g.User)
                 .Include(g => g.Game)
+                .OrderByDescending(g => g.Date)
                 .ToListAsync();
         }
         public async Task<List<GameHistory>> GetGameHistoryByGameIdAndUserIdAsync(int userId, int gameId)
@@ -48,6 +49,7 @@ namespace Backend.Repositories.GamesHistoryRepository
                 .Where(g => g.GameId == gameId && g.UserId == userId)
                 .Include(g => g.User)
                 .Include(g => g.Game)
+                .OrderByDescending(g => g.Date)
                 .ToListAsync();
         }
 

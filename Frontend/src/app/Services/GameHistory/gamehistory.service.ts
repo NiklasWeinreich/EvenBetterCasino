@@ -15,4 +15,16 @@ export class GamehistoryService {
   getGameHistory(): Observable<any> {
     return this.http.get<any>(this.gamehistoryApiUrl);
   }
+  
+  getGameHistoryByUserId(userId: number): Observable<any> {
+    return this.http.get<any>(`${this.gamehistoryApiUrl}/user/${userId}`);
+  }
+
+  getGameHistoryByGameId(gameId: number): Observable<any> {
+    return this.http.get<any>(`${this.gamehistoryApiUrl}/game/${gameId}`);
+  }
+
+  getGameHistoryByUserIdAndGameId(userId: number, gameId: number): Observable<any> {
+    return this.http.get<any>(`${this.gamehistoryApiUrl}/user/${userId}/game/${gameId}`);
+  }
 }

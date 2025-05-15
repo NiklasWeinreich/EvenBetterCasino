@@ -13,5 +13,8 @@ namespace Backend.Interfaces.IUser
         Task<bool> DeleteUserAsync(int id);
         Task<LoginResponse?> AuthenticateUserAsync(LoginRequest loginRequest);
         Task<UserResponse> ExcludeUserAsync(int Id, int exclusionPeriodHours);
+        Task<UserResponse?> SubscribeNewsletter(string email);
+        Task<UserResponse?> UnsubscribeNewsletter(string email);
+
     }
 }

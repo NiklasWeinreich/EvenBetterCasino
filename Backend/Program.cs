@@ -20,6 +20,13 @@ using Backend.Services.BalanceService;
 using Backend.Authentication;
 using Backend.Interfaces.IEmail;
 using Backend.Services.EmailService;
+using Backend.Interfaces.IGames;
+using Backend.Services.GamesService;
+using Backend.Repositories.GamesRepository;
+using Backend.Interfaces.IGamesHistory;
+using Backend.Services.GamesHistoryService;
+using Backend.Repositories.GamesHistoryRepository;
+using Backend.Database.Entities;
 
 
 
@@ -45,6 +52,10 @@ namespace Backend
             builder.Services.AddScoped<IBalanceRepository, BalanceRepository>();
             builder.Services.AddScoped<IBalanceService, BalanceService>();
             builder.Services.AddScoped<IEmailService, EmailService>();
+            builder.Services.AddScoped<IGamesService, GamesService>();
+            builder.Services.AddScoped<IGamesRepository, GamesRepository>();
+            builder.Services.AddScoped<IGameHistoryService, GameHistoryService>();
+            builder.Services.AddScoped<IGameHistoryRepository, GameHistoryRepository>();
 
 
             builder.Services.AddScoped<IJwtUtils, JwtUtils>();

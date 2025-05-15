@@ -27,7 +27,10 @@ namespace Backend.Controllers.BalanceController
 
                 BalanceResponse response = new BalanceResponse { Balance = currentBalance };
 
-                if (response == null) { return NotFound(); }
+                if (response == null) 
+                { 
+                    return NotFound(); 
+                }
 
                 return Ok(response);
             }

@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
 import { AdminPanelsComponent } from './Components/admin-panels/admin-panels.component';
 import { RofusComponent } from './Components/rofus/rofus.component';
+import { AuthGuard } from './Services/Security/auth.guard.service';
 
 
 export const routes: Routes = [
@@ -13,6 +14,7 @@ export const routes: Routes = [
     {
         path: 'admin',
         component: AdminPanelsComponent,
+        canActivate: [AuthGuard],
         children: 
         [
             { path: 'users', loadComponent: () => import('./Components/admin-panels/admin-users/admin-users.component').then(m => m.AdminUsersComponent) },
@@ -36,6 +38,10 @@ export const routes: Routes = [
   
     { path: 'games', loadComponent: () => import('./Components/games-front-page/games-front-page.component').then(m => m.GamesComponent) },
     { path: 'games/dice', loadComponent: () => import('./Components/games/dice-game/dice-game.component').then(m => m.DiceGameComponent) },
-    { path: 'games/yatzy', loadComponent: () => import('./Components/games/yatzy-game/yatzy-game.component').then(m => m.YatzyGameComponent) } 
+    { path: 'games/yatzy', loadComponent: () => import('./Components/games/yatzy-game/yatzy-game.component').then(m => m.YatzyGameComponent) }, 
+
+
+    // Sæt ind i en "user / konto", lidt ligesom admin halløjet.
+    { path: 'history', loadComponent: () => import('./Components/gamehistory/gamehistory.component').then(m => m.GamehistoryComponent) }
 
 ];

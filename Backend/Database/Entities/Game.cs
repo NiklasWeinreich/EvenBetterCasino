@@ -5,25 +5,29 @@ namespace Backend.Database.Entities
     public class Game
     {
         [Key]
-        public int Id { get; set; }
+        public int GameId { get; set; }
 
         [Column(TypeName = "nvarchar(50)")]
         public required string Name { get; set; }
 
         [Column(TypeName = "int")]
-        public required int KategoriId { get; set; }
-
-        [Column(TypeName = "int")]
-        public int JackpotAmount { get; set; }
+        public required int CategoryId { get; set; }
 
         [Column(TypeName = "nvarchar(255)")]
-        public string? ImageUrl { get; set; } 
+        public string? WebUrl { get; set; }
+
+        [Column(TypeName = "decimal")]
+        public decimal JackpotAmount { get; set; }
+
+        [Column(TypeName = "nvarchar(255)")]
+        public string? ImageUrl { get; set; }
+
 
         public required bool Status { get; set; } = false;
 
-        [ForeignKey("KategoriId")]
-        public Categori Categori { get; set; }
+        [ForeignKey("CategoryId")]
+        public Category Category { get; set; }
 
-        public ICollection<GamesHistory> GamesHistories { get; set; }
+        public ICollection<GameHistory> GameHistories { get; set; } = new List<GameHistory>();
     }
 }

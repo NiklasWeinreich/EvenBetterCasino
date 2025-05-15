@@ -22,51 +22,51 @@ namespace Backend.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("Backend.Database.Entities.Categori", b =>
+            modelBuilder.Entity("Backend.Database.Entities.Category", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("CategoryId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CategoryId"));
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(50)");
 
-                    b.HasKey("Id");
+                    b.HasKey("CategoryId");
 
                     b.ToTable("Categories");
 
                     b.HasData(
                         new
                         {
-                            Id = 1,
+                            CategoryId = 1,
                             Name = "Sports"
                         },
                         new
                         {
-                            Id = 2,
+                            CategoryId = 2,
                             Name = "Casino"
                         });
                 });
 
             modelBuilder.Entity("Backend.Database.Entities.Game", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("GameId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("GameId"));
+
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("int");
 
                     b.Property<string>("ImageUrl")
                         .HasColumnType("nvarchar(255)");
 
-                    b.Property<int>("JackpotAmount")
-                        .HasColumnType("int");
-
-                    b.Property<int>("KategoriId")
-                        .HasColumnType("int");
+                    b.Property<decimal>("JackpotAmount")
+                        .HasColumnType("decimal");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -75,97 +75,118 @@ namespace Backend.Migrations
                     b.Property<bool>("Status")
                         .HasColumnType("bit");
 
-                    b.HasKey("Id");
+                    b.Property<string>("WebUrl")
+                        .HasColumnType("nvarchar(255)");
 
-                    b.HasIndex("KategoriId");
+                    b.HasKey("GameId");
+
+                    b.HasIndex("CategoryId");
 
                     b.ToTable("Games");
 
                     b.HasData(
                         new
                         {
-                            Id = 1,
-                            ImageUrl = "https://i.imgflip.com/7nz6q8.png?a484848",
-                            JackpotAmount = 10000,
-                            KategoriId = 1,
-                            Name = "Football Match",
-                            Status = true
+                            GameId = 1,
+                            CategoryId = 1,
+                            ImageUrl = "https://assets.funnygames.dk/2/114572/100319/1024x1024/yatzy.webp",
+                            JackpotAmount = 10000m,
+                            Name = "Yatzy",
+                            Status = true,
+                            WebUrl = "yatzy"
                         },
                         new
                         {
-                            Id = 2,
-                            ImageUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTUKs7TFCPgIxI0i4E3IwOiAEAGbdfCg8zKmA&s",
-                            JackpotAmount = 5000,
-                            KategoriId = 2,
+                            GameId = 2,
+                            CategoryId = 2,
+                            ImageUrl = "https://cdn.prod.website-files.com/5ae2e7a18cb7532f0710bdfb/5e21d7084c5acfd2a75b5c0f_small.jpg",
+                            JackpotAmount = 5000m,
                             Name = "Blackjack",
-                            Status = true
+                            Status = true,
+                            WebUrl = "dice"
+                        },
+                        new
+                        {
+                            GameId = 3,
+                            CategoryId = 2,
+                            ImageUrl = "https://mediumrare.imgix.net/12c3bb0487e2239772248e61550a121ee20fe8400a63f386d08896d1122d1655?q=85",
+                            JackpotAmount = 15000m,
+                            Name = "Bombastic",
+                            Status = true,
+                            WebUrl = "bombastic"
                         });
                 });
 
-            modelBuilder.Entity("Backend.Database.Entities.GamesHistory", b =>
+            modelBuilder.Entity("Backend.Database.Entities.GameHistory", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("GameHistoryId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("uniqueidentifier");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("BetAmount")
-                        .HasColumnType("int");
+                    b.Property<decimal>("BetAmount")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("GamesId")
+                    b.Property<int>("GameId")
                         .HasColumnType("int");
 
-                    b.Property<bool>("JackpotWin")
+                    b.Property<bool>("IsJackpotWin")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsWin")
                         .HasColumnType("bit");
 
                     b.Property<int>("UserId")
                         .HasColumnType("int");
 
-                    b.Property<bool>("Win")
+                    b.Property<bool>("WasCashedOut")
                         .HasColumnType("bit");
 
-                    b.HasKey("Id");
+                    b.Property<decimal>("WinAmount")
+                        .HasColumnType("decimal(18,2)");
 
-                    b.HasIndex("GamesId");
+                    b.HasKey("GameHistoryId");
+
+                    b.HasIndex("GameId");
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("GamesHistories");
+                    b.ToTable("GameHistories");
 
                     b.HasData(
                         new
                         {
-                            Id = 1,
-                            BetAmount = 100,
-                            Date = new DateTime(2024, 4, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            GamesId = 1,
-                            JackpotWin = false,
+                            GameHistoryId = new Guid("a5acd3cb-f6db-4b61-9fc4-f0e53897802b"),
+                            BetAmount = 100m,
+                            Date = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            GameId = 1,
+                            IsJackpotWin = false,
+                            IsWin = true,
                             UserId = 1,
-                            Win = true
+                            WasCashedOut = false,
+                            WinAmount = 0m
                         },
                         new
                         {
-                            Id = 2,
-                            BetAmount = 50,
-                            Date = new DateTime(2024, 4, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            GamesId = 2,
-                            JackpotWin = false,
+                            GameHistoryId = new Guid("113ef4b5-d0fb-45ec-afe0-26ac1c4fbff9"),
+                            BetAmount = 50m,
+                            Date = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            GameId = 2,
+                            IsJackpotWin = false,
+                            IsWin = false,
                             UserId = 2,
-                            Win = false
+                            WasCashedOut = false,
+                            WinAmount = 0m
                         });
                 });
 
             modelBuilder.Entity("Backend.Database.Entities.Transactions", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("TransactionsId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("Amount")
                         .HasColumnType("int");
@@ -184,7 +205,7 @@ namespace Backend.Migrations
                     b.Property<int>("UserId")
                         .HasColumnType("int");
 
-                    b.HasKey("Id");
+                    b.HasKey("TransactionsId");
 
                     b.HasIndex("UserId");
 
@@ -193,18 +214,18 @@ namespace Backend.Migrations
                     b.HasData(
                         new
                         {
-                            Id = 1,
+                            TransactionsId = new Guid("d644fccf-0da4-4fa7-9e04-b24c8142fd20"),
                             Amount = 500,
-                            Date = new DateTime(2024, 4, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Date = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Direction = "In",
                             Type = "Deposit",
                             UserId = 1
                         },
                         new
                         {
-                            Id = 2,
+                            TransactionsId = new Guid("0715b8d9-3e35-4552-a828-d1dc30cacea9"),
                             Amount = 300,
-                            Date = new DateTime(2024, 4, 6, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Date = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Direction = "Out",
                             Type = "Withdrawal",
                             UserId = 2
@@ -240,9 +261,6 @@ namespace Backend.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<decimal>("Loss")
-                        .HasColumnType("decimal(18,2)");
-
                     b.Property<bool>("NewsLetterIsSubscribed")
                         .HasColumnType("bit");
 
@@ -272,9 +290,8 @@ namespace Backend.Migrations
                             Email = "NiklasErEnMaskine@mail.com",
                             FirstName = "Niklas",
                             LastName = "Maskine",
-                            Loss = 25m,
                             NewsLetterIsSubscribed = true,
-                            Password = "$2a$11$pLI7kn.OUYNTf.OwHyx4ROCQPYW3x0oHQ3XgSDdrST7KiaLJf1Wc.",
+                            Password = "$2a$11$24M9E64PSxQt77wHpsEpG.w0.3TGYlI3F.miac4F/saLl7z4GUnrm",
                             PhoneNumber = 12345678,
                             Profit = 50m,
                             Role = 1
@@ -287,9 +304,8 @@ namespace Backend.Migrations
                             Email = "johndoe@example.com",
                             FirstName = "John",
                             LastName = "Doe",
-                            Loss = 55m,
                             NewsLetterIsSubscribed = false,
-                            Password = "$2a$11$8n2JEhceHpE4kebH9fKj7.TG.gFr147xAacJzvt3YAjVpWjNkzK32",
+                            Password = "$2a$11$nEb4RGybZAX75Dk4A3xA..v.3YDZ5N/znr0GscVi8Aarnh/EbMObm",
                             PhoneNumber = 87654321,
                             Profit = 33m,
                             Role = 0
@@ -302,9 +318,8 @@ namespace Backend.Migrations
                             Email = "anna.jensen@example.com",
                             FirstName = "Anna",
                             LastName = "Jensen",
-                            Loss = 15m,
                             NewsLetterIsSubscribed = true,
-                            Password = "$2a$11$BHtaQP1ih.qiAOzgNxm2mOkJsClbevA9WCW3p/3TncSxIJOREGEk6",
+                            Password = "$2a$11$kfitXySD7XK2v2.OoKzRx.fLX3l/oO0yob6BRk7Xd4gNA9FgMheXq",
                             PhoneNumber = 11111111,
                             Profit = 20m,
                             Role = 0
@@ -317,9 +332,8 @@ namespace Backend.Migrations
                             Email = "mark.larsen@example.com",
                             FirstName = "Mark",
                             LastName = "Larsen",
-                            Loss = 10m,
                             NewsLetterIsSubscribed = true,
-                            Password = "$2a$11$uYgo7mvV/lxdjJQAjs2piexkHWwofd0ZFot4wDlVVWcn.GxNUdtse",
+                            Password = "$2a$11$5Hx4rGK5wKBcx0mU4a6CgOqraGQTsALVyx.7SLvzAfCfW1Xux9MMG",
                             PhoneNumber = 22222222,
                             Profit = 40m,
                             Role = 0
@@ -332,9 +346,8 @@ namespace Backend.Migrations
                             Email = "sara.hansen@example.com",
                             FirstName = "Sara",
                             LastName = "Hansen",
-                            Loss = 25m,
                             NewsLetterIsSubscribed = false,
-                            Password = "$2a$11$9dGxvZj7G1pJmlHrCJB38.rNQ.gel4rnxUrcvgDXQDYpU9VHdrY3G",
+                            Password = "$2a$11$e96g1HTAV15C0bSEd.AqoukDugHKgLvlvLNP76ABXH4Ho31P3xAYG",
                             PhoneNumber = 33333333,
                             Profit = 30m,
                             Role = 0
@@ -347,9 +360,8 @@ namespace Backend.Migrations
                             Email = "peter.madsen@example.com",
                             FirstName = "Peter",
                             LastName = "Madsen",
-                            Loss = 40m,
                             NewsLetterIsSubscribed = true,
-                            Password = "$2a$11$ID6iZqJkjjBlmJFLQeJv5uLnC4HqeANSSP4TH8L4i4dOnUOUz71ee",
+                            Password = "$2a$11$QuC0FLWfDkwR9BuqlE0HeOgFmdAa4mP1TMRqZqeo5oL4nJCrEc.WS",
                             PhoneNumber = 44444444,
                             Profit = 70m,
                             Role = 0
@@ -362,9 +374,8 @@ namespace Backend.Migrations
                             Email = "laura.poulsen@example.com",
                             FirstName = "Laura",
                             LastName = "Poulsen",
-                            Loss = 5m,
                             NewsLetterIsSubscribed = true,
-                            Password = "$2a$11$h3RaCcZhahfwv/mEB1MrXeDL9xJc1DqKTg2eYZlWuiADmgcXwnVUa",
+                            Password = "$2a$11$h90EcasXD8Z69CDkBVc95Oa5JjKeAPDESR4tTLMCH29ZcU1SB9eEW",
                             PhoneNumber = 55555555,
                             Profit = 25m,
                             Role = 0
@@ -377,9 +388,8 @@ namespace Backend.Migrations
                             Email = "thomas.christensen@example.com",
                             FirstName = "Thomas",
                             LastName = "Christensen",
-                            Loss = 20m,
                             NewsLetterIsSubscribed = true,
-                            Password = "$2a$11$u2ESsaY9pkBpk0Ly/NWxjOgbln27TiiT8Vr6OnSou8B0.RiCQW9rG",
+                            Password = "$2a$11$IetRj7Ww57r2wsAUxmhqtu6bREpsud4gZczRIcO3w6NIFBWwcFRl.",
                             PhoneNumber = 66666666,
                             Profit = 60m,
                             Role = 0
@@ -392,9 +402,8 @@ namespace Backend.Migrations
                             Email = "emma.andersen@example.com",
                             FirstName = "Emma",
                             LastName = "Andersen",
-                            Loss = 10m,
                             NewsLetterIsSubscribed = true,
-                            Password = "$2a$11$wTaTjLRkHrWbe5DA00nhT.asweXLO8vvZco3IBufbaPwAgjFYnGUa",
+                            Password = "$2a$11$TuA1AdWnkeZbrOCCpNjtYO3VjRJo8INGAy8P1pM9Ex.YPHzKFkWEG",
                             PhoneNumber = 77777777,
                             Profit = 80m,
                             Role = 0
@@ -407,9 +416,8 @@ namespace Backend.Migrations
                             Email = "mikkel.olsen@example.com",
                             FirstName = "Mikkel",
                             LastName = "Olsen",
-                            Loss = 10m,
                             NewsLetterIsSubscribed = false,
-                            Password = "$2a$11$Q4.OZMwV23DX4YLBY628Q.SnBeHZC2J.lYjHDrqN1ctE92WERAum6",
+                            Password = "$2a$11$S.0eXchqhNr/WjhF.17eIe2zlG2muX8RRxvSC1lKOkJkzej0g5V9K",
                             PhoneNumber = 88888888,
                             Profit = 10m,
                             Role = 0
@@ -418,30 +426,30 @@ namespace Backend.Migrations
 
             modelBuilder.Entity("Backend.Database.Entities.Game", b =>
                 {
-                    b.HasOne("Backend.Database.Entities.Categori", "Categori")
+                    b.HasOne("Backend.Database.Entities.Category", "Category")
                         .WithMany("Games")
-                        .HasForeignKey("KategoriId")
+                        .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Categori");
+                    b.Navigation("Category");
                 });
 
-            modelBuilder.Entity("Backend.Database.Entities.GamesHistory", b =>
+            modelBuilder.Entity("Backend.Database.Entities.GameHistory", b =>
                 {
-                    b.HasOne("Backend.Database.Entities.Game", "Games")
-                        .WithMany("GamesHistories")
-                        .HasForeignKey("GamesId")
+                    b.HasOne("Backend.Database.Entities.Game", "Game")
+                        .WithMany("GameHistories")
+                        .HasForeignKey("GameId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Backend.Database.Entities.User", "User")
-                        .WithMany("GamesHistories")
+                        .WithMany("GameHistories")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Games");
+                    b.Navigation("Game");
 
                     b.Navigation("User");
                 });
@@ -457,19 +465,19 @@ namespace Backend.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Backend.Database.Entities.Categori", b =>
+            modelBuilder.Entity("Backend.Database.Entities.Category", b =>
                 {
                     b.Navigation("Games");
                 });
 
             modelBuilder.Entity("Backend.Database.Entities.Game", b =>
                 {
-                    b.Navigation("GamesHistories");
+                    b.Navigation("GameHistories");
                 });
 
             modelBuilder.Entity("Backend.Database.Entities.User", b =>
                 {
-                    b.Navigation("GamesHistories");
+                    b.Navigation("GameHistories");
 
                     b.Navigation("Transactions");
                 });

@@ -6,7 +6,7 @@ namespace Backend.Database.Entities
     {
 
         [Key]
-        public int Id { get; set; }
+        public Guid TransactionsId { get; set; } = Guid.NewGuid();
 
         [Column(TypeName = "int")]        
         public int UserId { get; set; }
@@ -16,8 +16,8 @@ namespace Backend.Database.Entities
 
         [Column(TypeName = "nvarchar(50)")]
         public string Type { get; set; }
-        
-        public DateOnly Date { get; set; }
+
+        public DateTime Date { get; set; }
 
         [Column(TypeName = "nvarchar(50)")]
         public string Direction { get; set; }

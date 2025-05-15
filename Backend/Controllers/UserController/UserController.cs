@@ -1,7 +1,9 @@
 ﻿using Backend.DTO.UserDTO;
 using Backend.Interfaces.IUser;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using static Backend.Authentication.Authentication;
 
 namespace Backend.Controllers.UserController
 {
@@ -31,7 +33,7 @@ namespace Backend.Controllers.UserController
             var user = await _userService.GetUserByIdAsync(id);
             if (user == null)
             {
-                return NotFound("Brugeren blev ikke fundet!"); 
+                return NotFound($"User, with id {id}, not found."); 
             }
 
             return Ok(user);
@@ -46,7 +48,7 @@ namespace Backend.Controllers.UserController
                 var mail = await _userService.GetUserByEmailAsync(request.Email);
                 if (mail != null)
                 {
-                    return Conflict("Email is already in use");
+                    return Conflict("Email is already in use.");
                 }
 
                 UserResponse userResponse = await _userService.CreateUserAsync(request);
@@ -65,7 +67,7 @@ namespace Backend.Controllers.UserController
             var updatedUser = await _userService.UpdateUserAsync(id, request);
 
             if (updatedUser == null)
-                return NotFound(new { message = "User not found" });
+                return NotFound(new { message = $"User, with id {id}, not found." });
 
             return Ok(new { message = "User updated successfully", user = updatedUser });
         }
@@ -77,7 +79,7 @@ namespace Backend.Controllers.UserController
             var isDeleted = await _userService.DeleteUserAsync(id);
 
             if (!isDeleted)
-                return NotFound(new { message = "User not found" });
+                return NotFound(new { message = $"User, with id {id}, not found." });
 
             return Ok(new { message = "User deleted successfully" });
         }
@@ -91,7 +93,7 @@ namespace Backend.Controllers.UserController
 
                 if (userResponse == null)
                 {
-                    return NotFound(new { message = "User not found." });
+                    return NotFound(new { message = $"User, with id {id}, not found." });
                 }
 
                 return Ok(userResponse);
@@ -101,6 +103,47 @@ namespace Backend.Controllers.UserController
                 return Problem(ex.Message);
             }
         }
+
+        [HttpPost]
+        [Route("Newsletter/Subscribe/{email}")]
+        public async Task<IActionResult> SubscribeNewsletter([FromRoute] string email)
+        {
+            try
+            {
+                UserResponse userResponse = await _userService.SubscribeNewsletter(email);
+
+                if (userResponse != null)
+                {
+                    return Ok(userResponse);
+                }
+                return Problem();
+            }
+            catch (Exception ex)
+            {
+                return Problem(ex.Message);
+            }
+        }
+
+        [HttpPost]
+        [Route("Newsletter/Unsubscribe/{email}")]
+        public async Task<IActionResult> UnsubscribeNewsletter([FromRoute] string email)
+        {
+            try
+            {
+                UserResponse userResponse = await _userService.UnsubscribeNewsletter(email);
+
+                if (userResponse != null)
+                {
+                    return Ok(userResponse);
+                }
+                return NotFound("User not found or already unsubscribed.");
+            }
+            catch (Exception ex)
+            {
+                return Problem(ex.Message);
+            }
+        }
+
 
     }
 }

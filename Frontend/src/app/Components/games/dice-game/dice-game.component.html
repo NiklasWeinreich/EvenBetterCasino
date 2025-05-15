@@ -1,7 +1,23 @@
-<h1 class="text-center">Dice it or slice it!</h1>
-<div>
-    <label for="customRange1" class="form-label">Vælg et nummer:</label>
-    <input type="range" class="form-range" min="1" max="100" id="customRange1">
+<app-game-layout (betPlaced)="playDiceGame($event)">
+  <div slot="title-area">
+    <h4>DICE</h4>
+  </div>
 
+  <div slot="jackpot-area">
+    <div>JACKPOT:</div>
+    <div>500.000 kr</div>
+  </div>
 
-</div> 
+  <div slot="game-area">
+    <!-- Spil slider og resultatvisning -->
+    <label>Dit tal: {{ selectedNumber }}</label>
+    <input type="range" min="1" max="100" [(ngModel)]="selectedNumber" />
+    <div *ngIf="dicegameResult" class="mt-3 d-flex flex-wrap gap-3">
+      <p [ngClass]="dicegameResult.isWin ? 'text-success' : 'text-danger'"><strong>Resultat:</strong> {{ dicegameResult.message }}</p>
+      <p [ngClass]="dicegameResult.isWin ? 'text-success' : 'text-danger'"><strong>Terning slået:</strong> {{ dicegameResult.diceValue }}</p>
+      <p [ngClass]="dicegameResult.isWin ? 'text-success' : 'text-danger'"><strong>Vandt du?:</strong> {{ dicegameResult.isWin ? 'JA' : 'NEJ' }}</p>
+      <p [ngClass]="dicegameResult.isWin ? 'text-success' : 'text-danger'"><strong>Udbetaling:</strong> {{ dicegameResult.payout | number:'1.2-2' }} kr</p>
+      <p [ngClass]="dicegameResult.isWin ? 'text-success' : 'text-danger'"><strong>Vinderchancer:</strong> {{ dicegameResult.winProbability * 100 | number:'1.0-2' }}%</p>
+    </div>
+  </div>
+</app-game-layout>

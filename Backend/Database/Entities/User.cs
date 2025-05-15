@@ -34,15 +34,12 @@ namespace Backend.Database.Entities
         [Column(TypeName = "decimal(18,2)")]
         public decimal Profit { get; set; }
 
-        [Column(TypeName = "decimal(18,2)")]
-        public decimal Loss { get; set; }
-
         public Role Role { get; set; }
 
         public bool NewsLetterIsSubscribed { get; set; } = false;
 
         //Relations
-        public ICollection<GamesHistory> GamesHistories { get; set; } = new List<GamesHistory>();
+        public ICollection<GameHistory> GameHistories { get; set; } = new List<GameHistory>();
         public ICollection<Transactions> Transactions { get; set; } = new List<Transactions>();
     }
 }

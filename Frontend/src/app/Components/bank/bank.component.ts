@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { BalanceService } from '../../Services/Balance/Balance.service';
 import { Balance } from '../../Models/Balance.model';
 import { AuthService } from '../../Services/Security/auth.service';
-import { resetUser, User } from '../../Models/user.model';
+import { User } from '../../Models/user.model';
 
 @Component({
   selector: 'app-bank',

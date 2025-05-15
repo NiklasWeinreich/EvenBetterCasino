@@ -13,8 +13,8 @@ namespace Backend.Database.DatabaseContext
 
         public DbSet<User> Users { get; set; }
         public DbSet<Game> Games { get; set; }
-        public DbSet<Categori> Categories { get; set; }
-        public DbSet<GamesHistory> GamesHistories { get; set; }
+        public DbSet<Category> Categories { get; set; }
+        public DbSet<GameHistory> GameHistories { get; set; }
         public DbSet<Transactions> Transactions { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -35,17 +35,9 @@ namespace Backend.Database.DatabaseContext
                 .Property(u => u.BirthDate)
                 .HasConversion(dateOnlyConverter);
 
-            modelBuilder.Entity<GamesHistory>()
-                .Property(g => g.Date)
-                .HasConversion(dateOnlyConverter);
-
-            modelBuilder.Entity<Transactions>()
-                .Property(t => t.Date)
-                .HasConversion(dateOnlyConverter);
-
             // Relations opsætning
             modelBuilder.Entity<User>()
-                .HasMany(u => u.GamesHistories)
+                .HasMany(u => u.GameHistories)
                 .WithOne(gh => gh.User)
                 .HasForeignKey(gh => gh.UserId)
                 .OnDelete(DeleteBehavior.Cascade);
@@ -57,15 +49,15 @@ namespace Backend.Database.DatabaseContext
                 .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<Game>()
-                .HasMany(g => g.GamesHistories)
-                .WithOne(gh => gh.Games)
-                .HasForeignKey(gh => gh.GamesId)
+                .HasMany(g => g.GameHistories)
+                .WithOne(gh => gh.Game)
+                .HasForeignKey(gh => gh.GameId)
                 .OnDelete(DeleteBehavior.Cascade);
 
-            modelBuilder.Entity<Categori>()
+            modelBuilder.Entity<Category>()
                 .HasMany(c => c.Games)
-                .WithOne(g => g.Categori)
-                .HasForeignKey(g => g.KategoriId)
+                .WithOne(g => g.Category)
+                .HasForeignKey(g => g.CategoryId)
                 .OnDelete(DeleteBehavior.Cascade);
         }
 
@@ -87,7 +79,6 @@ namespace Backend.Database.DatabaseContext
                     NewsLetterIsSubscribed = true,
                     Balance = 100,
                     Profit = 50,
-                    Loss = 25,
                     ExcludedUntil = null
                 },
                 new User
@@ -103,85 +94,97 @@ namespace Backend.Database.DatabaseContext
                     NewsLetterIsSubscribed = false,
                     Balance = 75,
                     Profit = 33,
-                    Loss = 55,
                     ExcludedUntil = null
                 },
-                    new User { Id = 3, FirstName = "Anna", LastName = "Jensen", Email = "anna.jensen@example.com", Password = BCrypt.Net.BCrypt.HashPassword("Passw0rd"), PhoneNumber = 11111111, BirthDate = new DateOnly(1995, 3, 10), NewsLetterIsSubscribed = true, Role = Role.Customer, Balance = 100, Profit = 20, Loss = 15, ExcludedUntil = null },
-                    new User { Id = 4, FirstName = "Mark", LastName = "Larsen", Email = "mark.larsen@example.com", Password = BCrypt.Net.BCrypt.HashPassword("Passw0rd"), PhoneNumber = 22222222, BirthDate = new DateOnly(1988, 7, 23), NewsLetterIsSubscribed = true, Role = Role.Customer, Balance = 150, Profit = 40, Loss = 10, ExcludedUntil = null },
-                    new User { Id = 5, FirstName = "Sara", LastName = "Hansen", Email = "sara.hansen@example.com", Password = BCrypt.Net.BCrypt.HashPassword("Passw0rd"), PhoneNumber = 33333333, BirthDate = new DateOnly(1992, 9, 30), NewsLetterIsSubscribed = false, Role = Role.Customer, Balance = 200, Profit = 30, Loss = 25, ExcludedUntil = null },
-                    new User { Id = 6, FirstName = "Peter", LastName = "Madsen", Email = "peter.madsen@example.com", Password = BCrypt.Net.BCrypt.HashPassword("Passw0rd"), PhoneNumber = 44444444, BirthDate = new DateOnly(1985, 1, 15), NewsLetterIsSubscribed = true, Role = Role.Customer, Balance = 300, Profit = 70, Loss = 40, ExcludedUntil = null },
-                    new User { Id = 7, FirstName = "Laura", LastName = "Poulsen", Email = "laura.poulsen@example.com", Password = BCrypt.Net.BCrypt.HashPassword("Passw0rd"), PhoneNumber = 55555555, BirthDate = new DateOnly(1998, 12, 12), NewsLetterIsSubscribed = true, Role = Role.Customer, Balance = 120, Profit = 25, Loss = 5, ExcludedUntil = null },
-                    new User { Id = 8, FirstName = "Thomas", LastName = "Christensen", Email = "thomas.christensen@example.com", Password = BCrypt.Net.BCrypt.HashPassword("Passw0rd"), PhoneNumber = 66666666, BirthDate = new DateOnly(1982, 4, 8), NewsLetterIsSubscribed = true, Role = Role.Customer, Balance = 180, Profit = 60, Loss = 20, ExcludedUntil = null },
-                    new User { Id = 9, FirstName = "Emma", LastName = "Andersen", Email = "emma.andersen@example.com", Password = BCrypt.Net.BCrypt.HashPassword("Passw0rd"), PhoneNumber = 77777777, BirthDate = new DateOnly(1994, 6, 5), NewsLetterIsSubscribed = true, Role = Role.Customer, Balance = 220, Profit = 80, Loss = 10, ExcludedUntil = null },
-                    new User { Id = 10, FirstName = "Mikkel", LastName = "Olsen", Email = "mikkel.olsen@example.com", Password = BCrypt.Net.BCrypt.HashPassword("Passw0rd"), PhoneNumber = 88888888, BirthDate = new DateOnly(1989, 11, 19), NewsLetterIsSubscribed = false, Role = Role.Customer, Balance = 90, Profit = 10, Loss = 10, ExcludedUntil = null }
+                    new User { Id = 3, FirstName = "Anna", LastName = "Jensen", Email = "anna.jensen@example.com", Password = BCrypt.Net.BCrypt.HashPassword("Passw0rd"), PhoneNumber = 11111111, BirthDate = new DateOnly(1995, 3, 10), NewsLetterIsSubscribed = true, Role = Role.Customer, Balance = 100, Profit = 20, ExcludedUntil = null },
+                    new User { Id = 4, FirstName = "Mark", LastName = "Larsen", Email = "mark.larsen@example.com", Password = BCrypt.Net.BCrypt.HashPassword("Passw0rd"), PhoneNumber = 22222222, BirthDate = new DateOnly(1988, 7, 23), NewsLetterIsSubscribed = true, Role = Role.Customer, Balance = 150, Profit = 40, ExcludedUntil = null },
+                    new User { Id = 5, FirstName = "Sara", LastName = "Hansen", Email = "sara.hansen@example.com", Password = BCrypt.Net.BCrypt.HashPassword("Passw0rd"), PhoneNumber = 33333333, BirthDate = new DateOnly(1992, 9, 30), NewsLetterIsSubscribed = false, Role = Role.Customer, Balance = 200, Profit = 30, ExcludedUntil = null },
+                    new User { Id = 6, FirstName = "Peter", LastName = "Madsen", Email = "peter.madsen@example.com", Password = BCrypt.Net.BCrypt.HashPassword("Passw0rd"), PhoneNumber = 44444444, BirthDate = new DateOnly(1985, 1, 15), NewsLetterIsSubscribed = true, Role = Role.Customer, Balance = 300, Profit = 70, ExcludedUntil = null },
+                    new User { Id = 7, FirstName = "Laura", LastName = "Poulsen", Email = "laura.poulsen@example.com", Password = BCrypt.Net.BCrypt.HashPassword("Passw0rd"), PhoneNumber = 55555555, BirthDate = new DateOnly(1998, 12, 12), NewsLetterIsSubscribed = true, Role = Role.Customer, Balance = 120, Profit = 25, ExcludedUntil = null },
+                    new User { Id = 8, FirstName = "Thomas", LastName = "Christensen", Email = "thomas.christensen@example.com", Password = BCrypt.Net.BCrypt.HashPassword("Passw0rd"), PhoneNumber = 66666666, BirthDate = new DateOnly(1982, 4, 8), NewsLetterIsSubscribed = true, Role = Role.Customer, Balance = 180, Profit = 60, ExcludedUntil = null },
+                    new User { Id = 9, FirstName = "Emma", LastName = "Andersen", Email = "emma.andersen@example.com", Password = BCrypt.Net.BCrypt.HashPassword("Passw0rd"), PhoneNumber = 77777777, BirthDate = new DateOnly(1994, 6, 5), NewsLetterIsSubscribed = true, Role = Role.Customer, Balance = 220, Profit = 80, ExcludedUntil = null },
+                    new User { Id = 10, FirstName = "Mikkel", LastName = "Olsen", Email = "mikkel.olsen@example.com", Password = BCrypt.Net.BCrypt.HashPassword("Passw0rd"), PhoneNumber = 88888888, BirthDate = new DateOnly(1989, 11, 19), NewsLetterIsSubscribed = false, Role = Role.Customer, Balance = 90, Profit = 10, ExcludedUntil = null }
 
             );
 
-            modelBuilder.Entity<Categori>().HasData(
-                new Categori { Id = 1, Name = "Sports" },
-                new Categori { Id = 2, Name = "Casino" }
+            modelBuilder.Entity<Category>().HasData(
+                new Category { CategoryId = 1, Name = "Sports" },
+                new Category { CategoryId = 2, Name = "Casino" }
             );
 
             modelBuilder.Entity<Game>().HasData(
                 new Game
                 {
-                    Id = 1,
-                    Name = "Football Match",
-                    KategoriId = 1,
+                    GameId = 1,
+                    Name = "Yatzy",
+                    CategoryId = 1,
                     JackpotAmount = 10000,
-                    ImageUrl = "https://i.imgflip.com/7nz6q8.png?a484848",
-                    Status = true
+                    ImageUrl = "https://assets.funnygames.dk/2/114572/100319/1024x1024/yatzy.webp",
+                    Status = true,
+                    WebUrl = "yatzy"
                 },
                 new Game
                 {
-                    Id = 2,
+                    GameId = 2,
                     Name = "Blackjack",
-                    KategoriId = 2,
+                    CategoryId = 2,
                     JackpotAmount = 5000,
-                    ImageUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTUKs7TFCPgIxI0i4E3IwOiAEAGbdfCg8zKmA&s",
-                    Status = true
+                    ImageUrl = "https://cdn.prod.website-files.com/5ae2e7a18cb7532f0710bdfb/5e21d7084c5acfd2a75b5c0f_small.jpg",
+                    Status = true,
+                    WebUrl = "dice"
+                },
+                new Game
+                {
+                    GameId = 3,
+                    Name = "Bombastic",
+                    CategoryId = 2,
+                    JackpotAmount = 15000,
+                    ImageUrl = "https://mediumrare.imgix.net/12c3bb0487e2239772248e61550a121ee20fe8400a63f386d08896d1122d1655?q=85",
+                    Status = true,
+                    WebUrl = "bombastic"
                 }
+
             );
 
-            modelBuilder.Entity<GamesHistory>().HasData(
-                new GamesHistory
+            modelBuilder.Entity<GameHistory>().HasData(
+                new GameHistory
                 {
-                    Id = 1,
+                    GameHistoryId = Guid.NewGuid(),
                     UserId = 1,
-                    GamesId = 1,
-                    Date = new DateOnly(2024, 4, 1),
+                    GameId = 1,
+                    Date = new DateTime(),
                     BetAmount = 100,
-                    Win = true,
-                    JackpotWin = false
+                    IsWin = true,
+                    IsJackpotWin = false
                 },
-                new GamesHistory
+                new GameHistory
                 {
-                    Id = 2,
+                    GameHistoryId = Guid.NewGuid(),
                     UserId = 2,
-                    GamesId = 2,
-                    Date = new DateOnly(2024, 4, 2),
+                    GameId = 2,
+                    Date = new DateTime(),
                     BetAmount = 50,
-                    Win = false,
-                    JackpotWin = false
+                    IsWin = false,
+                    IsJackpotWin = false
                 }
             );
 
             modelBuilder.Entity<Transactions>().HasData(
                 new Transactions
                 {
-                    Id = 1,
+                    TransactionsId = Guid.NewGuid(),
                     UserId = 1,
                     Amount = 500,
-                    Date = new DateOnly(2024, 4, 5),
+                    Date = new DateTime(),
                     Type = TransactionTypes.Deposit,
                     Direction = Directions.In
                 },
                 new Transactions
                 {
-                    Id = 2,
+                    TransactionsId = Guid.NewGuid(),
                     UserId = 2,
                     Amount = 300,
-                    Date = new DateOnly(2024, 4, 6),
+                    Date = new DateTime(),
                     Type = TransactionTypes.Withdrawal,
                     Direction = Directions.Out
                 }

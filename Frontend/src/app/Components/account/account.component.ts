@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { User} from '../../Models/user.model';
+import { User } from '../../Models/user.model';
 import { UserService } from '../../Services/User/user.service';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../Services/Security/auth.service';
@@ -15,6 +15,9 @@ export class AccountComponent implements OnInit {
   public user!: User;
   updateError = '';
   updateSuccess = '';
+  exclusionPeriodDays: number = 1;
+  excludeSuccess = '';
+  excludeError = '';
 
   constructor(
     private userService: UserService,
@@ -22,6 +25,10 @@ export class AccountComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.loadUser();
+  }
+
+  loadUser(): void {
     const currentUser = this.authService.currentUserValue;
 
     if (currentUser) {
@@ -46,10 +53,10 @@ export class AccountComponent implements OnInit {
 
   updateUser(): void {
     if (!this.user) return;
-  
+
     this.userService.updateUser(this.user).subscribe({
       next: (updatedUser) => {
-        this.user = { ...this.user, ...updatedUser };       
+        this.user = { ...this.user, ...updatedUser };
         this.updateSuccess = 'Din profil er blevet opdateret!';
         this.updateError = '';
         console.log('Bruger opdateret:', updatedUser);
@@ -61,4 +68,27 @@ export class AccountComponent implements OnInit {
       },
     });
   }
-}  
+
+  excludeUser(): void {
+    if (!this.user?.id || this.exclusionPeriodDays <= 0) {
+      this.excludeError = 'Vælg venligst en gyldig udelukkelsesperiode.';
+      return;
+    }
+
+    const hours = this.exclusionPeriodDays * 24;
+    const excludedUntil = new Date();
+    excludedUntil.setDate(excludedUntil.getDate() + this.exclusionPeriodDays);
+
+    this.userService.excludeUser(this.user.id, hours).subscribe({
+      next: () => {
+        this.excludeSuccess = `Du er nu udelukket indtil ${excludedUntil.toLocaleString()}.`;
+        this.excludeError = '';
+      },
+      error: (err) => {
+        this.excludeSuccess = '';
+        this.excludeError = 'Der opstod en fejl under udelukkelsen.';
+        console.error(err);
+      },
+    });
+  }
+}

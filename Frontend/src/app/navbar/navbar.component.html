@@ -17,11 +17,11 @@
             <a class="nav-link" [routerLink]="['/games']" routerLinkActive="active"
               [routerLinkActiveOptions]="{ exact: true }">Spil</a>
           </li>
-          <li class="nav-item">
+          <li class="nav-item" *ngIf="isLoggedIn">
             <a class="nav-link" [routerLink]="['/account']" routerLinkActive="active"
               [routerLinkActiveOptions]="{ exact: true }">Konto</a>
           </li>
-          <li class="nav-item">
+          <li class="nav-item" *ngIf="isLoggedIn">
             <a class="nav-link" [routerLink]="['/bank']" routerLinkActive="active"
               [routerLinkActiveOptions]="{ exact: true }">Bank</a>
           </li>

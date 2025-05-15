@@ -116,11 +116,12 @@ namespace Backend.Database.DatabaseContext
                 new Game
                 {
                     GameId = 1,
-                    Name = "Football Match",
+                    Name = "Yatzy",
                     CategoryId = 1,
                     JackpotAmount = 10000,
-                    ImageUrl = "https://i.imgflip.com/7nz6q8.png?a484848",
-                    Status = true
+                    ImageUrl = "https://assets.funnygames.dk/2/114572/100319/1024x1024/yatzy.webp",
+                    Status = true,
+                    WebUrl = "yatzy"
                 },
                 new Game
                 {
@@ -128,9 +129,21 @@ namespace Backend.Database.DatabaseContext
                     Name = "Blackjack",
                     CategoryId = 2,
                     JackpotAmount = 5000,
-                    ImageUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTUKs7TFCPgIxI0i4E3IwOiAEAGbdfCg8zKmA&s",
-                    Status = true
+                    ImageUrl = "https://cdn.prod.website-files.com/5ae2e7a18cb7532f0710bdfb/5e21d7084c5acfd2a75b5c0f_small.jpg",
+                    Status = true,
+                    WebUrl = "dice"
+                },
+                new Game
+                {
+                    GameId = 3,
+                    Name = "Bombastic",
+                    CategoryId = 2,
+                    JackpotAmount = 15000,
+                    ImageUrl = "https://mediumrare.imgix.net/12c3bb0487e2239772248e61550a121ee20fe8400a63f386d08896d1122d1655?q=85",
+                    Status = true,
+                    WebUrl = "bombastic"
                 }
+
             );
 
             modelBuilder.Entity<GameHistory>().HasData(

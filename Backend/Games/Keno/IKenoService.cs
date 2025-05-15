@@ -2,9 +2,9 @@
 {
     public interface IKenoService
     {
-        List<KenoOdds> GetOdds(List<int> playerNumbers);
-        List<int> GetRandomPlayerNumbers(int amountOfNumbers);
-        (List<int> DrawnNumbers, int Matches, double Multiplier) PlayGame(List<int> playerNumbers);
+        Task<List<KenoOdds>> GetOdds(List<int> playerNumbers);
+        Task<List<int>> GetRandomPlayerNumbers(int amountOfNumbers);
+        Task<KenoGameResult> PlayGame(int userId, List<int> playerNumbers, decimal betAmount);
 
     }
 }

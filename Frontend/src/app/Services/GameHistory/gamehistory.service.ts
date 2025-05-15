@@ -35,9 +35,4 @@ export class GamehistoryService {
   getGameHistoryByUserIdAndGameId(userId: number, gameId: number): Observable<any> {
     return this.http.get<any>(`${this.gamehistoryApiUrl}/user/${userId}/game/${gameId}`);
   }
-
-
-
-
-
 }

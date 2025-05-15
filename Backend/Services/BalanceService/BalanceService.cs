@@ -1,4 +1,8 @@
-﻿using Backend.Interfaces.IBalance;
+﻿using Backend.DTO.TransactionsDTO;
+using Backend.Helper;
+using Backend.Interfaces.IBalance;
+using Backend.Interfaces.ITransactions;
+
 
 namespace Backend.Services.BalanceService
 {
@@ -6,10 +10,12 @@ namespace Backend.Services.BalanceService
     {
 
         private readonly IBalanceRepository _balanceRepository;
+        private readonly ITransactionService _transactionService;
 
-        public BalanceService(IBalanceRepository balanceRepository)
+        public BalanceService(IBalanceRepository balanceRepository, ITransactionService transactionService)
         {
             _balanceRepository = balanceRepository;
+            _transactionService = transactionService;
         }
 
 
@@ -31,6 +37,16 @@ namespace Backend.Services.BalanceService
             var newBalance = currentBalance + amount;
 
             await _balanceRepository.UpdateBalanceAsync(userId, newBalance);
+
+            // Opret en transaction
+            await _transactionService.CreateTransactionTicket(new TransactionRequest
+            {
+                UserId = userId,
+                Amount = amount,
+                Type = TransactionsHelper.TransactionTypes.Deposit
+
+            });
+
             return newBalance;
 
         }
@@ -48,6 +64,16 @@ namespace Backend.Services.BalanceService
             var newBalance = currentBalance - amount;
 
             await _balanceRepository.UpdateBalanceAsync(userId, newBalance);
+
+            // Opret en transaction
+            await _transactionService.CreateTransactionTicket(new TransactionRequest
+            {
+                UserId = userId,
+                Amount = amount,
+                Type = TransactionsHelper.TransactionTypes.Withdrawal
+
+            });
+
             return newBalance;
         }
 

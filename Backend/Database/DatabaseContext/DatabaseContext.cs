@@ -163,8 +163,7 @@ namespace Backend.Database.DatabaseContext
                     UserId = 1,
                     Amount = 500,
                     Date = new DateTime(),
-                    Type = TransactionTypes.Deposit,
-                    Direction = Directions.In
+                    Type = TransactionTypes.Deposit
                 },
                 new Transaction
                 {
@@ -172,8 +171,7 @@ namespace Backend.Database.DatabaseContext
                     UserId = 2,
                     Amount = 300,
                     Date = new DateTime(),
-                    Type = TransactionTypes.Withdrawal,
-                    Direction = Directions.Out
+                    Type = TransactionTypes.Withdrawal
                 }
             );
         }

@@ -1,8 +1,10 @@
 ﻿using Azure;
 using Backend.Database.Entities;
 using Backend.DTO.TransactionsDTO;
+using Backend.Helper;
 using Backend.Interfaces.ITransactions;
 using Backend.Interfaces.IUser;
+using Microsoft.AspNetCore.Http.HttpResults;
 
 namespace Backend.Services.TransactionsService
 {
@@ -40,6 +42,12 @@ namespace Backend.Services.TransactionsService
         public async Task<TransactionResponse> CreateTransactionTicket(TransactionRequest request)
         {
 
+            if (request.Type != TransactionsHelper.TransactionTypes.Deposit && request.Type != TransactionsHelper.TransactionTypes.Withdrawal)
+                throw new ArgumentException("Incoming transactions must have 'Indbetaling' or 'Udbetaling' as input.");
+            
+            if (request.Amount < 50)
+                throw new ArgumentException("Amount must be greater than 50.");
+
             var user = await _userService.GetUserByIdAsync(request.UserId);
             if (user == null) throw new ArgumentException($"User with ID {request.UserId} does not exist.");
 
@@ -49,8 +57,9 @@ namespace Backend.Services.TransactionsService
                 UserId = request.UserId,
                 Amount = request.Amount,
                 Type = request.Type,
-                Direction = request.Direction
+                Date = DateTime.UtcNow
             };
+
 
             var createdTransaction = await _transactionRepository.CreateTransactionTicket(newTransaction);
 
@@ -68,9 +77,8 @@ namespace Backend.Services.TransactionsService
                 UserName = response.User?.FirstName + " " + response.User?.LastName,
                 Amount = response.Amount,
                 Type = response.Type,
-                Direction = response.Direction,
 
-                Date = DateTime.UtcNow
+                Date = response.Date,
 
             };
         }

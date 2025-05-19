@@ -61,69 +61,58 @@ export class LoginSignupComponent implements OnInit {
     }
   }
 
-login(): void {
-  this.message = '';
-  const { email, password, rememberMe } = this.loginForm.value;
+  login(): void {
+    this.message = '';
 
-  this.authSerice.login(email, password, rememberMe).subscribe({
-    next: (loginResp) => {
-      console.log('Login succesfuldt! Modtog (LoginResponse):', loginResp);
-      this.router.navigate(['/']);
-    },
-    error: (err) => {
-      console.error('Login fejl:', err);
+    const { email, password, rememberMe } = this.loginForm.value;
 
-      // Check for the custom exclusion error
-      if (err instanceof Error && err.message.includes('Din konto er midlertidigt udelukket')) {
-        this.message = err.message;
-      } else if (err.status === 401) {
-        this.message = 'Forkert brugernavn eller adgangskode.';
-      } else {
-        this.message = 'Noget gik galt ved login. Prøv igen.';
-      }
-    }
-  });
-}
-
+    this.authSerice.login(email, password, rememberMe).subscribe({
+      next: () => {
+        this.router.navigate(['/']);
+      },
+      error: (error) => {
+        if (error instanceof Error && error.message.includes('udelukket')) {
+          this.message = error.message;
+        } else if (error.status === 401) {
+          this.message = 'Forkert e-mail eller adgangskode.';
+        } else {
+          this.message = 'Noget gik galt. Prøv igen senere.';
+        }
+      },
+    });
+  }
 
   register(): void {
     this.message = '';
-    // Læs data fra registerForm
-    const { firstName, lastName, email, password, age } =
-      this.registerForm.value;
+
+    const user = this.registerForm.value;
 
     const newUser: User = {
       id: 0,
-      firstName: firstName,
-      lastName: lastName,
+      firstName: user.firstName,
+      lastName: user.lastName,
+      email: user.email,
+      password: user.password,
+      birthDate: user.birthDate,
+      phoneNumber: user.phoneNumber,
       role: 'Customer',
-      email: email,
-      birthDate: age,
-      password: password,
-      phoneNumber: 0,
       balance: 0,
       profit: 0,
       loss: 0,
-      newsLetterIsSubscribed: false,
+      newsLetterIsSubscribed: user.newsLetterIsSubscribed || false,
     };
 
-    console.log('Forsøger at registrere ny bruger:', newUser);
-
-    // Kald userService.createUser(...) for at oprette bruger i backend
-    this.userService.createUser(newUser).subscribe({
-      next: (createdUser) => {
-        console.log('Bruger oprettet!', createdUser);
-        alert('Brugeren er nu oprettet! Du kan nu logge ind.');
+    this.authSerice.registerUser(newUser).subscribe({
+      next: () => {
+        alert('Bruger oprettet! Du kan nu logge ind.');
       },
       error: (error: HttpErrorResponse) => {
-        console.error('Fejl ved registrering:', error);
-        if (error.status === 400 && error.error?.errors) {
-          const validationErrors = Object.values(error.error.errors).join(', ');
-          this.message = `Valideringsfejl: ${validationErrors}`;
-          alert(this.message);
+        if (error.status === 409) {
+          this.message = 'Denne e-mail er allerede i brug.';
+        } else if (error.status === 400) {
+          this.message = 'Udfyld venligst alle felter korrekt.';
         } else {
-          this.message = 'Noget gik galt ved registrering. Prøv igen.';
-          alert(this.message);
+          this.message = 'Noget gik galt. Prøv igen senere.';
         }
       },
     });

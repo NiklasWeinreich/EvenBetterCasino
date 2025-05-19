@@ -98,4 +98,9 @@ return this.http
   public getUserDetails(userId: number): Observable<User> {
     return this.http.get<User>(`${environment.apiUrl}/User/${userId}`);
   }
+
+  public registerUser(newUser: User): Observable<User> {
+    const registerUrl = `${environment.apiUrl}/Auth/register`;
+    return this.http.post<User>(registerUrl, newUser);
+  }
 }

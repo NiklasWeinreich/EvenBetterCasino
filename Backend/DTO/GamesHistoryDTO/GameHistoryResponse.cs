@@ -1,5 +1,6 @@
 ﻿using Backend.Database.Entities;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Globalization;
 
 namespace Backend.DTO.GamesHistoryDTO
 {
@@ -8,6 +9,7 @@ namespace Backend.DTO.GamesHistoryDTO
         public Guid GameHistoryId { get; set; }
 
         public DateTime Date { get; set; }
+        public string DateFormatted => Date.ToString("dd/MM/yyyy HH:mm:ss", new CultureInfo("da-DK"));
 
         public required int UserId { get; set; }
 

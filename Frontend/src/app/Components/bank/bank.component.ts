@@ -21,8 +21,8 @@ export class BankComponent implements OnInit {
   errorMessage: string = '';
   successMessage: string = '';	  
 
-    transactionHistory: any[] = [];
-
+  transactionHistory: any[] = [];
+  latestTransactionId?: number;
 
   constructor(
     private balanceService: BalanceService,
@@ -32,13 +32,8 @@ export class BankComponent implements OnInit {
 
   ngOnInit() {
     this.loadUser();
-    this.fetchTransactionHistory();
-
   }
 
-  ngOnChanges() {
-    this.fetchTransactionHistory();
-  }
 
   loadUser(): void {
     const user = this.authService.currentUserValue;
@@ -46,6 +41,7 @@ export class BankComponent implements OnInit {
     if (user) {
       this.currentUser = user;
       this.loadBalance(user.id);
+      this.getTransactionHistoryByUserId(user.id);
     } else {
       console.warn('Ingen bruger logget ind');
     }
@@ -72,6 +68,7 @@ export class BankComponent implements OnInit {
     this.balanceService.depositMoney(this.currentUser.id, this.depositAmount).subscribe({
       next: () => {
         this.loadBalance(this.currentUser.id);
+        this.getTransactionHistoryByUserId(this.currentUser.id);
         this.successMessage = 'Beløbet er indsat!';
         this.errorMessage = '';
         this.depositAmount = 0;
@@ -99,6 +96,8 @@ export class BankComponent implements OnInit {
     this.balanceService.withdrawMoney(this.currentUser.id, this.depositAmount).subscribe({
       next: () => {
         this.loadBalance(this.currentUser.id);
+        this.getTransactionHistoryByUserId(this.currentUser.id);
+
         this.successMessage = 'Beløbet er hævet!';
         this.errorMessage = '';
         this.depositAmount = 0;
@@ -110,10 +109,16 @@ export class BankComponent implements OnInit {
     });
   }
 
-  fetchTransactionHistory() {
-    this.transactionService.getTransactionTicketsByUserId(this.currentUser.id).subscribe({
+  getTransactionHistoryByUserId(userId: number) {
+    this.transactionService.getTransactionTicketsByUserId(userId).subscribe({
       next: (data) => {
-        this.transactionService = data;
+        if (data.length > 0) {
+          const newest = data[0]; // Hvis nyeste er først i listen
+          if (!this.transactionHistory.length || newest.transactionId !== this.transactionHistory[0]?.transactionId) {
+            this.latestTransactionId = newest.transactionId;
+            setTimeout(() => this.latestTransactionId = undefined, 1000);
+          }
+        }
         this.transactionHistory = data;
       },
       error: (err) => {
@@ -122,4 +127,3 @@ export class BankComponent implements OnInit {
     });
   }
 }
-

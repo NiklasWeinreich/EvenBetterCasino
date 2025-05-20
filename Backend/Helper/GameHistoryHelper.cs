@@ -29,7 +29,7 @@ namespace Backend.Helper
         }
 
 
-        public async Task LogCashOutGameAsync(int userId, int gameId, decimal betAmount, decimal winAmount, bool isWin, bool wasCashedOut, bool isJackpotWin = false)
+        public async Task LogCashOutGameAsync(int userId, int gameId, decimal betAmount, decimal winAmount, bool isWin, bool wasCashedOut)
         {
             var request = new GameHistoryRequest
             {

@@ -66,7 +66,6 @@
   transition: none;
 }
 
-
 .roll-animation {
   animation: shake 0.5s ease-in-out infinite;
 }
@@ -108,4 +107,34 @@
 .yatzy__lose {
   color: #dc3545;
   font-weight: bold;
+}
+
+.yatzy__dice-row {
+  margin-bottom: 2rem;
+}
+
+.yatzy__dice-box {
+  width: 60px;
+  height: 60px;
+  background: #222;
+  border-radius: 12px;
+  border: 2px solid #0dcaf0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  color: #fff;
+  box-shadow: 0 2px 8px #0002;
+  transition: border-color 0.2s;
+}
+
+.yatzy__dice-win {
+  border-color: #ffc107 !important;
+  background: #33391a;
+  color: #ffc107;
+}
+
+.yatzy__dice-number {
+  font-weight: bold;
+  font-size: 2rem;
 }

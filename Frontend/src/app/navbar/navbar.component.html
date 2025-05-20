@@ -41,6 +41,7 @@
           <div *ngIf="currentUser" class="text-light text-nowrap d-flex align-items-center">
             <i class="bi bi-credit-card me-1"></i>
             <span>Saldo: {{ currentUser.balance | number:'1.0-2' }} kr.</span>
+            <span *ngIf="currentUser.firstName" class="ms-2 fw-bold">Hej {{ currentUser.firstName }}!</span>
           </div>
           
   

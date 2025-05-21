@@ -13,45 +13,145 @@
 
     <div class="row">
         <!-- Header: Spil titel -->
-        <div class="bg-primary text-white mb-3 p-3 rounded-3">
-            <ng-content select="[slot=title-area]"></ng-content>
-        </div>
-        
-        <!-- Venstre kolonne: Valgte tal og talplade -->
-        <div class="col-md-4 bg-primary bg-opacity-10 text-dark p-4 rounded-3 mb-3">
-            <ng-content select="[slot=left-area]"></ng-content>
+        <div class="bg-primary text-white">
+            <ng-content select="[slot='title-area']"></ng-content>
         </div>
 
-        <!-- Højre kolonne: Bet og resultat -->
-        <div class="col-md-8 bg-dark text-white p-4 rounded-3 mb-3">
-            <ng-content select="[slot=bet-area]"></ng-content>
+        <!-- Venstre kolonne: Bet -->
+        <div class="col-md-3 bg-primary bg-opacity-10 text-white p-4">
+
+            <div class="mb-3">
+                <label for="betAmount" class="form-label">Indsats (kr)</label>
+                <input type="number" id="betAmount" class="form-control" [(ngModel)]="betAmount" min="1" max="10000" />
+            </div>
+
+            <button class="btn btn-primary w-100" (click)="placeBet()">Bet</button>
+            <hr>
+            <div class="mt-5">
+                <ng-content select="[slot='bet-area']"></ng-content>
+            </div>
+            <hr>
         </div>
-        
-    </div>   
+
+        <!-- Højre kolonne: Spil indhold via ng-content -->
+        <div class="col-md-9 p-5 bg-dark text-white">
+            <ng-content select="[slot='game-area']"></ng-content>
+        </div>
+    </div>
 </div>
 
 <!-- Statistik om brugeren og spillet -->
-<div class="container mt-5">
-  <div class="row g-4">
-    <!-- Spil Statistik -->
-    <div class="col-md-6">
-      <div class="bg-primary bg-opacity-10 rounded-4 shadow p-4 h-100">
-        <h3 class="text-primary mb-3"><i class="bi bi-bar-chart-fill me-2"></i>Spil Statistik</h3>
-        <p class="mb-2 fs-5">
-          <i class="bi bi-controller me-2 text-info"></i>
-          Antal spil spillet: <span class="fw-bold text-info">XX</span>
-        </p>
-        <p class="mb-0 fs-5">
-          <i class="bi bi-cash-coin me-2 text-success"></i>
-          Gennemsnitlig gevinst: <span class="fw-bold text-success">XX kr</span>
-        </p>
-      </div>
+<div class="container mt-3">
+    <div class="row g-4">
+        <!-- Bruger statisk -->
+        <div class="col-md-6">
+            <div class="bg-primary bg-opacity-10 rounded-4 shadow p-4">
+                <h3 class="text-primary mb-3"><i class="bi bi-bar-chart-fill me-2"></i>Din {{gameName}} statistik</h3>
+                <p class="mb-2 fs-5">
+                    <i class="bi bi-controller me-2 text-info"></i>
+                    Antal gange spillet: <span class="fw-bold text-info">{{usersGamehistoryList.length}} gange</span>
+                </p>
+                <p class="mb-2 fs-5">
+                    <i class="bi bi-controller me-2 text-info"></i>
+                    Total beløb spillet: <span class="fw-bold text-info">{{userTotalBetAmount |
+                        currency:'DKK':'symbol':'1.2-2':'da-DK'}}</span>
+                </p>
+                <p class="mb-2 fs-5">
+                    <i class="bi bi-controller me-2 text-info"></i>
+                    Total gevinst vundet: <span class="fw-bold text-info">{{userTotalWinAmount |
+                        currency:'DKK':'symbol':'1.2-2':'da-DK' }}</span>
+                </p>
+                <p class="mb-5 fs-5">
+                    <i class="bi bi-cash-coin me-2 text-success"></i>
+                    Profit: <span class="fw-bold text-success">{{userProfit | currency:'DKK':'symbol':'1.2-2':'da-DK'
+                        }}</span>
+                </p>
+                <h3 class="text-primary mb-3"><i class="bi bi-bar-chart-fill me-2"></i>Alle brugers {{gameName}} statistik</h3>
+                <p class="mb-2 fs-5">
+                    <i class="bi bi-controller me-2 text-info"></i>
+                    Antal gange spillet: <span class="fw-bold text-info">{{gamehistoryList.length}} gange</span>
+                </p>
+                <p class="mb-2 fs-5">
+                    <i class="bi bi-controller me-2 text-info"></i>
+                    Total beløb spillet: <span class="fw-bold text-info">{{gameTotalBetAmount |
+                        currency:'DKK':'symbol':'1.2-2':'da-DK'}}</span>
+                </p>
+                <p class="mb-2 fs-5">
+                    <i class="bi bi-controller me-2 text-info"></i>
+                    Total gevinst vundet: <span class="fw-bold text-info">{{gameTotalWinAmount |
+                        currency:'DKK':'symbol':'1.2-2':'da-DK' }}</span>
+                </p>
+                <p class="mb-0 fs-5">
+                    <i class="bi bi-cash-coin me-2 text-success"></i>
+                    Profit: 
+                    <span [ngClass]="{'text-success': gameProfit > 0, 'text-danger': gameProfit < 0}" class="fw-bold text-success">{{gameProfit | currency:'DKK':'symbol':'1.2-2':'da-DK'
+                        }}</span>
+                </p>
+            </div>
+        </div>
+        <!-- Tidligere spil section -->
+        <div class="col-md-6">
+            <div class="bg-dark rounded-4 shadow p-4">
+                <h3 class="text-primary mb-3"><i class="bi bi-dice-1 me-2"></i>Seneste 5 {{gameName}} spil
+                </h3>
+                <div *ngFor="let ticket of usersGamehistoryListSliced" class="col-md-12 mb-4">
+                    <div [class.border-primary]="ticket.wasCashedOut"
+                        [class.border-success]="ticket.winAmount > 0 && !ticket.wasCashedOut"
+                        [class.border-danger]="ticket.winAmount <= 0"
+                        class="card shadow-lg border-1 bg-dark text-light p-2">
+                        <div class="card-body">
+                            <h4 [class.text-primary]="ticket.wasCashedOut"
+                                [class.text-success]="ticket.winAmount > 0 && !ticket.wasCashedOut"
+                                [class.text-danger]="ticket.winAmount <= 0 " class="card-title text-primary fw-bold">
+                                <i class="bi bi-controller"></i> {{ ticket.gameName }}
+                            </h4>
+                            <hr class="bg-light">
+                            <div class="row">
+                                <!-- Left Column -->
+                                <div class="col-sm-3">
+                                    <p class="card-text">
+                                        <strong><i class="bi bi-cash"></i> Spil beløb:</strong><br> {{ ticket.betAmount
+                                        | currency:'DKK':'symbol':'1.2-2':'da-DK' }}
+                                    </p>
+                                </div>
+
+                                <!-- Middle Column -->
+                                <div class="col-sm-1">
+                                    <p class="card-text">
+                                        <span *ngIf="ticket.wasCashedOut" class="badge bg-primary text-dark">
+                                            Cashout
+                                        </span>
+                                    </p>
+                                </div>
+                                <!-- Right Column -->
+                                <div class="col-sm-3">
+                                    <p class="card-text">
+                                        <strong><i class="bi bi-trophy"></i> Gevinst:</strong><br>
+                                        <span [class.text-primary]="ticket.wasCashedOut"
+                                            [class.text-success]="ticket.winAmount > 0 && !ticket.wasCashedOut"
+                                            [class.text-danger]="ticket.winAmount <= 0">
+                                            {{ ticket.winAmount | currency:'DKK':'symbol':'1.2-2':'da-DK' }}
+                                        </span>
+                                    </p>
+                                </div>
+                                <div class="col-sm-5">
+                                    <p class="card-text">
+                                        <strong><i class="bi bi-calendar"></i> Dato:</strong> <br>
+                                        {{ ticket.dateFormatted }}
+                                    </p>
+                                </div>
+                            </div>
+                            <p class="text-dark-emphasis mt-2"> {{ ticket.gameHistoryId }} </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-center mt-4">
+                    <button [routerLink]="['/history']" class="btn btn-outline-primary mt-2">
+                        <i class="bi bi-arrow-right-circle"></i>
+                        Se alle tidligere spil!
+                    </button>
+                </div>
+            </div>
+        </div>
     </div>
-    <!-- Bruger Statistik -->
-    <div class="col-md-6">
-      <div class="bg-dark rounded-4 shadow p-4 h-100">
-        <h3 class="text-warning mb-3"><i class="bi bi-person-badge-fill me-2"></i>Indsæt tidligere spil her?</h3>
-      </div>
-    </div>
-  </div>
 </div>

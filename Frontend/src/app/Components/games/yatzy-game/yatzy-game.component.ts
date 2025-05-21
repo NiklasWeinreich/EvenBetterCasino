@@ -29,6 +29,7 @@ export class YatzyGameComponent {
   playYatzyGame(betAmount: number) {
     this.betAmount = betAmount;
     this.isLoading = true;
+
     this.yatzyService
       .playGame(betAmount)
       .pipe(finalize(() => (this.isLoading = false)))
@@ -47,4 +48,15 @@ export class YatzyGameComponent {
   trackByIndex(index: number): number {
     return index;
   }
+
+  combinations = [
+  { symbols: '⬜️ ⬜️ ⬜️ ⬜️ ⬜️', name: 'Yatzy', multiplier: '50.00' },
+  { symbols: '⬜️ ⬜️ ⬜️ ⬜️ ⬛️', name: '4 ens', multiplier: '5.00' },
+  { symbols: '⬜️ ⬜️ ⬜️ 🔳 🔳', name: 'Fuldt hus', multiplier: '3.00' },
+  { symbols: '⬜️ ⬜️ ⬜️ ⬛️ ⬛️', name: '3 ens', multiplier: '2.00' },
+  { symbols: '⬜️ ⬜️ 🔳 🔳 ⬛️', name: '2 par', multiplier: '1.10' },
+  { symbols: '⬜️ ⬜️ ⬛️ ⬛️ ⬛️', name: '1 par', multiplier: '0.10' },
+  { symbols: '⬛️ ⬛️ ⬛️ ⬛️ ⬛️', name: 'Ingen kombi', multiplier: '0.00' },
+];
+
 }

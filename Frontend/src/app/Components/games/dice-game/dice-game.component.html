@@ -1,4 +1,4 @@
-<app-game-layout [betAmount]="betAmount" (betPlaced)="playDiceGame($event)">
+<app-game-layout gameName="Dice" [betAmount]="betAmount" (betPlaced)="playDiceGame($event)">
   <div slot="title-area">
     <h4>DICE</h4>
   </div>
@@ -12,11 +12,11 @@
     <div class="dice-animation-wrapper" *ngIf="showDiceAnimation" [attr.key]="diceAnimationKey">
       <div class="dice">🎲</div>
     </div>
-    <div class="d-flex justify-content-center mt-4 mb-3">
-      <div class="d-flex flex-column align-items-center">
-        <label class="fw-bold mb-2">Dit tal: {{ selectedNumber }}</label>
-        <input type="range" min="1" max="100" [(ngModel)]="selectedNumber" class="form-range" style="width: 150px;" />
-      </div>
+
+
+    <div class="d-flex flex-column align-items-center">
+      <label class="fw-bold">Dit tal: {{ selectedNumber }}</label>
+      <input type="range" min="2" max="99" [(ngModel)]="selectedNumber" class="form-range" style="width: 150px;" />
     </div>
 
 

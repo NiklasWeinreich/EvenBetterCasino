@@ -11,16 +11,23 @@
         *ngFor="let idx of [0,1,2,3,4]; let i = index"
         class="yatzy__dice-box text-center"
         [class.yatzy__dice-win]="winDiceIndexes.includes(i)"
-        [class.roll-animation]="isLoading"
-        
-      >
+        [class.roll-animation]="isLoading">        
         <span class="yatzy__dice-number">
           {{ diceResults[i] !== undefined ? diceResults[i] : '-' }}
         </span>
+        
       </div>
     </div>
     <div *ngIf="diceResults.length" class="yatzy__result">
       <p><strong>Kombination:</strong> {{ combinationText }}</p>
     </div>
   </div>
+      <!-- Bet-område -->
+    <div slot="bet-area" class="yatzy__feedback">
+        <!-- <p><strong>Indsats valgt:</strong> {{ betAmount | currency:'DKK':'symbol':'1.2-2':'da-DK' }}</p> -->
+        <p *ngIf="payout > 0" class="yatzy__win">Du vandt {{ payout | currency:'DKK':'symbol':'1.2-2':'da-DK' }}</p>
+        <p *ngIf="diceResults.length && payout === 0" class="yatzy__lose">
+            Desværre, ingen gevinst denne gang.
+        </p>
+    </div>
 </app-game-layout>

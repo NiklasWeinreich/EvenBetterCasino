@@ -38,6 +38,7 @@ export const routes: Routes = [
     { path: 'games/dice', loadComponent: () => import('./Components/games/dice-game/dice-game.component').then(m => m.DiceGameComponent) },
     { path: 'games/yatzy', loadComponent: () => import('./Components/games/yatzy-game/yatzy-game.component').then(m => m.YatzyGameComponent) }, 
     { path: 'games/bombastic', loadComponent: () => import('./Components/games/bombastic/bombastic.component').then(m => m.BombasticComponent) },
+    { path: 'games/keno', loadComponent: () => import('./Components/games/keno/keno.component').then(m => m.KenoComponent) },
 
     // Sæt ind i en "user / konto", lidt ligesom admin halløjet.
     { path: 'history', loadComponent: () => import('./Components/gamehistory/gamehistory.component').then(m => m.GamehistoryComponent) }

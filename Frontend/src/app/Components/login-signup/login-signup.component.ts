@@ -29,10 +29,8 @@ export class LoginSignupComponent implements OnInit {
 
   constructor(
     private authSerice: AuthService,
-    private userService: UserService,
     private router: Router,
     private formBuilder: FormBuilder,
-    private renderer: Renderer2
   ) {
     this.loginForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
@@ -63,7 +61,6 @@ export class LoginSignupComponent implements OnInit {
 
   login(): void {
     this.message = '';
-
     const { email, password, rememberMe } = this.loginForm.value;
 
     this.authSerice.login(email, password, rememberMe).subscribe({

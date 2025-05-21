@@ -15,6 +15,8 @@ namespace Backend.Interfaces.IUser
         Task<UserResponse> ExcludeUserAsync(int Id, int exclusionPeriodHours);
         Task<UserResponse?> SubscribeNewsletter(string email);
         Task<UserResponse?> UnsubscribeNewsletter(string email);
+        Task<bool> SendPasswordResetEmail(string email);
+        Task<bool> ResetPasswordAsync(string email, string token, string newPassword);
 
     }
 }

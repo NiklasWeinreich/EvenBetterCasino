@@ -166,7 +166,7 @@ namespace Backend.Migrations
                     b.HasData(
                         new
                         {
-                            GameHistoryId = new Guid("455b7f54-daa6-459d-a8fb-d1f6e1cc8087"),
+                            GameHistoryId = new Guid("64079b29-946e-4bb6-a9e0-8317f694da62"),
                             BetAmount = 100m,
                             Date = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             GameId = 1,
@@ -177,7 +177,7 @@ namespace Backend.Migrations
                         },
                         new
                         {
-                            GameHistoryId = new Guid("5c0261f2-9d27-4c8b-a695-bcaaf75666cd"),
+                            GameHistoryId = new Guid("6ff3088d-f7a0-48e2-bf6d-0583d7911d9c"),
                             BetAmount = 50m,
                             Date = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             GameId = 2,
@@ -216,7 +216,7 @@ namespace Backend.Migrations
                     b.HasData(
                         new
                         {
-                            TransactionId = new Guid("c7c3a947-6fcc-48c2-9a16-86f9adb26c16"),
+                            TransactionId = new Guid("64073424-3208-4806-876b-2445bb67b263"),
                             Amount = 500m,
                             Date = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Type = "Indbetaling",
@@ -224,7 +224,7 @@ namespace Backend.Migrations
                         },
                         new
                         {
-                            TransactionId = new Guid("6c667203-218c-4783-b3fd-f61410a8b329"),
+                            TransactionId = new Guid("d51875de-55bc-451f-aea4-667c810f22d4"),
                             Amount = 300m,
                             Date = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Type = "Udbetaling",
@@ -268,6 +268,9 @@ namespace Backend.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(500)");
 
+                    b.Property<string>("PasswordResetToken")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int?>("PhoneNumber")
                         .HasColumnType("int");
 
@@ -276,6 +279,9 @@ namespace Backend.Migrations
 
                     b.Property<int>("Role")
                         .HasColumnType("int");
+
+                    b.Property<DateTime?>("TokenExpires")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
@@ -291,7 +297,7 @@ namespace Backend.Migrations
                             FirstName = "Niklas",
                             LastName = "Maskine",
                             NewsLetterIsSubscribed = true,
-                            Password = "$2a$11$qw0ZisZIpsuVmvQECZrBJubgZ1OLovmdf2/XxbnMRM3tW/NwhhdYi",
+                            Password = "$2a$11$VIVAR11tFPUtLKthKGRvEuP.HBvHfSd6/syT/LGQusdxiQc4oLRe2",
                             PhoneNumber = 12345678,
                             Profit = 50m,
                             Role = 1
@@ -305,7 +311,7 @@ namespace Backend.Migrations
                             FirstName = "John",
                             LastName = "Doe",
                             NewsLetterIsSubscribed = false,
-                            Password = "$2a$11$bQ87A52mqzPBq8IAD8HjCeWMOCYlqteT7Bae.t7lqBMBDrg6xFTpO",
+                            Password = "$2a$11$oDueekjZmLvIgU7icZsqZe9pdk6Ypzg9tF2AHTupGcZGojtDrFf5W",
                             PhoneNumber = 87654321,
                             Profit = 33m,
                             Role = 0
@@ -319,7 +325,7 @@ namespace Backend.Migrations
                             FirstName = "Anna",
                             LastName = "Jensen",
                             NewsLetterIsSubscribed = true,
-                            Password = "$2a$11$SmIrS1200a9IHvFUlnYTfewBhNlSVIbFPE9DW8rprNp6Ml6CGZG/y",
+                            Password = "$2a$11$AvviSe9Ex372vPvrXx75Xu9hk.KvrSdgJbo3zOZYmRP11luLjTMju",
                             PhoneNumber = 11111111,
                             Profit = 20m,
                             Role = 0
@@ -333,7 +339,7 @@ namespace Backend.Migrations
                             FirstName = "Mark",
                             LastName = "Larsen",
                             NewsLetterIsSubscribed = true,
-                            Password = "$2a$11$RmbC6MKRigcFzI18XpVApekrWkggSvalRq3cTLzMo2LSDc..IKFxK",
+                            Password = "$2a$11$ShTN/jEYCNgzHC7zkcTFBOaofH/TtRfnkOVP2q.M1JQuegGtLWFiS",
                             PhoneNumber = 22222222,
                             Profit = 40m,
                             Role = 0
@@ -347,7 +353,7 @@ namespace Backend.Migrations
                             FirstName = "Sara",
                             LastName = "Hansen",
                             NewsLetterIsSubscribed = false,
-                            Password = "$2a$11$g.ZTSKY.I3e2AFgkk4ABtuR2i4aZAE1wSre2D0iXc97ztWJnk6Fp.",
+                            Password = "$2a$11$xi9NGtTKyztK8hVmJSoJJ.FQX7uv6BEMkuBglGaW3ibZpSw29LwWO",
                             PhoneNumber = 33333333,
                             Profit = 30m,
                             Role = 0
@@ -361,7 +367,7 @@ namespace Backend.Migrations
                             FirstName = "Peter",
                             LastName = "Madsen",
                             NewsLetterIsSubscribed = true,
-                            Password = "$2a$11$dOmNac9eahg11C2HMNH0bey9LJasxD7ohMVa6ITWS2bgHLRum.kO.",
+                            Password = "$2a$11$xEZjzx0K.2CEwtTNeDa68OTvlQAWs8Uu55Txrk6NnY40ecmoQtsI.",
                             PhoneNumber = 44444444,
                             Profit = 70m,
                             Role = 0
@@ -375,7 +381,7 @@ namespace Backend.Migrations
                             FirstName = "Laura",
                             LastName = "Poulsen",
                             NewsLetterIsSubscribed = true,
-                            Password = "$2a$11$McpudkIYsi/t6pdPGkHZb.QZnDm8/kQaoZ2D6N8.tMbhSIvjsM6bC",
+                            Password = "$2a$11$1Xos0PUO/uxBpQcz7epHyu3huUuFp8oKmRmCrbBCQ7ZT1NpoGAzBe",
                             PhoneNumber = 55555555,
                             Profit = 25m,
                             Role = 0
@@ -389,7 +395,7 @@ namespace Backend.Migrations
                             FirstName = "Thomas",
                             LastName = "Christensen",
                             NewsLetterIsSubscribed = true,
-                            Password = "$2a$11$Bd12CoF5qUwuLTLJQFhPeuBosuosct9D3/YtNhDmVE/H3y6.3UHNa",
+                            Password = "$2a$11$5gvKuZajDYNPrkEGj2wY.OgihBLLOdpJXsd11dYcy6WZpKQOvXkiW",
                             PhoneNumber = 66666666,
                             Profit = 60m,
                             Role = 0
@@ -403,7 +409,7 @@ namespace Backend.Migrations
                             FirstName = "Emma",
                             LastName = "Andersen",
                             NewsLetterIsSubscribed = true,
-                            Password = "$2a$11$EkgAkO8vM61.l1qp4h2SxubRf26npcxGMhA8ZSERSgDBGahCJguoe",
+                            Password = "$2a$11$PfC/NfEv4NJQ7.lW4vDT..coGRDe2Lba5orbbD6fuO.VxNuf//WNO",
                             PhoneNumber = 77777777,
                             Profit = 80m,
                             Role = 0
@@ -417,7 +423,7 @@ namespace Backend.Migrations
                             FirstName = "Mikkel",
                             LastName = "Olsen",
                             NewsLetterIsSubscribed = false,
-                            Password = "$2a$11$HCt9WsH4ZNHkGtcxv2b3iOo33ieec.WB6/ijq3xvlyL/wk1eCRP6q",
+                            Password = "$2a$11$Jf/qKQdjoH0vXtoRZnlXluoecm6MwdrD2Xc8g1geM3oc82oVtp6r.",
                             PhoneNumber = 88888888,
                             Profit = 10m,
                             Role = 0

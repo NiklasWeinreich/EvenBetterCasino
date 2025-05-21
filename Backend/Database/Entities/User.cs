@@ -37,6 +37,8 @@ namespace Backend.Database.Entities
         public Role Role { get; set; }
 
         public bool NewsLetterIsSubscribed { get; set; } = false;
+        public string? PasswordResetToken { get; set; }
+        public DateTime? TokenExpires { get; set; }
 
         //Relations
         public ICollection<GameHistory> GameHistories { get; set; } = new List<GameHistory>();

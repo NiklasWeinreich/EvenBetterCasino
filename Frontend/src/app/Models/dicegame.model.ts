@@ -1,5 +1,4 @@
 export interface DiceGame {
-  sessionId: string;
   message: string;
   diceValue: number;
   isWin: boolean;

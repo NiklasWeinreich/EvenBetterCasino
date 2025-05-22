@@ -21,6 +21,7 @@ namespace Backend.Repositories.GamesHistoryRepository
             return await _databaseContext.GameHistories
                 .Include(g => g.User)
                 .Include(g => g.Game)
+                .OrderByDescending(g => g.Date)
                 .ToListAsync();
 
         }
@@ -30,6 +31,7 @@ namespace Backend.Repositories.GamesHistoryRepository
                 .Where(g => g.User.Id == id)
                 .Include(g => g.User)
                 .Include(g => g.Game)
+                .OrderByDescending(g => g.Date)
                 .ToListAsync();
 
         }

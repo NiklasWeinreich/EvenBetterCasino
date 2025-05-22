@@ -6,6 +6,7 @@ import { UserService } from '../../Services/User/user.service';
 import { AuthService } from '../../Services/Security/auth.service';
 import { GameService } from '../../Services/Games/games.service';
 import { Game } from '../../Models/games.model';
+import { User } from '../../Models/user.model';
 
 @Component({
   selector: 'app-home',
@@ -15,11 +16,15 @@ import { Game } from '../../Models/games.model';
   styleUrl: './home.component.css',
 })
 export class HomeComponent implements OnInit {
+  
   userEmail: string = '';
   isSubscribed: boolean = false;
   message: string = '';
   messageClass: string = '';
   games: Game[] = [];
+  welcomeMessage: string = '';
+  userBalance: number = 0;
+
 
   constructor(
     private userService: UserService,
@@ -57,6 +62,9 @@ export class HomeComponent implements OnInit {
     if (user && user.email) {
       this.userEmail = user.email;
       this.isSubscribed = user.newsLetterIsSubscribed;
+      this.userBalance = user.balance;
+      this.welcomeMessage = `Hej, ${user.firstName}!`;
+
     }
   }
 
@@ -97,4 +105,19 @@ export class HomeComponent implements OnInit {
   alreadySubscribed(): boolean {
     return this.isSubscribed;
   }
+
+   scrollToTop() {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  ngAfterViewInit() {
+    window.addEventListener('scroll', () => {
+      const btn = document.getElementById('scrollToTopBtn');
+      if (btn) {
+        btn.style.display = window.scrollY > 200 ? 'block' : 'none';
+      }
+    });
+  }
+
+
 }

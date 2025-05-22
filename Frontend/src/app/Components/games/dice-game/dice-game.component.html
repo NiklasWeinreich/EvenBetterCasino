@@ -1,4 +1,4 @@
-<app-game-layout [betAmount]="betAmount" (betPlaced)="playDiceGame($event)">
+<app-game-layout gameName="Dice" [betAmount]="betAmount" (betPlaced)="playDiceGame($event)">
   <div slot="title-area">
     <h4>DICE</h4>
   </div>
@@ -19,7 +19,20 @@
 
     <div class="d-flex flex-column align-items-center">
       <label class="fw-bold">Dit tal: {{ selectedNumber }}</label>
-      <input type="range" min="1" max="100" [(ngModel)]="selectedNumber" class="form-range" style="width: 150px;" />
+      <input type="range" min="2" max="99" [(ngModel)]="selectedNumber" class="form-range" style="width: 150px;" />
+    </div>
+
+    <div class="form-check">
+      <input class="form-check-input" type="radio" name="radioDefault" id="playerGuessOver" [(ngModel)]="isGuessOver" [value]="true">
+      <label class="form-check-label" for="playerGuessOver" >
+        Over
+      </label>
+    </div>
+    <div class="form-check">
+      <input class="form-check-input" type="radio" name="radioDefault" id="playerGuessUnder" [(ngModel)]="isGuessOver" [value]="false" checked>
+      <label class="form-check-label" for="playerGuessUnder">
+        Under
+      </label>
     </div>
 
     <div *ngIf="dicegameResult" class="mt-3">

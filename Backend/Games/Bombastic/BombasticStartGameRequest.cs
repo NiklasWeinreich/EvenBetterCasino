@@ -3,9 +3,11 @@
     public class BombasticStartGameRequest
     {
 
-        // User ID???? 
+        public int UserId { get; set; }
 
-        public double BetAmount { get; set; }
+        public int GameId { get; set; }
+
+        public decimal BetAmount { get; set; }
 
     }
 }

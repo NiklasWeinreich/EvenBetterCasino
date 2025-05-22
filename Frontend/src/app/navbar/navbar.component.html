@@ -14,6 +14,11 @@
         <!-- Venstre links -->
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item">
+            <li class="nav-item">
+            <a class="nav-link" [routerLink]="['/']" routerLinkActive="active"
+                [routerLinkActiveOptions]="{ exact: true }">Forside</a>
+          </li>
+          <li>
             <a class="nav-link" [routerLink]="['/games']" routerLinkActive="active"
               [routerLinkActiveOptions]="{ exact: true }">Spil</a>
           </li>
@@ -27,23 +32,17 @@
           </li>
           <li class="nav-item">
             <a class="nav-link" [routerLink]="['/responsible-gambling/overview']" routerLinkActive="active"
-                [routerLinkActiveOptions]="{ exact: true }">Vores Ansvar</a>
+                [routerLinkActiveOptions]="{ exact: true }">Ansvarlig spil og ludomani</a>
           </li>
-          <li class="nav-item">
+          <li class="nav-item" *ngIf="isLoggedIn">
             <a class="nav-link" [routerLink]="['/history']" routerLinkActive="active"
-                [routerLinkActiveOptions]="{ exact: true }">Historik</a>
+                [routerLinkActiveOptions]="{ exact: true }">Statistik og historik</a>
           </li>
         </ul>
   
         <!-- Højre side -->
         <div class="d-flex align-items-center gap-2 flex-column flex-lg-row">
-          <!-- Saldo -->
-          <div *ngIf="currentUser" class="text-light text-nowrap d-flex align-items-center">
-            <i class="bi bi-credit-card me-1"></i>
-            <span>Saldo: {{ currentUser.balance | number:'1.0-2' }} kr.</span>
-          </div>
-          
-  
+
           <!-- Knapper -->
           <a *ngIf="!isLoggedIn" [routerLink]="['/login']"
             class="btn btn-primary rounded-pill px-3">Login</a>

@@ -8,7 +8,7 @@ import { GameService } from '../../Services/Games/games.service';
 
 @Component({
   selector: 'app-games-front-page',
-  imports: [CommonModule, HttpClientModule, FormsModule, RouterLink],
+  imports: [CommonModule, HttpClientModule, FormsModule],
   templateUrl: './games-front-page.component.html',
   styleUrl: './games-front-page.component.css',
 })

@@ -4,4 +4,5 @@ export interface bombasticGame {
   currentWinAmount: number;
   currentMulitplier: number;
   message: string;
+  sessionId: string;
 }

@@ -69,7 +69,7 @@
                 </p>
                 <p class="mb-5 fs-5">
                     <i class="bi bi-cash-coin me-2 text-info"></i>
-                    Profit: <span class="fw-bold text-success">{{userProfit | currency:'DKK':'symbol':'1.2-2':'da-DK'
+                    Profit: <span [ngClass]="{'text-success': userProfit > 0, 'text-danger': userProfit < 0}" class="fw-bold text-success">{{userProfit | currency:'DKK':'symbol':'1.2-2':'da-DK'
                         }}</span>
                 </p>
                 <h3 class="text-primary mb-3"><i class="bi bi-bar-chart-fill me-2"></i>Alle brugers {{gameName}} statistik</h3>

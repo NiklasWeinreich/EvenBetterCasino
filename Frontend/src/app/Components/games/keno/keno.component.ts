@@ -43,7 +43,7 @@ export class KenoComponent implements OnInit {
     }
   }
 
-  playKeno(): void {
+  playKeno(betAmount: number): void {
     if (!this.userId) {
       console.warn('Ingen bruger-ID tilgængelig.');
       return;
@@ -52,7 +52,7 @@ export class KenoComponent implements OnInit {
     const request: KenoGetOdds = {
       userId: this.userId,
       gameId: this.gameId,
-      betAmount: this.betAmount,
+      betAmount: betAmount,
       playerNumbers: this.selectedNumbers,
     };
 

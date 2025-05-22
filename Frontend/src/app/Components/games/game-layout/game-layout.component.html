@@ -27,7 +27,7 @@
             </div>
 
             <button class="btn btn-success w-100" *ngIf="!canCashOut!" (click)="placeBet()">Bet</button>
-            <button *ngIf="canCashOut" [ngClass]="gameStarted ? 'btn btn-primary' : 'btn btn-success'" class="w-100 mt-2" (click)="gameStarted ? cashOut() : placeBet()">
+            <button *ngIf="canCashOut" [ngClass]="gameStarted ? 'btn btn-primary' : 'btn btn-success'" class="w-100 mt-2" (click)="gameStarted ? cashout() : placeBet()">
                 {{gameStarted ? 'Cash Out' : 'Bet' }}
             </button>
             <hr>

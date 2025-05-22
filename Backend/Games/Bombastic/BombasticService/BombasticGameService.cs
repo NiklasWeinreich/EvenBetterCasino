@@ -125,5 +125,43 @@ namespace Backend.Games.Bombastic.BombasticService
             }
 
         }
+
+
+        public async Task<BombasticGameResult> CashOut([FromBody] BombasticClickRequest request)
+        {
+
+            // Hent spillerens GameState ved hjælp af playerId
+            if (!currentGamesDict.TryGetValue(request.SessionId, out GameState gameState))
+            {
+                throw new InvalidOperationException("Ingen session med det speciffikke ID er igangværende eller startet");
+            }
+
+            if (gameState.IsExploded)
+            {
+                // Hvis bomben allerede er sprunget, kan der ikke cashes out
+                throw new InvalidOperationException("Bomben er allerede sprunget. Cash out ikke muligt.");
+            }
+
+
+
+            await _balanceService.WinAmountAsync(gameState.UserId, gameState.CurrentWinAmount);
+            await _gameHistoryHelper.LogCashOutGameAsync(gameState.UserId, gameState.GameId, gameState.BetAmount, gameState.CurrentWinAmount, true, true);
+
+            currentGamesDict.TryRemove(request.SessionId, out _);
+
+            return new BombasticGameResult
+            {
+                IsExploded = false,
+                CurrentClickNumber = gameState.CurrentClickNumber,
+                CurrentWinAmount = gameState.CurrentWinAmount,
+                CurrentMulitplier = gameState.CurrentMulitplier,
+                Message = "Du har cashet ud og modtaget din gevinst!"
+            };
+
+
+
+        }
+
+
     }
 }

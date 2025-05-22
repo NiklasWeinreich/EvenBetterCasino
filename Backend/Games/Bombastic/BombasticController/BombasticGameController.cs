@@ -46,5 +46,15 @@ namespace Backend.Games.Bombastic.BombasticController
             return Ok(result);
 
         }
+
+        [HttpPost("cashout")]
+        public async Task<IActionResult> CashOut([FromBody] BombasticClickRequest request)
+        {
+
+            var result = await _bombasticService.CashOut(request);
+
+            return Ok(result);
+
+        }
     }
 }

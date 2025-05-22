@@ -1,5 +1,4 @@
-<app-game-layout gameName="Bombastic" [canCashOut]="true" [betAmount]="betAmount" (betPlaced)="startGame($event )" [gameStarted]="this.gameStarted">
-  <!-- (cashOutPlaced)="cashOut() -->
+<app-game-layout gameName="Bombastic" [canCashOut]="true" [betAmount]="betAmount" (betPlaced)="startGame($event )" [gameStarted]="this.gameStarted" (cashOutPlaced)="cashOut()">
   <!-- Titel -->
   <div slot="title-area">
     <h4>Bombastic</h4>

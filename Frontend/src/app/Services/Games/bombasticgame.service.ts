@@ -29,10 +29,12 @@ startGame(betAmount: number) {
   return this.http.post<bombasticGame>(`${this.apiUrl}/startGame`, body);
 }
 
-
-
   clickBomb(sessionId: string) {
     return this.http.post<bombasticGame>(`${this.apiUrl}/clickBomb`, { sessionId });
+  }
+
+  cashout(sessionId: string) {
+    return this.http.post<bombasticGame>(`${this.apiUrl}/cashout`, { sessionId });
   }
 }
 

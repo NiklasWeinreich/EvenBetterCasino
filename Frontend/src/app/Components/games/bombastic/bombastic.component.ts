@@ -18,6 +18,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 export class BombasticComponent {
 
 
+
   @Output() cashOutAmount = new EventEmitter<number>();
   isOngoing = false;
   betAmount = 50;
@@ -74,20 +75,17 @@ startGame(bet: number) {
     });
   }
 
-  // cashOut() {
-  //   if (!this.sessionId) return;
-
-  //   this.balanceService.winGame(this.sessionId).subscribe({
-  //     next: (res: bombasticGame) => {
-  //       this.message = res.message;
-  //       this.bombsClicked = res.currentClickNumber;
-  //       this.multiplier = res.currentMulitplier;
-  //       this.lastPayout = res.currentWinAmount;
-  //       this.gameStarted = false;
-  //     },
-  //     error: () => {
-  //       this.message = 'Der opstod en fejl ved indløsning.';
-  //     },
-  //   });
-  // }
+  cashOut() {
+    if (!this.sessionId) return;
+    this.bombasticService.cashout(this.sessionId).subscribe({
+      next: (res: bombasticGame) => {
+        this.message = res.message;
+        this.bombsClicked = res.currentClickNumber;
+        this.multiplier = res.currentMulitplier;
+        this.lastPayout = res.currentWinAmount;
+        this.cashOutAmount.emit(this.lastPayout); // 💥 send op til game-layout
+        this.gameStarted = false;
+      }
+    });
+  }
 }

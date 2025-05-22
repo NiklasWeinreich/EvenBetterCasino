@@ -7,6 +7,6 @@ namespace Backend.Games.Bombastic
 
         Task<string> StartGame([FromBody] BombasticStartGameRequest request);
         Task<BombasticGameResult> PlayGame([FromBody] BombasticClickRequest request);
-
+        Task<BombasticGameResult> CashOut([FromBody] BombasticClickRequest request);
     }
 }

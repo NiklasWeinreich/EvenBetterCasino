@@ -109,6 +109,10 @@ export class GameLayoutComponent {
 
   }
 
+  cashout() {
+    this.cashOutPlaced.emit(this.betAmount);
+  }
+
  
   fetchGameHistory() {
     if (this.gameId !== null) {
@@ -147,7 +151,7 @@ export class GameLayoutComponent {
 
   }
 
-  
+
  
 
   get userTotalBetAmount(): number {

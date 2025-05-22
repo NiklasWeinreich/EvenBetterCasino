@@ -30,6 +30,8 @@ export class GameLayoutComponent {
   usersGamehistoryList: any[] = [];
   balance: number = 0;
   currentUser?: User | null;
+  errorMessage = '';
+
 
 
   constructor(private authService: AuthService,
@@ -73,8 +75,20 @@ export class GameLayoutComponent {
 
   placeBet() {
     if (this.betAmount < 1) {
-      alert('Indsats skal være mindst 1 kr');
+      this.errorMessage = 'Indsats skal være mindst 1 kr';
+      setTimeout(() => {
+        this.errorMessage = '';
+      }
+      , 3000);
       return;
+    }
+    if (!this.currentUser || this.betAmount > (this.currentUser.balance ?? 0)) {
+    this.errorMessage = 'Du har ikke nok penge på din konto.';
+    setTimeout(() => {
+      this.errorMessage = '';
+    }
+    , 3000);
+    return;
     }
     this.betPlaced.emit(this.betAmount);
 

@@ -42,15 +42,6 @@
   
         <!-- Højre side -->
         <div class="d-flex align-items-center gap-2 flex-column flex-lg-row">
-          <!-- Saldo -->
-          <div *ngIf="currentUser" class="text-light text-nowrap d-flex align-items-center">
-            <i class="bi bi-credit-card me-1"></i>
-            <span>Saldo: {{ currentUser.balance | number:'1.0-2' }} kr.</span>
-            <span *ngIf="currentUser.firstName" class="ms-2 fw-bold">Hej {{ currentUser.firstName }}!</span>
-          </div>
-          
-  
-          <!-- Knapper -->
           <a *ngIf="!isLoggedIn" [routerLink]="['/login']"
             class="btn btn-primary rounded-pill px-3">Login</a>
           <a *ngIf="!isLoggedIn" [routerLink]="['/login']"

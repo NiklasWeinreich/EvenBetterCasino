@@ -18,7 +18,7 @@ export class KenoComponent implements OnInit {
   userId: number | null = null;
   selectedNumbers: number[] = [];
   betAmount: number = 10;
-  gameId: number = 1;
+  gameId: number = 4;
   maxNumbers: number = 10;
 
   drawnNumbers: number[] = [];

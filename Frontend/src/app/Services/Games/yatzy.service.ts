@@ -17,7 +17,7 @@ export class YatzyService {
   playGame(betAmount: number): Observable<YatzyGame> {
     const currentUser = this.authService.currentUserValue;
     const userId = currentUser?.id;
-    const gameId = 1; // Du kan evt. bruge en enum eller konstant for spil-ID'er
+    const gameId = 1;
 
     if (!userId) {
       return throwError(() => new Error('Bruger ikke logget ind.'));

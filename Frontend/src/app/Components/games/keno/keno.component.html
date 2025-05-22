@@ -1,0 +1,60 @@
+<app-game-layout gameName="Keno" [betAmount]="betAmount" (betPlaced)="playKeno($event)">
+  <!-- Titel -->
+  <div slot="title-area">
+    <h2 class="mb-0"><i class="bi bi-123 me-2"></i>KENO</h2>
+  </div>
+
+  <!-- Venstre kolonne: Indsats og resultat -->
+<div slot="bet-area">
+  
+  <div *ngIf="drawnNumbers.length > 0" class="mt-4">
+    <h5 class="text-primary fw-bold mb-3">Resultat</h5>
+    <ul class="list-unstyled mb-4 fs-6 text-white">
+      <li><strong>Matches:</strong> {{ matches }}</li>
+      <li><strong>Multiplier:</strong> x{{ multiplier }}</li>
+      <li><strong>Udbetaling:</strong> {{ payout }} kr</li>
+    </ul>
+
+    <p [ngClass]="{ 'text-success': isWin, 'text-danger': !isWin }" class="fw-bold fs-6 mb-4">
+      {{ isWin ? 'Tillykke, du vandt!' : 'Du tabte. Prøv igen!' }}
+    </p>
+
+    <h6 class="text-primary mb-2">Dine valgte tal</h6>
+    <div class="d-flex flex-wrap gap-2 mb-4">
+      <div *ngFor="let num of selectedNumbers"
+           class="rounded-circle text-center border fw-bold" style="width: 24px; height: 24px;"
+           [ngClass]="{ 'bg-success text-white': isMatch(num), 'bg-secondary text-white': !isMatch(num) }">
+        {{ num }}
+      </div>
+    </div>
+
+    <h6 class="text-warning mb-2">Trukne tal</h6>
+    <div class="d-flex flex-wrap gap-2 mb-4">
+      <div *ngFor="let num of drawnNumbers"class="bg-warning text-dark rounded-circle text-center fw-bold"
+      style="width: 24px; height: 24px;">{{ num }}</div>
+    </div>
+
+    <div class="d-flex justify-content-start">
+      <button class="btn btn-outline-primary w-50" (click)="resetAll()">
+        <i class="bi bi-arrow-repeat me-1"></i> Prøv igen
+      </button>
+    </div>
+  </div>
+</div>
+
+  <!-- Højre kolonne: Talvalg -->
+  <div slot="game-area">
+    <h5 class="text-warning">Vælg op til {{ maxNumbers }} tal</h5>
+    <div class="d-flex flex-wrap gap-2">
+      <button *ngFor="let n of numberPool"
+              (click)="toggleNumber(n)"
+              [ngClass]="{
+                'btn-primary text-white': selectedNumbers.includes(n),
+                'btn-outline-light': !selectedNumbers.includes(n)
+              }"
+              class="btn rounded-circle px-3 py-2 fw-bold">
+        {{ n }}
+      </button>
+    </div>
+  </div>
+</app-game-layout>

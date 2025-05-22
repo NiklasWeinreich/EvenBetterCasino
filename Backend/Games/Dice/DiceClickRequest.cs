@@ -1,6 +1,6 @@
 ﻿namespace Backend.Games.Dice
 {
-    public class DiceClickRequest
+    public class DiceGameRequest
     {
         public int UserId { get; set; }
         public int GameId { get; set; }

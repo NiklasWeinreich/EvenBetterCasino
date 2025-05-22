@@ -1,7 +1,7 @@
 <div class="container my-5" *ngIf="user">
   <div class="row justify-content-center">
     <div class="col-12 col-md-10 col-lg-8">
-      <div class="card bg-dark-subtle rounded-4">
+      <div class="card rounded-4" data-bs-theme="dark">
         <div class="card-body p-4">
           <h2 class="card-title text-center mb-4">Din profil</h2>
           <p class="text-center text-muted mb-4">Se og opdater dine personlige oplysninger herunder.</p>
@@ -30,7 +30,7 @@
 
             <div class="mb-3">
               <label class="form-label">Fødselsdato</label>
-              <input type="date" class="form-control" [(ngModel)]="user.birthDate" name="birthDate">
+              <input type="date" class="form-control" [(ngModel)]="user.birthDate" name="birthDate" disabled>
             </div>
 
             <div class="mb-3">

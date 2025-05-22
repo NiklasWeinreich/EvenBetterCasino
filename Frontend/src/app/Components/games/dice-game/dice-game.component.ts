@@ -54,7 +54,6 @@ export class DiceGameComponent {
         error: (error) => {
           console.error('Fejl:', error);
           this.dicegameResult = {
-            sessionId: '',
             message: 'Der opstod en fejl under spillet.',
             diceValue: 0,
             isWin: false,

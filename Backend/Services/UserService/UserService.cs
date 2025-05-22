@@ -89,6 +89,7 @@ namespace Backend.Services.UserService
             existingUser.NewsLetterIsSubscribed = updateUser.NewsLetterIsSubscribed;
             existingUser.Role = updateUser.Role;
 
+
             var updatedUser = await _userRepository.UpdateUserAsync(existingUser);
             return MapEntityToResponse(updatedUser);
         }
@@ -222,7 +223,50 @@ namespace Backend.Services.UserService
             return MapEntityToResponse(user);
         }
 
+        public async Task<bool> SendPasswordResetEmail(string email)
+        {
+            var user = await _userRepository.GetUserByEmail(email);
+            if (user == null) return false;
 
+            // Generér en "reset token" – kan gøres med JWT eller en simpel GUID
+            var token = Guid.NewGuid().ToString();
+
+            // Gem evt. token i databasen (til sammenligning ved reset)
+            user.PasswordResetToken = token;
+            user.TokenExpires = DateTime.UtcNow.AddHours(1);
+            await _userRepository.UpdateUserAsync(user);
+
+            var resetLink = $"http://localhost:4200/reset-password?email={email}&token={token}";
+
+
+            var mail = new EmailResponse
+            {
+                To = user.Email,
+                Subject = "Nulstil din adgangskode",
+                Body = $"Hej {user.FirstName},<br><br>" +
+                       $"Klik på linket her for at nulstille din adgangskode:<br>" +
+                       $"<a href=\"{resetLink}\">Nulstil adgangskode</a><br><br>" +
+                       "Hvis du ikke bad om dette, ignorer venligst denne mail.<br><br>" +
+                       "Hilsen<br>EvenBetter Teamet"
+            };
+
+            _emailService.SendEmail(mail);
+            return true;
+        }
+
+        public async Task<bool> ResetPasswordAsync(string email, string token, string newPassword)
+        {
+            var user = await _userRepository.GetUserByEmail(email);
+            if (user == null || user.PasswordResetToken != token || user.TokenExpires < DateTime.UtcNow)
+                return false;
+
+            user.Password = BCrypt.Net.BCrypt.HashPassword(newPassword);
+            user.PasswordResetToken = null;
+            user.TokenExpires = null;
+            await _userRepository.UpdateUserAsync(user);
+
+            return true;
+        }
 
     }
 }

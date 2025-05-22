@@ -21,7 +21,7 @@ namespace Backend.Games.Yatzy.Service
         // Payouts Odds
         private const decimal zeroMatch = 0.00m;
         private const decimal twoMatches = 0.10m;
-        private const decimal twoAndTwoMatches = 1.00m;
+        private const decimal twoAndTwoMatches = 1.10m;
         private const decimal threeMatches = 2.00m;
         private const decimal threeAndTwoMatches = 3.00m;
         private const decimal fourMatches = 5.00m;

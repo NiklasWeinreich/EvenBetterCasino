@@ -11,14 +11,8 @@ import { resetUser, User } from '../../Models/user.model';
 export class GamehistoryService {
 
   private readonly gamehistoryApiUrl = environment.apiUrl + '/GameHistory';
-
-
-
+  
   constructor(private http: HttpClient) {}
-
-
-
-
 
   getGameHistory(): Observable<any> {
     return this.http.get<any>(this.gamehistoryApiUrl);
@@ -29,7 +23,7 @@ export class GamehistoryService {
   }
 
   getGameHistoryByGameId(gameId: number): Observable<any> {
-    return this.http.get<any>(`${this.gamehistoryApiUrl}/game/${gameId}`);
+    return this.http.get<any>(`${this.gamehistoryApiUrl}/games/${gameId}`);
   }
 
   getGameHistoryByUserIdAndGameId(userId: number, gameId: number): Observable<any> {

@@ -10,6 +10,8 @@ export const routes: Routes = [
     { path: 'rofus', loadComponent: () => import('./Components/rofus/rofus.component').then(m => m.RofusComponent) },
     { path: 'login', loadComponent: () => import('./Components/login-signup/login-signup.component').then(m => m.LoginSignupComponent) },
     { path: 'bank', loadComponent: () => import('./Components/bank/bank.component').then(m => m.BankComponent) },
+    {path: "reset-password", loadComponent: () => import('./Components/reset-password/reset-password.component').then(m => m.ResetPasswordComponent)},
+    {path: "forgot-password", loadComponent: () => import('./Components/forgot-password/forgot-password.component').then(m => m.ForgotPasswordComponent)},
 
     {
         path: 'admin',
@@ -17,9 +19,11 @@ export const routes: Routes = [
         canActivate: [AuthGuard],
         children: 
         [
-            { path: 'users', loadComponent: () => import('./Components/admin-panels/admin-users/admin-users.component').then(m => m.AdminUsersComponent) },
-            { path: 'games', loadComponent: () => import('./Components/admin-panels/admin-games/admin-games.component').then(m => m.AdminGamesComponent) },
+            {path: 'users', loadComponent: () => import('./Components/admin-panels/admin-users/admin-users.component').then(m => m.AdminUsersComponent) },
+            {path: 'games', loadComponent: () => import('./Components/admin-panels/admin-games/admin-games.component').then(m => m.AdminGamesComponent) },
             {path:  'newsletter', loadComponent: () => import('./Components/admin-panels/admin-newsletter/admin-newsletter.component').then(m => m.AdminNewsletterComponent) },
+            {path: 'statistics', loadComponent: () => import('./Components/admin-panels/admin-user-statistics/admin-user-statistics.component').then(m => m.AdminUserStatisticsComponent)}
+
         ]
     },
 
@@ -38,6 +42,7 @@ export const routes: Routes = [
     { path: 'games/dice', loadComponent: () => import('./Components/games/dice-game/dice-game.component').then(m => m.DiceGameComponent) },
     { path: 'games/yatzy', loadComponent: () => import('./Components/games/yatzy-game/yatzy-game.component').then(m => m.YatzyGameComponent) }, 
     { path: 'games/bombastic', loadComponent: () => import('./Components/games/bombastic/bombastic.component').then(m => m.BombasticComponent) },
+    { path: 'games/Keno', loadComponent: () => import('./Components/games/keno/keno.component').then(m => m.KenoComponent) },
 
     // Sæt ind i en "user / konto", lidt ligesom admin halløjet.
     { path: 'history', loadComponent: () => import('./Components/gamehistory/gamehistory.component').then(m => m.GamehistoryComponent) }

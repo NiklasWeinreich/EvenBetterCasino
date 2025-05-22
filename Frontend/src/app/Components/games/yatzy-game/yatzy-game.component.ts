@@ -16,18 +16,20 @@ import { YatzyGame } from '../../../Models/Yatzy.model';
   styleUrl: './yatzy-game.component.css',
 })
 export class YatzyGameComponent {
-  jackpot = 500_000;
-  betAmount = 10;
+  betAmount = 50;
   diceResults: number[] = [];
+  winDiceIndexes: number[] = [];
   combinationText = '';
   payout = 0;
   isLoading = false;
+  showWinAlert = false;
 
   constructor(private yatzyService: YatzyService) {}
 
   playYatzyGame(betAmount: number) {
     this.betAmount = betAmount;
     this.isLoading = true;
+
     this.yatzyService
       .playGame(betAmount)
       .pipe(finalize(() => (this.isLoading = false)))
@@ -46,4 +48,15 @@ export class YatzyGameComponent {
   trackByIndex(index: number): number {
     return index;
   }
+
+  combinations = [
+  { symbols: '⬜️ ⬜️ ⬜️ ⬜️ ⬜️', name: 'Yatzy', multiplier: '50.00' },
+  { symbols: '⬜️ ⬜️ ⬜️ ⬜️ ⬛️', name: '4 ens', multiplier: '5.00' },
+  { symbols: '⬜️ ⬜️ ⬜️ 🔳 🔳', name: 'Fuldt hus', multiplier: '3.00' },
+  { symbols: '⬜️ ⬜️ ⬜️ ⬛️ ⬛️', name: '3 ens', multiplier: '2.00' },
+  { symbols: '⬜️ ⬜️ 🔳 🔳 ⬛️', name: '2 par', multiplier: '1.10' },
+  { symbols: '⬜️ ⬜️ ⬛️ ⬛️ ⬛️', name: '1 par', multiplier: '0.10' },
+  { symbols: '⬛️ ⬛️ ⬛️ ⬛️ ⬛️', name: 'Ingen kombi', multiplier: '0.00' },
+];
+
 }

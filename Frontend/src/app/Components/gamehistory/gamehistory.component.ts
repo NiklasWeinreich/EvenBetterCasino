@@ -21,25 +21,28 @@ export class GamehistoryComponent {
   constructor(
     private gamehistoryService: GamehistoryService,
     private authService: AuthService
-  ) {}
+  ) { }
 
 
-    currentUser: User = resetUser();
+  currentUser: User = resetUser();
 
 
 
 
-    ngOnInit(): void {
+  ngOnInit(): void {
     // Log user information when it's fetched
     this.authService.currentUser.subscribe((user) => {
       this.currentUser = user ?? resetUser();
       console.log('Current user fetched:', this.currentUser);
     });
 
-        this.fetchGameHistory();
+    this.fetchGameHistory();
 
-    }
+  }
 
+  ngOnChanges() {
+    this.filterGameHistory();
+  }
 
   fetchGameHistory() {
     this.gamehistoryService.getGameHistoryByUserId(this.currentUser.id).subscribe({
@@ -53,13 +56,26 @@ export class GamehistoryComponent {
     });
   }
 
-  ngOnChanges() {
-    this.filterGameHistory();
-  }
-
   filterGameHistory() {
     this.filteredGameHistory = this.gameHistory.filter(ticket =>
       ticket.gameName.toLowerCase().includes(this.searchTerm.toLowerCase())
     );
   }
+
+  scrollToTop() {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  ngAfterViewInit() {
+    window.addEventListener('scroll', () => {
+      const btn = document.getElementById('scrollToTopBtn');
+      if (btn) {
+        btn.style.display = window.scrollY > 200 ? 'block' : 'none';
+      }
+    });
+  }
+
+
+
 }
+

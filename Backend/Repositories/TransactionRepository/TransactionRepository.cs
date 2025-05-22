@@ -19,6 +19,7 @@ namespace Backend.Repositories.TransactionsRepository
         {
             return await _databaseContext.Transactions
                 .Include(g => g.User)
+                .OrderByDescending(g => g.Date)
                 .ToListAsync();
         }
 
@@ -27,6 +28,7 @@ namespace Backend.Repositories.TransactionsRepository
             return await _databaseContext.Transactions
                 .Where(g => g.UserId == id)
                 .Include(g => g.User)
+                .OrderByDescending(g => g.Date)
                 .ToListAsync();
         }
         public async Task<Transaction> CreateTransactionTicket(Transaction transaction)

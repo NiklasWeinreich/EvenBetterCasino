@@ -14,7 +14,7 @@ export class DiceService {
   playGame(playerNumber: number, isGuessOver: boolean, betAmount: number): Observable<DiceGame> {
     const currentUser = this.authService.currentUserValue;
     const userId = currentUser?.id;
-    const gameId = 1;
+    const gameId = 2;
 
     if (!userId) {
       return throwError(() => new Error('Bruger ikke logget ind.'));

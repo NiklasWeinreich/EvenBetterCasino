@@ -75,6 +75,18 @@ export class GamehistoryComponent {
     });
   }
 
+  getTotalBetAmount(): number {
+  return this.filteredGameHistory.reduce((sum, ticket) => sum + ticket.betAmount, 0);
+}
+
+getTotalWinAmount(): number {
+  return this.filteredGameHistory.reduce((sum, ticket) => sum + ticket.winAmount, 0);
+}
+
+getAverageWinAmount(): number {
+  if (!this.filteredGameHistory.length) return 0;
+  return this.getTotalWinAmount() / this.filteredGameHistory.length;
+}
 
 
 }

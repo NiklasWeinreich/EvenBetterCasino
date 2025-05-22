@@ -1,14 +1,48 @@
 <div class="text-center text-white" style="min-height: 100vh;">
     <!-- Hero Section -->
     <div class="container py-5">
-        <h1 class="fw-bold display-4 mb-3">Din spilhistorik</h1>
+        <h1 class="fw-bold display-4 mb-3">Din statistik og spilhistorik</h1>
         <p class="lead mb-4">
-            Se nedenfor din spil historik, hvor du kan finde alle dine tidligere spil og deres resultater.
+            Se nedenfor din spil historik, hvor du kan finde alle dine tidligere spil og deres resultater. <br>
+            Du kan også se en lille statistik over dine spil, som viser hvor mange spil du har spillet, din samlede indsats og gevinst.
         </p>
         <p class="lead mb-4">
             <strong>Tip:</strong>
             Brug søgefeltet til at finde specifikke spil hurtigt.
         </p>
+    </div>
+
+    <div class="container mb-4">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card bg-secondary bg-opacity-10 text-white shadow-sm mb-3">
+                    <div class="card-body d-flex flex-wrap justify-content-between">
+                        <div>
+                            <h6 class="mb-1"><i class="bi bi-controller"></i> Antal spil</h6>
+                            <p class="fw-bold mb-0">{{ filteredGameHistory.length }}</p>
+                        </div>
+                        <div>
+                            <h6 class="mb-1"><i class="bi bi-cash-stack"></i> Samlet indsats</h6>
+                            <p class="fw-bold mb-0">
+                                {{ getTotalBetAmount() | currency:'DKK':'symbol':'1.2-2':'da-DK' }}
+                            </p>
+                        </div>
+                        <div>
+                            <h6 class="mb-1"><i class="bi bi-trophy"></i> Samlet gevinst</h6>
+                            <p class="fw-bold mb-0">
+                                {{ getTotalWinAmount() | currency:'DKK':'symbol':'1.2-2':'da-DK' }}
+                            </p>
+                        </div>
+                        <div>
+                            <h6 class="mb-1"><i class="bi bi-bar-chart"></i> Gennemsnitlig gevinst</h6>
+                            <p class="fw-bold mb-0">
+                                {{ getAverageWinAmount() | currency:'DKK':'symbol':'1.2-2':'da-DK' }}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <!-- Search Section -->

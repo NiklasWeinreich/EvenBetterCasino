@@ -13,99 +13,37 @@ namespace Backend.Games.Bombastic.BombasticController
     public class BombasticGameController : ControllerBase
     {
 
-        private static Random _random = new Random();
-        private static ConcurrentDictionary<string, GameState> currentGamesDict = new ConcurrentDictionary<string, GameState>();
-        private const int MaxBombHealth = 20; // Maksimum antal klik
-        private const double HouseEdge = 0.02; // 2% house edge
+        private readonly IBombasticService _bombasticService;
 
+        public BombasticGameController(IBombasticService bombasticService)
+        {
+            _bombasticService = bombasticService;
+        }
 
 
         [HttpPost("startGame")]
-        public IActionResult startGame([FromBody] BombasticStartGameRequest request)
+        public async Task<IActionResult> StartGame([FromBody] BombasticStartGameRequest request)
         {
 
-            // TO DO: Indsæt funktion, der tjekker saldo for spilleren.
+            
+            var sessionId = await _bombasticService.StartGame(request);
 
-
-            // Generer en unik spiller-ID (kan være en GUID eller et tilfældigt tal)
-            string sessionId = Guid.NewGuid().ToString();
-
-            int currentGameBombHealth = _random.Next(1, MaxBombHealth + 1);
-
-
-            // Opretter et nyt spil for den speciffikke spiller
-            var gameState = new GameState
+            return Ok(new
             {
-                BetAmount = request.BetAmount,
-                BombHealth = currentGameBombHealth,
-                CurrentClickNumber = 0,
-                CurrentWinAmount = 0,
-                CurrentMulitplier = 0,
-                IsExploded = false
-            };
-
-            // Tilknyt spiloplysninger med sessionId
-            currentGamesDict[sessionId] = gameState;
-
-
-            return Ok(new { message = "Spillet er startet! Tryk på bomben, men pas på! - Den må ikke sprænge, for så mister du din potentielle gevinst.", sessionId });
+                sessionId = sessionId,
+                message = "Spillet er startet"
+            });
 
 
         }
 
         [HttpPost("clickBomb")]
-        public IActionResult ClickBomb([FromBody] BombasticClickRequest request)
+        public async Task<IActionResult> PlayGame([FromBody] BombasticClickRequest request)
         {
 
-            // Hent spillerens GameState ved hjælp af playerId
-            if (!currentGamesDict.TryGetValue(request.SessionId, out GameState gameState))
-            {
-                return BadRequest(new { message = "Ingen session med det speciffikke ID er igangværende eller startet" });
-            }
+            var result = await _bombasticService.PlayGame(request);
 
-            if (gameState.CurrentClickNumber + 1 == gameState.BombHealth)
-            {
-                currentGamesDict.TryRemove(request.SessionId, out gameState);
-                return Ok(new
-                {
-                    isExploded = true,
-                    currentClickNumber = gameState.CurrentClickNumber,
-                    currentWinAmount = 0,
-                    CurrentMulitplier = 1,
-                    message = "Bomben sprang, og du døde."
-                });
-            }
-            else if (gameState.CurrentClickNumber + 1 == MaxBombHealth)
-            {
-                currentGamesDict.TryRemove(request.SessionId, out gameState);
-                return Ok(new
-                {
-                    isExploded = false,
-                    currentClickNumber = 20,
-                    currentWinAmount = gameState.CurrentWinAmount,
-                    currentMulitplier = gameState.CurrentMulitplier,
-                    message = "Tillykke du desarmeret bomben."
-                });
-
-            }
-            else
-            {
-                gameState.CurrentClickNumber++;
-                gameState.CurrentMulitplier++;
-
-                Console.WriteLine($"BetAmount: {gameState.BetAmount}, Multiplier: {gameState.CurrentMulitplier}, WinAmount: {gameState.CurrentWinAmount}");
-                gameState.CurrentWinAmount = gameState.BetAmount * gameState.CurrentMulitplier;
-
-                return Ok(new
-                {
-                    isExploded = false,
-                    currentClickNumber = gameState.CurrentClickNumber,
-                    currentWinAmount = gameState.CurrentWinAmount,
-                    currentMulitplier = gameState.CurrentMulitplier,
-                    message = "Du er safe! - Bliver du ved eller casher du ud?"
-                });
-
-            }
+            return Ok(result);
 
         }
     }

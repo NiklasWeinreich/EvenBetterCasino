@@ -41,12 +41,7 @@ export class YatzyGameComponent {
           this.combinationText = res.combination;
           this.payout = res.payout;
 
-          if (this.payout > 0) {
-          this.showWinAlert = true;
-          setTimeout(() => {
-            this.showWinAlert = false;
-          }, 1000); // forsvinder efter 4 sek.
-        }
+        
         },
         error: (err) => {
           console.error('Spilfejl:', err);

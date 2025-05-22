@@ -269,72 +269,72 @@
 
       <!-- Ekstra luft mellem sektioner -->
       <div style="height: 10rem;"></div>
-      <footer
-        class="bg-dark text-light text-center text-md-start mt-5 py-5 rounded-4 border-top border-primary shadow-sm">
-        <div class="container">
-          <div class="row align-items-stretch justify-content-between g-4">
+    </div>
+    <footer
+      class="bg-dark text-light text-center text-md-start mt-5 py-5 rounded-4 border-top border-primary shadow-sm">
+      <div class="container">
+        <div class="row align-items-stretch justify-content-between g-4">
 
-            <!-- Logo og beskrivelse -->
-            <div class="col-md-4 d-flex flex-column justify-content-between text-center text-md-start h-100">
-              <div>
-                <h5 class="text-primary fw-bold">EvenBetterCasino</h5>
-                <p class="mb-2">Sikker, sjov og ansvarlig underholdning – hele døgnet rundt.</p>
-              </div>
-              <p class="small text-muted mb-0 mt-3">&copy; 2025 EvenBetterCasino. Alle rettigheder forbeholdes.
+          <!-- Logo og beskrivelse -->
+          <div class="col-md-4 d-flex flex-column justify-content-between text-center text-md-start h-100">
+            <div>
+              <h5 class="text-primary fw-bold">EvenBetterCasino</h5>
+              <p class="mb-2">Sikker, sjov og ansvarlig underholdning – hele døgnet rundt.</p>
+            </div>
+            <p class="small text-muted mb-0 mt-3">&copy; 2025 EvenBetterCasino. Alle rettigheder forbeholdes.
+            </p>
+          </div>
+
+          <!-- Ansvarligt spil og ROFUS -->
+          <div class="col-md-4 d-flex flex-column justify-content-between text-center h-100">
+            <div>
+              <h6 class="text-primary mb-3">Ansvarligt Spil</h6>
+              <p class="small mb-2">
+                Vi støtter <a href="https://www.rofus.nu" class="text-decoration-underline text-primary"
+                  target="_blank" rel="noopener">ROFUS</a> – Spillemyndighedens register over frivilligt
+                udelukkede spillere.
+              </p>
+              <p class="small mb-2">
+                Læs mere om ansvarligt spil hos <a href="https://www.spillemyndigheden.dk"
+                  class="text-decoration-underline text-primary" target="_blank" rel="noopener">Spillemyndigheden</a>.
               </p>
             </div>
+            <p class="small mb-0 text-warning fw-bold">Spil ansvarligt – du skal være 18+ for at spille.</p>
+            <hr>
+            <p class="small">Copyright 2025 - EvenBetterCasino</p>
+          </div>
 
-            <!-- Ansvarligt spil og ROFUS -->
-            <div class="col-md-4 d-flex flex-column justify-content-between text-center h-100">
-              <div>
-                <h6 class="text-primary mb-3">Ansvarligt Spil</h6>
-                <p class="small mb-2">
-                  Vi støtter <a href="https://www.rofus.nu" class="text-decoration-underline text-primary"
-                    target="_blank" rel="noopener">ROFUS</a> – Spillemyndighedens register over frivilligt
-                  udelukkede spillere.
-                </p>
-                <p class="small mb-2">
-                  Læs mere om ansvarligt spil hos <a href="https://www.spillemyndigheden.dk"
-                    class="text-decoration-underline text-primary" target="_blank" rel="noopener">Spillemyndigheden</a>.
-                </p>
+          <!-- Nyhedsbrev -->
+          <div class="col-md-4 d-flex flex-column justify-content-between text-center text-md-start h-100">
+            <div>
+              <h6 class="text-primary mb-3">Tilmeld dig vores nyhedsbrev</h6>
+              <form class="row gx-2 gy-2 align-items-center">
+                <div class="col-12">
+                  <label for="email" class="form-label mb-1">Nyhedsbrev:</label>
+                </div>
+                <div class="col-12 col-md-8">
+                  <input id="email" name="email" type="email" class="form-control" [(ngModel)]="userEmail"
+                    [readonly]="authService.currentUserValue !== null" placeholder="Din e-mail" required />
+                </div>
+                <div class="col-12 col-md-4 text-md-start text-center">
+                  <button *ngIf="!isSubscribed" class="btn btn-outline-primary w-100"
+                    (click)="subscribeToNewsletter()">
+                    Tilmeld
+                  </button>
+                  <button *ngIf="isSubscribed" class="btn btn-outline-primary w-100"
+                    (click)="unsubscribeFromNewsletter()">
+                    Afmeld
+                  </button>
+                </div>
+              </form>
+              <div *ngIf="isSubscribed" class="text-success mt-2">
+                Du er allerede tilmeldt nyhedsbrevet.
               </div>
-              <p class="small mb-0 text-warning fw-bold">Spil ansvarligt – du skal være 18+ for at spille.</p>
-              <hr>
-              <p class="small">Copyright 2025 - EvenBetterCasino</p>
-            </div>
-
-            <!-- Nyhedsbrev -->
-            <div class="col-md-4 d-flex flex-column justify-content-between text-center text-md-start h-100">
-              <div>
-                <h6 class="text-primary mb-3">Tilmeld dig vores nyhedsbrev</h6>
-                <form class="row gx-2 gy-2 align-items-center">
-                  <div class="col-12">
-                    <label for="email" class="form-label mb-1">Nyhedsbrev:</label>
-                  </div>
-                  <div class="col-12 col-md-8">
-                    <input id="email" name="email" type="email" class="form-control" [(ngModel)]="userEmail"
-                      [readonly]="authService.currentUserValue !== null" placeholder="Din e-mail" required />
-                  </div>
-                  <div class="col-12 col-md-4 text-md-start text-center">
-                    <button *ngIf="!isSubscribed" class="btn btn-outline-primary w-100"
-                      (click)="subscribeToNewsletter()">
-                      Tilmeld
-                    </button>
-                    <button *ngIf="isSubscribed" class="btn btn-outline-primary w-100"
-                      (click)="unsubscribeFromNewsletter()">
-                      Afmeld
-                    </button>
-                  </div>
-                </form>
-                <div *ngIf="isSubscribed" class="text-success mt-2">
-                  Du er allerede tilmeldt nyhedsbrevet.
-                </div>
-                <div *ngIf="message" [ngClass]="messageClass" class="fw-semibold mt-2">
-                  {{ message }}
-                </div>
+              <div *ngIf="message" [ngClass]="messageClass" class="fw-semibold mt-2">
+                {{ message }}
               </div>
             </div>
           </div>
         </div>
-      </footer>
-    </div>
+      </div>
+    </footer>

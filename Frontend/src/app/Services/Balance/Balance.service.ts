@@ -23,4 +23,9 @@ import { Observable } from "rxjs";
     withdrawMoney(userId: number, amount: number): Observable<Balance> {
       return this.http.post<Balance>(`${this.BalanceUrl}/${userId}/withdraw`, { amount });
     }
+
+    winGame(userId: number, amount: number): Observable<Balance> {
+      return this.http.post<Balance>(`${this.BalanceUrl}/${userId}/win`, { amount });
+    }
+
   }

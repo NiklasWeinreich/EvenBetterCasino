@@ -3,6 +3,7 @@ import { environment } from '../../Environments/environment';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { catchError, Observable, throwError } from 'rxjs';
 import { User } from '../../Models/user.model';
+import { resetPassword } from '../../Models/resetpassword.model';
 
 @Injectable({
   providedIn: 'root',
@@ -10,7 +11,7 @@ import { User } from '../../Models/user.model';
 export class UserService {
   private readonly userApiUrl = environment.apiUrl + '/User';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   getUserById(id: number): Observable<User> {
     return this.http
@@ -52,22 +53,21 @@ export class UserService {
   }
 
   updateUser(user: User): Observable<User> {
-    console.log('Sender opdateret bruger:', user);
-    console.log('date:', new Date().toISOString());
-    console.log('Role værdi:', user.role);
-
     const formData = new FormData();
 
     formData.append('firstName', user.firstName);
     formData.append('lastName', user.lastName);
     formData.append('email', user.email);
     formData.append('phoneNumber', user.phoneNumber.toString());
-    formData.append('password', user.password);
     formData.append(
       'newsLetterIsSubscribed',
       String(user.newsLetterIsSubscribed)
     );
     formData.append('birthDate', user.birthDate.toString());
+
+    if (user.password && user.password.trim() !== '') {
+      formData.append('password', user.password);
+    }
 
     if (user.role) {
       formData.append('role', user.role);
@@ -88,11 +88,20 @@ export class UserService {
     return this.http.post(`${this.userApiUrl}/${userId}/exclude`, hours);
   }
 
-    subscribe(userMail: string): Observable<User> {
+  subscribe(userMail: string): Observable<User> {
     return this.http.post<User>(this.userApiUrl + '/Newsletter/Subscribe/' + userMail, userMail);
   }
 
   unsubscribe(userMail: string): Observable<User> {
     return this.http.post<User>(this.userApiUrl + '/Newsletter/Unsubscribe/' + userMail, userMail);
   }
+
+  forgotPassword(email: string): Observable<any> {
+  return this.http.post(`${this.userApiUrl}/forgot-password`, { email });
+  }
+  
+  resetPassword(resetData: resetPassword): Observable<any> {
+  return this.http.post(`${this.userApiUrl}/reset-password`, resetData);
+}
+
 }

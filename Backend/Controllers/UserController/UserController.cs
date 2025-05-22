@@ -1,7 +1,9 @@
-﻿using Backend.DTO.UserDTO;
+﻿using Backend.DTO.ForgotPasswordDTO;
+using Backend.DTO.UserDTO;
 using Backend.Interfaces.IUser;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity.Data;
 using Microsoft.AspNetCore.Mvc;
 using static Backend.Authentication.Authentication;
 
@@ -143,6 +145,7 @@ namespace Backend.Controllers.UserController
                 return Problem(ex.Message);
             }
         }
+
 
 
     }

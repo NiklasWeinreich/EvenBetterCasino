@@ -19,12 +19,10 @@ export class YatzyGameComponent {
   betAmount = 50;
   diceResults: number[] = [];
   winDiceIndexes: number[] = [];
-
   combinationText = '';
   payout = 0;
   isLoading = false;
   showWinAlert = false;
-
 
   constructor(private yatzyService: YatzyService) {}
 
@@ -40,8 +38,6 @@ export class YatzyGameComponent {
           this.diceResults = res.diceRolls;
           this.combinationText = res.combination;
           this.payout = res.payout;
-
-        
         },
         error: (err) => {
           console.error('Spilfejl:', err);

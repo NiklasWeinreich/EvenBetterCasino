@@ -5,16 +5,14 @@ import { Observable } from 'rxjs';
 import { Game } from '../../Models/games.model';
 
 @Injectable({
-    providedIn: 'root',
+  providedIn: 'root',
 })
-
 export class GameService {
-    private readonly gamesApiUrl = environment.apiUrl + '/Games';
+  private readonly gamesApiUrl = environment.apiUrl + '/Games';
 
-    constructor (private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
-    getAllGames(): Observable<Game[]> {
-        return this.http.get<Game[]>(this.gamesApiUrl);
-    }
-   
+  getAllGames(): Observable<Game[]> {
+    return this.http.get<Game[]>(this.gamesApiUrl);
+  }
 }

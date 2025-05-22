@@ -5,14 +5,13 @@
             <div>
                 <p class="mb-0 fs-5">
                     <i class="bi bi-cash-stack me-2 text-info"></i>
-                    <span class="fw-bold text-info">{{ currentUser.balance }} kr</span>
+                    <span class="fw-bold text-info">{{ this.currentUser.balance }} kr</span>
                 </p>
             </div>
         </button>
     </div>
 
     <div class="row">
-
         <!-- Header: Spil titel -->
         <div class="bg-primary rounded-top-3 text-white">
             <ng-content select="[slot='title-area']"></ng-content>
@@ -24,6 +23,8 @@
             <div class="mb-3">
                 <label for="betAmount" class="form-label">Indsats (kr)</label>
                 <input type="number" id="betAmount" class="form-control" [(ngModel)]="betAmount" min="1" max="10000" />
+                <div *ngIf="errorMessage" class="text-danger mt-2">{{ errorMessage }}</div>
+
             </div>
 
             <button class="btn btn-success w-100" *ngIf="!canCashOut!" (click)="placeBet()">Bet</button>
@@ -31,6 +32,7 @@
                 {{gameStarted ? 'Cash Out' : 'Bet' }}
             </button>
             <hr>
+            
             <div class="mt-5">
                 <ng-content select="[slot='bet-area']"></ng-content>
             </div>

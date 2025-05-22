@@ -13,7 +13,7 @@
 
     <div class="row">
         <!-- Header: Spil titel -->
-        <div class="bg-primary text-white">
+        <div class="bg-primary rounded-top-3 text-white">
             <ng-content select="[slot='title-area']"></ng-content>
         </div>
 
@@ -27,7 +27,10 @@
 
             </div>
 
-            <button class="btn btn-primary w-100" (click)="placeBet()">Bet</button>
+            <button class="btn btn-success w-100" *ngIf="!canCashOut!" (click)="placeBet()">Bet</button>
+            <button *ngIf="canCashOut" [ngClass]="gameStarted ? 'btn btn-primary' : 'btn btn-success'" class="w-100 mt-2" (click)="gameStarted ? cashout() : placeBet()">
+                {{gameStarted ? 'Cash Out' : 'Bet' }}
+            </button>
             <hr>
             
             <div class="mt-5">
@@ -65,7 +68,7 @@
                         currency:'DKK':'symbol':'1.2-2':'da-DK' }}</span>
                 </p>
                 <p class="mb-5 fs-5">
-                    <i class="bi bi-cash-coin me-2 text-success"></i>
+                    <i class="bi bi-cash-coin me-2 text-info"></i>
                     Profit: <span class="fw-bold text-success">{{userProfit | currency:'DKK':'symbol':'1.2-2':'da-DK'
                         }}</span>
                 </p>
@@ -85,7 +88,7 @@
                         currency:'DKK':'symbol':'1.2-2':'da-DK' }}</span>
                 </p>
                 <p class="mb-0 fs-5">
-                    <i class="bi bi-cash-coin me-2 text-success"></i>
+                    <i class="bi bi-cash-coin me-2 text-info"></i>
                     Profit: 
                     <span [ngClass]="{'text-success': gameProfit > 0, 'text-danger': gameProfit < 0}" class="fw-bold text-success">{{gameProfit | currency:'DKK':'symbol':'1.2-2':'da-DK'
                         }}</span>
@@ -108,6 +111,13 @@
                                 [class.text-danger]="ticket.winAmount <= 0 " class="card-title text-primary fw-bold">
                                 <i class="bi bi-controller"></i> {{ ticket.gameName }}
                             </h4>
+                            <div class="col-sm-1">
+                                    <p class="card-text">
+                                        <span *ngIf="ticket.wasCashedOut" class="badge bg-primary text-dark">
+                                            Cashout
+                                        </span>
+                                    </p>
+                                </div>
                             <hr class="bg-light">
                             <div class="row">
                                 <!-- Left Column -->
@@ -118,14 +128,6 @@
                                     </p>
                                 </div>
 
-                                <!-- Middle Column -->
-                                <div class="col-sm-1">
-                                    <p class="card-text">
-                                        <span *ngIf="ticket.wasCashedOut" class="badge bg-primary text-dark">
-                                            Cashout
-                                        </span>
-                                    </p>
-                                </div>
                                 <!-- Right Column -->
                                 <div class="col-sm-3">
                                     <p class="card-text">
@@ -148,10 +150,14 @@
                         </div>
                     </div>
                 </div>
+                <div *ngIf="usersGamehistoryList.length === 0" class="text-center">
+                    <p class="text-white lead">
+                        Ingen tidligere spil fundet.</p>
+                </div>
                 <div class="text-center mt-4">
                     <button [routerLink]="['/history']" class="btn btn-outline-primary mt-2">
                         <i class="bi bi-arrow-right-circle"></i>
-                        Se alle tidligere spil!
+                        Se alle dine tidligere spil!
                     </button>
                 </div>
             </div>

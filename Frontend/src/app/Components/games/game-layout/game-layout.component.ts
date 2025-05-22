@@ -20,11 +20,13 @@ import { error } from 'console';
 export class GameLayoutComponent {
   @Input() betAmount!: number;
   @Input() gameName!: string;
-
-  gameId: number | null = null;
-
+  @Input() canCashOut!: boolean;
+  @Input() gameStarted : boolean = false;
 
   @Output() betPlaced = new EventEmitter<number>();
+  @Output() cashOutPlaced = new EventEmitter<number>();
+  
+  gameId: number | null = null;
   gamehistoryList: any[] = [];
   usersGamehistoryListSliced: any[] = [];
   usersGamehistoryList: any[] = [];
@@ -41,37 +43,43 @@ export class GameLayoutComponent {
   ) { }
 
 
-
-
   ngOnInit() {
-    this.authService.currentUser.subscribe(user => {
-      this.currentUser = user;
-      this.balance = this.currentUser?.balance ?? 0;
+  this.authService.currentUser.subscribe(user => {
+    this.currentUser = user;
+    this.balance = this.currentUser?.balance ?? 0;
 
-      
-      
-    });
-    
-    this.gameService.getAllGames().subscribe({
-      next: (games) => {
-        const matchedGame = games.find(game => game.name.toLowerCase() === this.gameName.toLowerCase());
-        if (matchedGame) {
-          console.log('Spil fundet:', matchedGame);
-          this.gameId = matchedGame.id;
-          this.fetchUsersGameHistory()
-          this.fetchGameHistory();
-
-        } 
-        else {
-          console.warn(`Kunne ikke finde spil med navnet: ${this.gameName}`);
+    if (this.currentUser && this.currentUser.id != null) {
+      // Hent saldo fra server for at få den opdaterede værdi
+      this.balanceService.getBalance(this.currentUser.id).subscribe({
+        next: (data) => {
+          this.currentUser!.balance = data.balance;
+          this.balance = data.balance;
+        },
+        error: (err) => {
+          console.error('Error fetching balance:', err);
         }
-      },
-      error: (err) => {
-        console.error('Fejl ved hentning af spil:', err);
-      }
-    });
+      });
+    }
+  });
 
-  }
+  // Hent spil og sæt gameId
+  this.gameService.getAllGames().subscribe({
+    next: (games) => {
+      const matchedGame = games.find(game => game.name.toLowerCase() === this.gameName.toLowerCase());
+      if (matchedGame) {
+        this.gameId = matchedGame.id;
+        this.fetchUsersGameHistory();
+        this.fetchGameHistory();
+      } else {
+        console.warn(`Kunne ikke finde spil med navnet: ${this.gameName}`);
+      }
+    },
+    error: (err) => {
+      console.error('Fejl ved hentning af spil:', err);
+    }
+  });
+}
+
 
   placeBet() {
     if (this.betAmount < 1) {
@@ -107,60 +115,67 @@ export class GameLayoutComponent {
           console.error('Error fetching balance:', err);
         }
       });
-      
-    } 
+
+    }
     else {
       console.error('No current user or user ID found.');
     }
 
   }
 
+  cashout() {
+    this.cashOutPlaced.emit(this.betAmount);
+  }
 
+ 
   fetchGameHistory() {
     if (this.gameId !== null) {
-        this.gamehistoryService.getGameHistoryByGameId(this.gameId).subscribe({
-          next: (data) => {
-            this.gamehistoryList = data;
+      this.gamehistoryService.getGameHistoryByGameId(this.gameId).subscribe({
+        next: (data) => {
+          this.gamehistoryList = data;
 
-          },
-          error: (err) => {
-            console.error('Error fetching game history:', err);
-          }
-        });
-      } else {
-        console.error('Game ID is null. Cannot fetch game history.');
-      }
+        },
+        error: (err) => {
+          console.error('Error fetching game history:', err);
+        }
+      });
+    } else {
+      console.error('Game ID is null. Cannot fetch game history.');
+    }
 
   }
 
 
   fetchUsersGameHistory() {
     if (this.gameId !== null && this.currentUser && this.currentUser.id != null) {
-        this.gamehistoryService.getGameHistoryByUserIdAndGameId(this.currentUser.id, this.gameId).subscribe({
-          next: (data) => {
-            this.usersGamehistoryList = data;
-            this.usersGamehistoryListSliced = data.slice(0,5);
+      this.gamehistoryService.getGameHistoryByUserIdAndGameId(this.currentUser.id, this.gameId).subscribe({
+        next: (data) => {
+          this.usersGamehistoryList = data;
+          this.usersGamehistoryListSliced = data.slice(0, 5);
 
 
-          },
-          error: (err) => {
-            console.error('Error fetching game history:', err);
-          }
-        });
-      } else {
-        console.error('Game ID is null. Cannot fetch game history.');
-      }
+        },
+        error: (err) => {
+          console.error('Error fetching game history:', err);
+        }
+      });
+    } else {
+      console.error('Game ID is null. Cannot fetch game history.');
+    }
 
   }
+
+
+ 
 
   get userTotalBetAmount(): number {
     return this.usersGamehistoryList.reduce((total, ticket) => total + ticket.betAmount, 0);
   }
-  
+
   get userTotalWinAmount(): number {
     return this.usersGamehistoryList.reduce((total, ticket) => total + ticket.winAmount, 0);
   }
-  
+
   get userProfit(): number {
     return this.userTotalWinAmount - this.userTotalBetAmount;
   }
@@ -168,12 +183,12 @@ export class GameLayoutComponent {
   get gameTotalBetAmount(): number {
     return this.gamehistoryList.reduce((total, ticket) => total + ticket.betAmount, 0);
   }
-  
+
   get gameTotalWinAmount(): number {
     return this.gamehistoryList.reduce((total, ticket) => total + ticket.winAmount, 0);
   }
 
   get gameProfit(): number {
     return this.gameTotalWinAmount - this.gameTotalBetAmount;
-  }  
+  }
 }

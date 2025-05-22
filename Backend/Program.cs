@@ -30,6 +30,8 @@ using Backend.Database.Entities;
 using Backend.Interfaces.ITransactions;
 using Backend.Services.TransactionsService;
 using Backend.Repositories.TransactionsRepository;
+using Backend.Games.Bombastic;
+using Backend.Games.Bombastic.BombasticService;
 
 
 
@@ -47,6 +49,7 @@ namespace Backend
                 options.UseSqlServer(builder.Configuration.GetConnectionString("ConString"));
             });
 
+            builder.Services.AddScoped<IBombasticService, BombasticGameService>();
             builder.Services.AddScoped<IUserRepository, UserRepository>();
             builder.Services.AddScoped<IUserService, UserService>();
             builder.Services.AddScoped<IDiceGameService, DiceGameService>();
@@ -61,7 +64,7 @@ namespace Backend
             builder.Services.AddScoped<IGameHistoryRepository, GameHistoryRepository>();
             builder.Services.AddScoped<ITransactionService, TransactionService>();
             builder.Services.AddScoped<ITransactionRepository, TransactionRepository>();
-            
+
             builder.Services.AddScoped<GameHistoryHelper>();
 
 

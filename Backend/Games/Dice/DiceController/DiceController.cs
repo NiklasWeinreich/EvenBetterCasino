@@ -22,7 +22,7 @@ namespace Backend.Games.Dice.DiceController
 
 
         [HttpPost("playGame")]
-        public async Task<IActionResult> PlayGame([FromBody] DiceClickRequest request)
+        public async Task<IActionResult> PlayGame([FromBody] DiceGameRequest request)
         {
 
 

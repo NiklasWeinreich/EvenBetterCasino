@@ -90,9 +90,15 @@
             <p class="card-text mt-5 text-dark-emphasis"> {{ ticket.transactionId }} </p>
           </div>
         </div>
+        
       </div>
     </div>
   </div>
+  <div *ngIf="transactionHistory.length === 0" class="text-center">
+    <p class="text-white lead">
+      Ingen tidligere transaktioner fundet.</p>
+  </div>
+  
   <!-- Scroll to top button -->
   <button type="button" class="btn btn-primary btn-lg rounded-circle shadow position-fixed"
     style="bottom: 2rem; right: 2rem; z-index: 1050; display: none;" id="scrollToTopBtn" (click)="scrollToTop()">

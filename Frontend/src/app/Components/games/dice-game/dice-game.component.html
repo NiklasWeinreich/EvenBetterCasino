@@ -20,6 +20,19 @@
     </div>
 
 
+    <div class="form-check">
+      <input class="form-check-input" type="radio" name="radioDefault" id="playerGuessOver" [(ngModel)]="isGuessOver" [value]="true">
+      <label class="form-check-label" for="playerGuessOver" >
+        Over
+      </label>
+    </div>
+    <div class="form-check">
+      <input class="form-check-input" type="radio" name="radioDefault" id="playerGuessUnder" [(ngModel)]="isGuessOver" [value]="false" checked>
+      <label class="form-check-label" for="playerGuessUnder">
+        Under
+      </label>
+    </div>
+
     <div *ngIf="dicegameResult" class="mt-3">
       <div class="yatzy__feedback d-flex flex-row flex-wrap align-items-center gap-3 justify-content-center"
         [ngClass]="dicegameResult.isWin ? 'yatzy__win' : 'yatzy__lose'">

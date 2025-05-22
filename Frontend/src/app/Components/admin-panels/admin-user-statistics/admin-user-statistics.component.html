@@ -1,1 +1,42 @@
-<p>admin-user-statistics works!</p>
+<!-- Titel -->
+<div class="display-4 text-center mb-5">USER STATISTICS</div>
+
+<div class="container-fluid">
+  <div class="table-responsive">
+    <table class="table table-bordered table-hover table-striped">
+      <thead class="table-primary">
+        <tr>
+          <th>User ID</th>
+          <th>Brugernavn</th>
+          <th>Antal Spil</th>
+          <th>Unikke Spil</th>
+          <th>Gevinster</th>
+          <th>Cashouts</th>
+          <th>Total Indsat</th>
+          <th>Total Gevinst</th>
+          <th>Nettoresultat</th>
+          <th>Sidste Spil</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let stat of userStats">
+          <td>{{ stat.userId }}</td>
+          <td>{{ stat.userName }}</td>
+          <td>{{ stat.gamesPlayed }}</td>
+          <td>{{ stat.uniqueGames.length }}</td>
+          <td>{{ stat.wins }}</td>
+          <td>{{ stat.cashouts }}</td>
+          <td>{{ stat.totalBet | number:'1.2-2' }} kr</td>
+          <td class="text-success fw-bold">{{ stat.totalWin | number:'1.2-2' }} kr</td>
+          <td [ngClass]="{
+              'text-success fw-bold': stat.netProfit >= 0,
+              'text-danger fw-bold': stat.netProfit < 0
+            }">
+            {{ stat.netProfit | number:'1.2-2' }} kr
+          </td>
+          <td>{{ stat.lastPlayed | date:'dd-MM-yyyy HH:mm' }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

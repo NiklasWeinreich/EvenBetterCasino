@@ -11,14 +11,8 @@ import { resetUser, User } from '../../Models/user.model';
 export class GamehistoryService {
 
   private readonly gamehistoryApiUrl = environment.apiUrl + '/GameHistory';
-
-
-
+  
   constructor(private http: HttpClient) {}
-
-
-
-
 
   getGameHistory(): Observable<any> {
     return this.http.get<any>(this.gamehistoryApiUrl);
